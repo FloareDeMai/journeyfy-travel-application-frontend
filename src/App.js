@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import { Route, Switch } from 'react-router-dom'
 import CitiesList from "./components/CitiesList"
+import CountryList from './components/CountryList';
 
 
 function App() {
@@ -8,8 +9,9 @@ function App() {
 
     <div >
       <Navbar />
+      <CountryList/>
       <Switch>
-        <Route path="/cities" exact><CitiesList /></Route>
+        <Route path="/cities:{countryCode}" exact><CitiesList /></Route>
         <Route path="/favorites" exact></Route>
       </Switch>
     </div>

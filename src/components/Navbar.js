@@ -16,7 +16,7 @@ function Navbar() {
                     <Link to="/favorites">Favorites Activities</Link>
                 </li>
 
-                <label for="search-city">Search</label>
+                <label htmlFor="search-city">Search</label>
                 <input type="text" id="search-city"></input>
             </ul>
         </div>
