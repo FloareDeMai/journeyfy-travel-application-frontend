@@ -6,8 +6,7 @@ function CountryList() {
   const [countriesList, setCountriesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const URL =
-    "http://dataservice.accuweather.com/locations/v1/countries/europe?apikey=bs85MbDnRuEE5MGf3EdUAFYSoJxzEJiR&language=en-us";
-
+    "https://restcountries.eu/rest/v2/region/europe"
   useEffect(() => {
     axios.get(URL).then((response) => {
       console.log(response.data);
@@ -22,9 +21,9 @@ function CountryList() {
 
   return <section>{countriesList.map((country) => {
       return (
-        <ul key={country.EnglishName}>
-          <Link to={`/cities/${countriesList.ID}`}>
-            <li>{country.EnglishName}</li>
+        <ul key={country.name}>
+          <Link to={`/cities/${country.alpha2Code}`}>
+            <li>{country.name}</li>
           </Link>
         </ul>
       );
