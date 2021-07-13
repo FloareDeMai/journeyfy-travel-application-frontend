@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import CityNames from './CityNames';
 import City from './City';
+import axios from 'axios'
 
 function CitiesList(props) {
     const [isLoading, setLoading] = useState(true)
     const [cities, setCities] = useState({})
 
     useEffect(() => {
-        var axios = require("axios").default;
-
-        var options = {
+        let options = {
             method: 'GET',
             url: 'https://spott.p.rapidapi.com/places',
             params: { limit: '20', country: `${props.location.state}`, skip: '0', type: 'CITY' },
@@ -33,6 +33,7 @@ function CitiesList(props) {
     return (
         <div>
             <ul>
+                {/* <CityNames citiesNames={cities}></CityNames> */}
                 <City cities={cities}></City>
             </ul>
         </div>

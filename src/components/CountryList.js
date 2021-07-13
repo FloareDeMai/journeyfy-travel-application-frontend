@@ -21,8 +21,6 @@ function CountryList() {
     if (isLoading) {
         return <p>Loading...</p>;
     }
-
-
     return <section>
         <ul>{countriesList.map((country) => {
             const urlToCities = "/cities/" + country.alpha2Code
