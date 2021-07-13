@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import City from './City';
 
 function CitiesList(props) {
+    const [isLoading, setLoading] = useState(true)
     const [cities, setCities] = useState({})
 
     useEffect(() => {
@@ -9,7 +11,7 @@ function CitiesList(props) {
         var options = {
             method: 'GET',
             url: 'https://spott.p.rapidapi.com/places',
-            params: { limit: '10', country: `${props.location.state}`, skip: '0', type: 'CITY' },
+            params: { limit: '20', country: `${props.location.state}`, skip: '0', type: 'CITY' },
             headers: {
                 'x-rapidapi-key': 'de0811151bmsh383915766b8b499p1a2d0cjsn3919d3354914',
                 'x-rapidapi-host': 'spott.p.rapidapi.com'
@@ -17,17 +19,22 @@ function CitiesList(props) {
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
+            setCities(response.data)
+            setLoading(false)
         }).catch(function (error) {
             console.error(error);
         });
-        
-        console.log(props.location.state);
+
     }, [props.location.state])
 
+    if (isLoading) {
+        return <p>Loading cities...</p>
+    }
     return (
         <div>
-
+            <ul>
+                <City cities={cities}></City>
+            </ul>
         </div>
     )
 }
