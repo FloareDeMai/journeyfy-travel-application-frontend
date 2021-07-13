@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from 'react-router-dom'
 
 function CountryList() {
+
     const [countriesList, setCountriesList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const URL =
@@ -16,9 +17,11 @@ function CountryList() {
         });
     }, []);
 
+
     if (isLoading) {
         return <p>Loading...</p>;
     }
+
 
     return <section>
         <ul>{countriesList.map((country) => {
@@ -29,6 +32,7 @@ function CountryList() {
                 </Link>
             );
         })}</ul></section>;
+
 }
 
 export default CountryList;
