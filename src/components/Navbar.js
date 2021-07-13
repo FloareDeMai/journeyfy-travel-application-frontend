@@ -9,15 +9,13 @@ function Navbar() {
                 <img src="" alt=""></img>
 
                 <li>
-                    <Link to="/cities">City List</Link>
+                    <Link to="/countries">Country List</Link>
                 </li>
 
                 <li>
                     <Link to="/favorites">Favorites Activities</Link>
                 </li>
 
-                <label htmlFor="search-city">Search</label>
-                <input type="text" id="search-city"></input>
             </ul>
         </div>
     )

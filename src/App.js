@@ -9,9 +9,9 @@ function App() {
 
     <div >
       <Navbar />
-      <CountryList/>
       <Switch>
-        <Route path="/cities:{countryCode}" exact><CitiesList /></Route>
+        <Route path="/countries" exact><CountryList/></Route>
+        <Route exact path="/cities/:countryCode" component={CitiesList}/>
         <Route path="/favorites" exact></Route>
       </Switch>
     </div>
