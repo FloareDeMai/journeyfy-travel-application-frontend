@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+
+.headerpicture {
+  height: 400px;
+  background-image: url(https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.header ul {
+    list-style-type: none;
+    margin: 0 0 2rem 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(62, 117, 189);
+
+    
+}
+
+.header li {
+    float: left;
+    margin-left: 25%;
+}
+
+.header li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.header a:hover {
+    background-color: rgb(38, 73, 119);
+  }
+
+  .header a:active {
+    background-color: rgb(164, 204, 255);  
+  }

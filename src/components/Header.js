@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import classes from './Header.module.css';
 
-function Navbar() {
+
+function Header() {
     return (
-        <div>
+        <header className={classes.header}>
+        <div className={classes.headerpicture}></div>
+            <nav>
             <ul>
-                <img src="" alt=""></img>
-
                 <li>
                     <Link to="/countries">Country List</Link>
                 </li>
@@ -17,8 +19,10 @@ function Navbar() {
                 </li>
 
             </ul>
-        </div>
-    )
+            </nav>
+        </header>
+    );
+    
 }
 
-export default Navbar
+export default Header;
