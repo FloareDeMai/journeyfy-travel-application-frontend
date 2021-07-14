@@ -32,23 +32,21 @@ function CountryList() {
             const urlToCities = "/cities/" + country.alpha2Code;
             const countryCode = country.alpha3Code.toLowerCase();
             return (
+              <Link to={{ pathname: urlToCities, state: country.alpha2Code }}>
                 <li className={classes.content}>
-                    <Card>
-                        <div className={classes.image}>
-                            <CountryImage image={countryCode}>
-                            </CountryImage>
-                        </div>
+                  <Card>
+                    <div className={classes.image}>
+                      <CountryImage image={countryCode}></CountryImage>
+                    </div>
 
-                        <div className={classes.content}>
-                            <Link to={{ pathname: urlToCities, state: country.alpha2Code }}>
-                                <h3>{country.name}</h3>
-                            </Link>
-                        </div>
-
-                    </Card>
+                    <div className={classes.content}>
+                      <h3>{country.name}</h3>
+                    </div>
+                  </Card>
                 </li>
+              </Link>
             );
-        })}</ul>);
+        })}</ul>  );
 
 }
 
