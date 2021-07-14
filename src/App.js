@@ -3,12 +3,14 @@ import CitiesList from "./components/CitiesList"
 import CountryList from './components/CountryList';
 import Layout from './components/Layout';
 import ActivityList from './components/ActivityList';
+import IntroductionPage from './components/IntroductionPage';
 
 
 function App() {
   return (
       <Layout>
       <Switch>
+        <Route path="/" exact><IntroductionPage></IntroductionPage></Route>
         <Route path="/countries" exact><CountryList/></Route>
         <Route exact path="/cities/:countryCode" component={CitiesList} />
         <Route path="/favorites" exact></Route>

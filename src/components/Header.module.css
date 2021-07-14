@@ -19,12 +19,13 @@
     display: flex;
     position: relative;
     align-items: center;
+    justify-content: space-around;
+
 
 }
 
 .header li {
     float: left;
-    margin-left: 25%;
 }
 
 .header li a {
