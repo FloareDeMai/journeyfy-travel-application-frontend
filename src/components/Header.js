@@ -6,9 +6,9 @@ import classes from './Header.module.css';
 
 function Header() {
     return (
-        <header className={classes.header}>
+      <header className={classes.header}>
         <div className={classes.headerpicture}></div>
-        <div className={classes.text}><h1>Journeyfy</h1></div>
+        <div className={classes.text}><h1><Link to="/">Journeyfy</Link></h1></div>
         <div className={classes.textmotto}><h5>Plan your escape</h5></div>
             <nav>
             <ul>
@@ -39,6 +39,7 @@ function Header() {
             </ul>
             </nav>
         </header>
+
     );
     
 }
