@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CityNames from './CityNames';
 import City from './City';
 import axios from 'axios'
+import { Link, useLocation } from 'react-router-dom'
 
 function CitiesList(props) {
     const [isLoading, setLoading] = useState(true)
@@ -31,10 +32,17 @@ function CitiesList(props) {
     if (isLoading) {
         return <p>Loading cities...</p>
     }
+
     return (
         <div>
-            <ul>
-                <City cities={cities}></City>
+            <ul> {cities.map((city) => {
+                const urlToActivities = "/activities/" + city.coordinates.latitude + "/" + city.coordinates.longitude
+                return (
+                    <Link to={{ pathname: urlToActivities, state: { latitude: city.coordinates.latitude, longitude: city.coordinates.longitude } }}>
+                        <li>{city.name}</li>
+                    </Link>
+                )
+            })}
             </ul>
         </div>
     )
