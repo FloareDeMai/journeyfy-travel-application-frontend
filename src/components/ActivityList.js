@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Activity from './Activity'
-
 import Amadeus from 'amadeus'
 
 function ActivityList(props) {
     const [isLoading, setLoading] = useState(true)
     const [activities, setActivities] = useState([])
-    const [isLoadingNames, setLoadingNames] = useState(true)
-    const [activitiesNames, setActivitiesNames] = useState([])
- 
+
     useEffect(() => {
         console.log(props)
         let amadeus = new Amadeus({
@@ -26,7 +22,7 @@ function ActivityList(props) {
         })
     }, [])
 
-    if (isLoading && isLoadingNames) {
+    if (isLoading) {
         <p>Loading activities...</p>
     }
     return (
