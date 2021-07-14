@@ -9,7 +9,7 @@ function City(props) {
     coordinates.map((city, i) => console.log(city.latitude, city.longitude))
     const cityNames = props.cities.map((city) => city.name)
     const filteredCities = cityNames.filter((city) => !city.includes("Sector"))
-
+    
     let urlToActivities = "";
     let latitude = 0;
     let longitude = 0;
@@ -18,6 +18,7 @@ function City(props) {
         latitude = city.latitude
         longitude = city.longitude
     })
+    console.log(filteredCities)
     return (
         <div>
             <Link to={{ pathname: urlToActivities, state: { latitude: latitude, longitude: longitude } }}>

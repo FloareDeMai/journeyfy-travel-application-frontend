@@ -19,6 +19,7 @@ function CitiesList(props) {
         };
 
         axios.request(options).then(function (response) {
+            console.log(response)
             setCities(response.data)
             setLoading(false)
         }).catch(function (error) {
