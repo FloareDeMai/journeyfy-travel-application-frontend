@@ -3,6 +3,7 @@ import CityNames from './CityNames';
 import City from './City';
 import axios from 'axios'
 
+
 function CitiesList(props) {
     const [isLoading, setLoading] = useState(true)
     const [cities, setCities] = useState({})
@@ -32,13 +33,13 @@ function CitiesList(props) {
         return <p>Loading cities...</p>
     }
     return (
-        <div>
-            <ul>
-                {/* <CityNames citiesNames={cities}></CityNames> */}
-                <City cities={cities}></City>
-            </ul>
-        </div>
-    )
+      <div>
+        {/* <CityNames citiesNames={cities}></CityNames> */}
+        
+          <City cities={cities}></City>
+       
+      </div>
+    );
 }
 
 export default CitiesList

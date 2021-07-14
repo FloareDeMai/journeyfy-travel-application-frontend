@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ActivityList from './ActivityList'
 import CityNames from './CityNames'
+import Card from '../ui/Card'
+import classes from "./CitiesList.module.css";
 
 
 function City(props) {
@@ -20,12 +22,25 @@ function City(props) {
     })
     console.log(filteredCities)
     return (
-        <div>
-            <Link to={{ pathname: urlToActivities, state: { latitude: latitude, longitude: longitude } }}>
-                <li>{filteredCities}</li>
-            </Link>
-        </div>
-    )
+      <div>
+        <ul className={classes.list}>
+          {filteredCities.map((city) => {
+            return (
+              <Card>
+                <Link
+                  to={{
+                    pathname: urlToActivities,
+                    state: { latitude: latitude, longitude: longitude },
+                  }}
+                >
+                  <li>{city}</li>
+                </Link>
+              </Card>
+            );
+          })}
+        </ul>
+      </div>
+    );
 }
 
 export default City
