@@ -7,6 +7,12 @@
  
  .box3 {
      flex: 1;
+     text-decoration: none;
+     color: white;
+ }
+
+ .box3 li{
+     color:white;
  }
  
  .container2 {
