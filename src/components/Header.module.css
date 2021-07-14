@@ -8,14 +8,18 @@
   position: relative;
 }
 
+
 .header ul {
+    height: 5rem;
     list-style-type: none;
     margin: 0 0 2rem 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgb(62, 117, 189);
+    background-color: rgb(74, 184, 178);
+    display: flex;
+    position: relative;
+    align-items: center;
 
-    
 }
 
 .header li {
@@ -24,17 +28,42 @@
 }
 
 .header li a {
+    transition: all 0.3 ease-in-out;
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 3rem 16px;
     text-decoration: none;
 }
 
+.header li a:active {
+  color:tomato;
+}
+
 .header a:hover {
-    background-color: rgb(38, 73, 119);
+    background-color: rgb(38, 116, 119);
   }
 
   .header a:active {
-    background-color: rgb(164, 204, 255);  
+    background-color: rgb(164, 255, 243);  
   }
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 3rem;
+}
+
+.textmotto {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 1rem;
+}
