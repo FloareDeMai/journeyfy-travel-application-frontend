@@ -34,15 +34,15 @@ function CountryList() {
             return (
               <Link to={{ pathname: urlToCities, state: country.alpha2Code }}>
                 <li className={classes.content}>
-                  <Card>
-                    <div className={classes.image}>
-                      <CountryImage image={countryCode}></CountryImage>
-                    </div>
-
-                    <div className={classes.content}>
-                      <h3>{country.name}</h3>
-                    </div>
-                  </Card>
+                    <Card>
+                        <div className={classes.image}>
+                            <CountryImage image = {countryCode}>
+                            </CountryImage>
+                        </div>
+                        <div className={classes.content}>
+                            <h3>{country.name}</h3>
+                        </div>
+                    </Card>
                 </li>
               </Link>
             );
