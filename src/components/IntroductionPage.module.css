@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     font-family: 'Montserrat';
+    margin: 0;
 }
 
 .imageContainer { 
@@ -13,6 +14,7 @@
 }
 
 .image {
+    margin-top: 5%;
     width: 40rem;
     height: auto;
 }
@@ -20,3 +22,21 @@
 .title {
     color: grey;
 }
+
+.content {
+    margin: 20%;
+    margin-top: 2%;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.button {
+    background-color: rgb(74, 184, 178);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

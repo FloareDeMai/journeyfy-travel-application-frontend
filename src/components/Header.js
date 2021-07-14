@@ -24,7 +24,13 @@ function Header() {
                     <Link to="/journeys">Journeys</Link>
                 </li>
 
-                <li className={classes.link}></li>
+                <li className={classes.link}>
+                    <Link to="/plan">Itinerary</Link>
+                </li>
+
+                <li className={classes.link}>
+                    <Link to="/about">About us</Link>
+                </li>
 
             </ul>
             </nav>
