@@ -12,10 +12,9 @@ function App() {
         <Route path="/countries" exact><CountryList/></Route>
         <Route exact path="/cities/:countryCode" component={CitiesList} />
         <Route path="/favorites" exact></Route>
-        <Route exact path="/activities/:latitude/:longitude" component={ActivityList}></Route>
+        <Route exact path="/activities/:latitude/:longitude" component={ActivityList}/>
       </Switch>
       </Layout>
-
   );
 }
 

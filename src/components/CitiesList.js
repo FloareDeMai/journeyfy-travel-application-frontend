@@ -34,7 +34,6 @@ function CitiesList(props) {
     return (
         <div>
             <ul>
-                {/* <CityNames citiesNames={cities}></CityNames> */}
                 <City cities={cities}></City>
             </ul>
         </div>
