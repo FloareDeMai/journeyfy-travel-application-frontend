@@ -41,9 +41,6 @@ function CountryList() {
                         <div className={classes.content}>
                             <h3>{country.name}</h3>
                         </div>
-                        <div className={classes.action}>
-                            <button>Fav</button>
-                        </div>
                     </Card>
                 </li>
             );
