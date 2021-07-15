@@ -12,7 +12,8 @@
     gap: 2rem;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     margin-right: 4.2rem;
-    
+    font-family: 'Montserrat';
+    font-weight: bold;
   }
 
 
@@ -30,7 +31,7 @@
       text-align: center;
   }
 
-  .cityName li:hover{
+  .cityName:hover{
     color: tomato;
   }
  
@@ -71,6 +72,8 @@
     font-size: 16px;
     margin-top: 40px;
     transition-duration: 0.4s;
+    font-family: 'Montserrat';
+    font-weight: bold;
   }
 
   .btn:hover {
