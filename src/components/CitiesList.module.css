@@ -71,3 +71,15 @@
       color: white;
       cursor: pointer;
   }
+
+  .searchDiv {
+    padding-bottom: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+
+  .search {
+    padding: 0.4rem;
+  }

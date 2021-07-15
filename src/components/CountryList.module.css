@@ -58,3 +58,15 @@
   .actions button:active {
     background-color: #ffe2ed;
   }
+
+  .searchDiv {
+    padding-bottom: 0;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+
+  .search {
+    padding: 0.4rem;
+  }

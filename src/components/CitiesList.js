@@ -34,7 +34,7 @@ function CitiesList(props) {
     }, [props.location.state])
 
     let citiesAfterSearch = Object.values(cities).filter((city) => {
-        return city.name.includes(searchCity)
+        return city.name.toLowerCase().includes(searchCity)
     })
 
     if (searchCity.length >= 1) {
@@ -47,7 +47,9 @@ function CitiesList(props) {
 
     return (
         <div>
-            <input type="text" value={searchCity} onChange={handleChangeCity} />
+            <div className={classes.searchDiv}>
+                <input className={classes.search} type="text" placeholder="Search for a city" value={searchCity} onChange={handleChangeCity} />
+            </div>
             <ul className={classes.list}>
                 {cities.map((city) => {
                     const urlToActivities = "/activities/" + city.coordinates.latitude + "/" + city.coordinates.longitude

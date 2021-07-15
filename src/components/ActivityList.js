@@ -44,7 +44,9 @@ function ActivityList(props) {
 
   return (
     <div className={classes.container}>
-      <input type="text" value={searchActivity} onChange={handleChangeActivity} />
+        <div className={classes.searchDiv}>
+            <input className={classes.search} type="text" placeholder="Search for an activity" value={searchActivity} onChange={handleChangeActivity} />
+        </div>
       <ul className={classes.list}>
         {activities.length > 0 ? (
           activities.map((activity) => (

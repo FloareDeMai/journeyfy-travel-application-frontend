@@ -38,7 +38,9 @@ function CountryList() {
     }
     return (
         <div>
-            <input type="text" value={search} onChange={handleChange}/>
+            <div className={classes.searchDiv}>
+                <input className={classes.search} type="text" placeholder="Search for a country" value={search} onChange={handleChange} />
+            </div>
             <ul className={classes.list}>
             {countriesList.map((country) => {
                 const urlToCities = "/cities/" + country.alpha2Code;
