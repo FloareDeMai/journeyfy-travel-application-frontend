@@ -1,46 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import Amadeus from 'amadeus'
-import Activity from './Activity'
-
+import classes from "./CitiesList.module.css";
+import Card from "../ui/Card"
 
 function ActivityList(props) {
     const [isLoading, setLoading] = useState(true)
     const [activities, setActivities] = useState([])
-    const latitude = props.location.state.latitude
-    const longitude = props.location.state.longitude
-    console.log(props.location.state)
 
-        useEffect(() => {
-            // let coordinates = []
-            let amadeus = new Amadeus({
-                clientId: 'w8kykE5XDv9K4hd3jNVudmgbIgBRJ3AB',
-                clientSecret: 'ceYxykqGW49LQZvH'
-            })
+    useEffect(() => {
+        console.log(props)
+        let amadeus = new Amadeus({
+            clientId: 'gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b',
+            clientSecret: 'WuPTFB32DJbLgmP7'
+        })
 
-            // cities.map((city) => {
-            //     const object = {
-            //         "latitude": city.coordinates.latitude,
-            //         "longitude": city.coordinates.longitude
-            //     }
-            //     coordinates.push(object)
-            // })
-            
-                amadeus.shopping.activities.get({
-                    latitude: {latitude},
-                    longitude: {longitude}
-                }).then(response => {
-                    console.log(response);
-                    setLoading(false)
-                })
-            
-        }, [])
+        amadeus.shopping.activities.get({
+            latitude: props.location.state.latitude,
+            longitude: props.location.state.longitude
+        }).then(response => {
+            console.log(response.data)
+            setActivities(response.data)
+            setLoading(false)
+        })
+    }, [])
 
     if (isLoading) {
         <p>Loading activities...</p>
     }
     return (
         <div>
-            <Activity activities={activities}></Activity>
+            <ul className={classes.list}>
+                {activities.length > 0 ? (activities.map((activity) =>
+                    <Card><li>{activity.name}</li></Card>)) : (<li>No activities yet...</li>)}
+            </ul>
         </div>
     )
 }

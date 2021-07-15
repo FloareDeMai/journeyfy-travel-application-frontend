@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import CityNames from './CityNames';
-import City from './City';
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
+import Card from '../ui/Card'
+import classes from "./CitiesList.module.css";
 
 function CitiesList(props) {
     const [isLoading, setLoading] = useState(true)
@@ -20,7 +20,6 @@ function CitiesList(props) {
         };
 
         axios.request(options).then(function (response) {
-            console.log(response)
             setCities(response.data)
             setLoading(false)
         }).catch(function (error) {
@@ -32,14 +31,21 @@ function CitiesList(props) {
     if (isLoading) {
         return <p>Loading cities...</p>
     }
+
     return (
-      <div>
-        {/* <CityNames citiesNames={cities}></CityNames> */}
-        
-          <City cities={cities}></City>
-       
-      </div>
-    );
+        <div>
+            <ul className={classes.list}>
+                {cities.map((city) => {
+                    const urlToActivities = "/activities/" + city.coordinates.latitude + "/" + city.coordinates.longitude
+                    return (
+                        <Link to={{ pathname: urlToActivities, state: { latitude: city.coordinates.latitude, longitude: city.coordinates.longitude } }}>
+                            <Card><li key={city.name}>{city.name}</li></Card>
+                        </Link>
+                    )
+                })}
+            </ul>
+        </div>
+    )
 }
 
 export default CitiesList
