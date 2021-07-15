@@ -24,7 +24,6 @@ export function FavoritesContextProvider(props) {
 
     function itemIsFavoriteHandler(activityId) {
         return userFavorites.some((activity) => activity.id === activityId)
-
     }
 
     const context = {

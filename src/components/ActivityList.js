@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Amadeus from "amadeus";
 import classes from "./CitiesList.module.css";
 import Card from "../ui/Card";
+import FavoritesContext from "../store/favorites-context";
+import { atom, useAtom } from 'jotai';
 
+const searchAtomAfterActivity = atom('');
 
 function ActivityList(props) {
   const [isLoading, setLoading] = useState(true);
-  const [activities, setActivities] = useState([]);
+  let [activities, setActivities] = useState([]);
+  const [searchActivity, setSearchActivity] = useAtom(searchAtomAfterActivity);
+  const handleChangeActivity = event => setSearchActivity(event.target.value.toLowerCase());
 
   useEffect(() => {
     let amadeus = new Amadeus({
@@ -25,12 +30,21 @@ function ActivityList(props) {
       });
   }, [props]);
 
+  let activitiesAfterSearch = Object.values(activities).filter((activity) => {
+    return activity.name.toLowerCase().includes(searchActivity)
+  })
+
+  if (searchActivity.length >= 1) {
+    activities = activitiesAfterSearch
+  }
+
   if (isLoading) {
     <p>Loading activities...</p>;
   }
-  console.log(activities);
+
   return (
     <div className={classes.container}>
+      <input type="text" value={searchActivity} onChange={handleChangeActivity} />
       <ul className={classes.list}>
         {activities.length > 0 ? (
           activities.map((activity) => (
