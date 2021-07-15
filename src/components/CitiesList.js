@@ -39,7 +39,7 @@ function CitiesList(props) {
                     const urlToActivities = "/activities/" + city.coordinates.latitude + "/" + city.coordinates.longitude
                     return (
                         <Link to={{ pathname: urlToActivities, state: { latitude: city.coordinates.latitude, longitude: city.coordinates.longitude } }}>
-                            <Card><li key={city.name}>{city.name}</li></Card>
+                            <Card><li className={classes.cityName} key={city.name}>{city.name}</li></Card>
                         </Link>
                     )
                 })}

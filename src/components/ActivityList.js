@@ -28,6 +28,7 @@ function ActivityList(props) {
   if (isLoading) {
     <p>Loading activities...</p>;
   }
+  console.log(activities);
   return (
     <div className={classes.container}>
       <ul className={classes.list}>
@@ -43,10 +44,19 @@ function ActivityList(props) {
                   ></img>
                 </div>
 
-                <div className={classes.content}>
+                <div>
                   <h3>{activity.name}</h3>
-                  <h5><span>Price: </span></h5>
-                  <h5><span>Raiting: </span></h5>
+                  <h5>
+                    <span>
+                      Price: {activity.price.amount}{" "}
+                      {activity.price.currencyCode}
+                    </span>
+                  </h5>
+                  <h5>
+                    <span>
+                      Raiting: {Number(activity.rating).toFixed(2)} ⭐
+                    </span>
+                  </h5>
                   <button className={classes.btn}>Add to Favorites</button>
                 </div>
               </Card>
