@@ -34,7 +34,7 @@ function CitiesList(props) {
     }, [props.location.state])
 
     let citiesAfterSearch = Object.values(cities).filter((city) => {
-        return city.name.toLowerCase().includes(searchCity)
+        return city.name.includes(searchCity)
     })
 
     if (searchCity.length >= 1) {
