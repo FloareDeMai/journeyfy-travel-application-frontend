@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Amadeus from "amadeus";
-import classes from "./CitiesList.module.css";
+import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
 import FavoritesContext from "../store/favorites-context";
 import { atom, useAtom } from 'jotai';

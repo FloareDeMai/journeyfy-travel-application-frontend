@@ -3,6 +3,12 @@
 
 .box2 {
     flex: 1;
+    line-height: 1.6;
+    padding-right: 5rem;
+ }
+
+ .box2 h3{
+     font-weight: lighter;
  }
  
  .box3 {
@@ -14,6 +20,13 @@
  .box3 li{
      color:white;
      list-style-type: none;
+     padding: 0;
+     line-height: 1.6;
+     text-align: left;
+ }
+
+ .box3 ul {
+     padding: 0;
  }
  
  .container2 {
@@ -40,6 +53,7 @@
 
 .container1 {
     display: flex;
+    flex-direction: row-reverse;
 
 }
 
@@ -49,11 +63,11 @@
 
 .icons {
     display: flex;
-    justify-content: space-evenly;
 }
 
 svg {
     fill:white;
+    padding-right: 2rem;
 }
 svg:hover {
     color: rgb(74, 184, 178);;
