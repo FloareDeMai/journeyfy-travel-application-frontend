@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+
+.list {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  a {
+      text-decoration: none;
+  }
+
+  .cardBody {
+    padding: 2rem;
+  }
+
+  li {
+      color: black;
+      padding: 2rem;
+      text-align: center;
+  }
+
+  li:hover{
+    color: rgb(84, 129, 228);
+  }

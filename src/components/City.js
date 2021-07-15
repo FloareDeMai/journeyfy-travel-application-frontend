@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import Amadeus from 'amadeus'
+
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import ActivityList from './ActivityList'
+import CityNames from './CityNames'
+import Card from '../ui/Card'
+import classes from "./CitiesList.module.css";
+
 
 function City(props) {
     // const [isLoading, setIsLoading] = useState(true)
@@ -26,10 +31,12 @@ function City(props) {
     // }, [])
     
     return (
+
         <div>
       
         </div>
     )
+
 }
 
 export default City
