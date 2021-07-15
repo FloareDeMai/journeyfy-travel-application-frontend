@@ -80,7 +80,7 @@
 .border {
   width: 22rem;
   height: 12rem;
-  border: 2px solid white;
+  border: 1px solid white;
 }
 
 a {
@@ -90,4 +90,8 @@ a {
 
 .header .title:hover {
   background-color: transparent;
+}
+
+.link svg {
+  padding: 0;
 }
