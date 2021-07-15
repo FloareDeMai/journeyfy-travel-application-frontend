@@ -84,6 +84,8 @@ function Footer() {
             </ul>
           </div>
         </div>
+        <div className={classes.container3}>
+        </div>
         <div className={classes.container2}>
           <div className={classes.box4}>
             <hr className={classes.hr}></hr>
