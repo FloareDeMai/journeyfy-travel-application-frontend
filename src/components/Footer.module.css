@@ -67,3 +67,7 @@ svg:hover {
     background-color: grey;
     background-image: linear-gradient(linear-gradient(10deg, #1f2833, transparent, #1f2833));
 }
+
+ul li {
+    list-style-type: none;
+}

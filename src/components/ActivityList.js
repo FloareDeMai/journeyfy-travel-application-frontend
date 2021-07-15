@@ -26,14 +26,14 @@ function ActivityList(props) {
             // })
             
                 amadeus.shopping.activities.get({
-                    latitude: {latitude},
-                    longitude: {longitude}
+                    latitude: latitude,
+                    longitude: longitude
                 }).then(response => {
                     console.log(response);
                     setLoading(false)
                 })
             
-        }, [])
+        }, [latitude, longitude])
 
     if (isLoading) {
         <p>Loading activities...</p>

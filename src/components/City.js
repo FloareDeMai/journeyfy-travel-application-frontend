@@ -8,7 +8,6 @@ import classes from "./CitiesList.module.css";
 
 function City(props) {
     const coordinates = props.cities.map((city) => city.coordinates)
-    coordinates.map((city, i) => console.log(city.latitude, city.longitude))
     const cityNames = props.cities.map((city) => city.name)
     const filteredCities = cityNames.filter((city) => !city.includes("Sector"))
     
@@ -20,7 +19,8 @@ function City(props) {
         latitude = city.latitude
         longitude = city.longitude
     })
-    console.log(filteredCities)
+   
+    
     return (
       <div>
         <ul className={classes.list}>
