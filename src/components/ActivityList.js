@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Amadeus from "amadeus";
-import classes from "./CitiesList.module.css";
+import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
 
 
