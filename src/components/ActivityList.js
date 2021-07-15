@@ -54,7 +54,7 @@ function ActivityList(props) {
                   </h5>
                   <h5>
                     <span>
-                      Raiting: {Number(activity.rating).toFixed(2)} ⭐
+                      Rating: {Number(activity.rating).toFixed(2)} ⭐
                     </span>
                   </h5>
                   <button className={classes.btn}>Add to Favorites</button>
