@@ -7,9 +7,16 @@ import classes from './Header.module.css';
 function Header() {
     return (
       <header className={classes.header}>
-        <div className={classes.headerpicture}></div>
-        <div className={classes.text}><h1><Link className={classes.title} to="/">Journeyfy</Link></h1></div>
-        <div className={classes.textmotto}><h5>Plan your escape</h5></div>
+        <div className={classes.headerpicture}>
+            <div className={classes.bothtext}>
+                <div className={classes.border}>
+                    <div className={classes.text}><h1><Link className={classes.title} to="/">Journeyfy</Link></h1></div>
+                    <div className={classes.textmotto}><h5>Plan your escape</h5></div>
+                </div>
+
+            </div>
+        </div>
+
             <nav>
             <ul>
                 <li className={classes.link}>
@@ -25,7 +32,7 @@ function Header() {
                 </li>
 
                 <li className={classes.link}>
-                    <Link to="/favorites">Activities</Link>
+                    <Link to="/favorites">Favorites</Link>
                 </li>
 
                 <li className={classes.link}>

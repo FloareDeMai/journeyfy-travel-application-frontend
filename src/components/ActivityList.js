@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Amadeus from 'amadeus'
+import Amadeus from 'amadeus';
 import classes from "./CitiesList.module.css";
 import Card from "../ui/Card"
 
@@ -37,4 +37,4 @@ function ActivityList(props) {
     )
 }
 
-export default ActivityList
+export default ActivityList;
