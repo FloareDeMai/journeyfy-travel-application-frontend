@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Amadeus from 'amadeus'
+import classes from "./CitiesList.module.css";
+import Card from "../ui/Card"
 
 function ActivityList(props) {
     const [isLoading, setLoading] = useState(true)
@@ -27,7 +29,10 @@ function ActivityList(props) {
     }
     return (
         <div>
-            {activities.map((activity) => <li>{activity.name}</li>)}
+            <ul className={classes.list}>
+                {activities.length > 0 ? (activities.map((activity) =>
+                    <Card><li>{activity.name}</li></Card>)) : (<li>No activities yet...</li>)}
+            </ul>
         </div>
     )
 }

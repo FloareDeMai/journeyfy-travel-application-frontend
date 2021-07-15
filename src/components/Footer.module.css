@@ -13,6 +13,7 @@
 
  .box3 li{
      color:white;
+     list-style-type: none;
  }
  
  .container2 {
