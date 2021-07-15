@@ -1,40 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import Amadeus from 'amadeus';
+import React, { useState, useEffect } from "react";
+import Amadeus from "amadeus";
 import classes from "./CitiesList.module.css";
-import Card from "../ui/Card"
+import Card from "../ui/Card";
+
 
 function ActivityList(props) {
-    const [isLoading, setLoading] = useState(true)
-    const [activities, setActivities] = useState([])
+  const [isLoading, setLoading] = useState(true);
+  const [activities, setActivities] = useState([]);
 
-    useEffect(() => {
-        console.log(props)
-        let amadeus = new Amadeus({
-            clientId: 'gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b',
-            clientSecret: 'WuPTFB32DJbLgmP7'
-        })
+  useEffect(() => {
+    let amadeus = new Amadeus({
+      clientId: "gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b",
+      clientSecret: "WuPTFB32DJbLgmP7",
+    });
 
-        amadeus.shopping.activities.get({
-            latitude: props.location.state.latitude,
-            longitude: props.location.state.longitude
-        }).then(response => {
-            console.log(response.data)
-            setActivities(response.data)
-            setLoading(false)
-        })
-    }, [])
+    amadeus.shopping.activities
+      .get({
+        latitude: props.location.state.latitude,
+        longitude: props.location.state.longitude,
+      })
+      .then((response) => {
+        setActivities(response.data);
+        setLoading(false);
+      });
+  }, [props]);
 
-    if (isLoading) {
-        <p>Loading activities...</p>
-    }
-    return (
-        <div>
-            <ul className={classes.list}>
-                {activities.length > 0 ? (activities.map((activity) =>
-                    <Card><li>{activity.name}</li></Card>)) : (<li>No activities yet...</li>)}
-            </ul>
-        </div>
-    )
+  if (isLoading) {
+    <p>Loading activities...</p>;
+  }
+  return (
+    <div className={classes.container}>
+      <ul className={classes.list}>
+        {activities.length > 0 ? (
+          activities.map((activity) => (
+            <li className={classes.content}>
+              <Card>
+                <div>
+                  <img
+                    className={classes.image}
+                    src={activity.pictures[0]}
+                    alt={activity.pictures[0]}
+                  ></img>
+                </div>
+
+                <div className={classes.content}>
+                  <h3>{activity.name}</h3>
+                  <h5><span>Price: </span></h5>
+                  <h5><span>Raiting: </span></h5>
+                  <button className={classes.btn}>Add to Favorites</button>
+                </div>
+              </Card>
+            </li>
+          ))
+        ) : (
+          <li>No activities yet...</li>
+        )}
+      </ul>
+    </div>
+  );
 }
 
 export default ActivityList;
