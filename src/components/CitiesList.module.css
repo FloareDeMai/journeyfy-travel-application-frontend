@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
 
-
 .list {
     list-style-type: none;
     margin: 0 auto;
@@ -11,7 +10,6 @@
     font-family: 'Montserrat';
     font-weight: bold;
   }
-
 
   a {
       text-decoration: none;
@@ -52,8 +50,6 @@
     font-size: 1.25rem;
     color: #2c292b;
   }
-
-
 
  .btn {
     background-color: white;
