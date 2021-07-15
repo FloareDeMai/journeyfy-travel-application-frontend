@@ -16,9 +16,9 @@ function App() {
         <Route path="/favorites" exact></Route>
         <Route path="/about" exact><About></About></Route>
         <Route exact path="/activities/:latitude/:longitude" component={ActivityList}></Route>
+
       </Switch>
       </Layout>
-
   );
 }
 
