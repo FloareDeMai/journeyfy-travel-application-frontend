@@ -7,6 +7,7 @@ import IntroductionPage from './components/IntroductionPage';
 import About from './components/About';
 import Favorites from './components/Favorites';
 import ClubsList from './components/ClubsList';
+import Club from './components/Club';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about" exact><About></About></Route>
         <Route exact path="/activities/:latitude/:longitude" component={ActivityList}></Route>
         <Route exact path="/clubs/:cityName" component={ClubsList}></Route>
+        <Route export path="/club/:clubName" component={Club}></Route>
 
       </Switch>
       </Layout>
