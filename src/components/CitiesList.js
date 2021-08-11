@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Card from "../ui/Card";
 import classes from "./CitiesList.module.css";
 import {atom, useAtom} from "jotai";
+import {hotelsToExport} from "./Hotels";
 
 const searchAtomAfterCity = atom("");
 
@@ -11,6 +12,8 @@ function CitiesList(props) {
     const [isLoading, setLoading] = useState(true);
     let [cities, setCities] = useState({});
     const [searchCity, setSearchCity] = useAtom(searchAtomAfterCity);
+    const [atom] = useAtom(hotelsToExport)
+
     const handleChangeCity = (event) =>
         setSearchCity(event.target.value.toLowerCase());
 

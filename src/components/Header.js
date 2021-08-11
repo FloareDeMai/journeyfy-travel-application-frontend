@@ -28,7 +28,11 @@ function Header() {
                 </li>
 
                 <li className={classes.link}>
-                    <Link to="/countries">Countries</Link>
+                    <Link to="/countries">Explore</Link>
+                </li>
+
+                <li className={classes.link}>
+                    <Link to="/top-hotels">Places to stay</Link>
                 </li>
 
                 <li className={classes.link}>

@@ -38,6 +38,7 @@ function CountryList() {
     }
     return (
         <div>
+
             <div className={classes.searchDiv}>
                 <input className={classes.search} type="text" placeholder="Search for a country" value={search} onChange={handleChange} />
             </div>

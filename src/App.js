@@ -7,6 +7,7 @@ import IntroductionPage from './components/IntroductionPage';
 import About from './components/About';
 import Favorites from './components/Favorites';
 import Hotels from "./components/Hotels";
+import TopHotels from "./components/TopHotels";
 
 function App() {
     return (
@@ -19,7 +20,7 @@ function App() {
                 <Route path="/about" exact><About></About></Route>
                 <Route exact path="/activities/:latitude/:longitude" component={ActivityList}/>
                 <Route exact path="/hotels/:cityName" component={Hotels}/>
-
+                <Route exact path="/top-hotels" component={TopHotels}/>
             </Switch>
         </Layout>
     );
