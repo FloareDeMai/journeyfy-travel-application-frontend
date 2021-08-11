@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+
 .list {
     list-style-type: none;
     margin: 0 auto;
@@ -10,7 +12,12 @@
     font-weight: bold;
   }
 
-  
+  main{
+    margin:20rem;
+    margin-top:0;
+    margin-bottom: 0;
+  }
+
 
   a {
     text-decoration: none;
@@ -85,4 +92,9 @@ li {
 
   .search {
     padding: 0.4rem;
+  }
+
+
+  h1 {
+    font-family: "montserrat";
   }

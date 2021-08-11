@@ -28,11 +28,15 @@ function Header() {
                 </li>
 
                 <li className={classes.link}>
-                    <Link to="/countries">Countries</Link>
+                    <Link to="/countries">Explore</Link>
                 </li>
 
                 <li className={classes.link}>
                     <Link to="/favorites">Favorites</Link>
+                </li>
+
+                <li className={classes.link}>
+                    <Link to="/thingstodo">Things to do</Link>
                 </li>
 
                 <li className={classes.link}>
