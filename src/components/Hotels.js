@@ -3,6 +3,7 @@ import Card from "../ui/Card";
 import classes from './CountryList.module.css';
 import {atom, useAtom} from "jotai"
 import {searchAtom} from "./TopHotels";
+import {Link} from "react-router-dom";
 
 export const hotelsToExport = atom([])
 
@@ -29,9 +30,21 @@ function Hotels(props) {
         <div>
             <ul className={classes.list}>
                 {hotels.map(hotel =>
-                    <Card>
-                        <li className={classes.cityName}><h3>{hotel.name}</h3></li>
-                    </Card>
+                    <li className={classes.content}>
+                        <Card>
+                            <Link to={{pathname: "/hotel-details", state: {hotel:hotel}}}>
+                                <div>
+                                    <img className={classes.image} src={hotel.picture} alt={hotel.picture}></img>
+                                </div>
+                            </Link>
+                            <div>
+                                <h3>{hotel.name}</h3>
+                                <h5>
+                                    <span>Rating: {hotel.rating +  "⭐" }</span>
+                                </h5>
+                            </div>
+                        </Card>
+                    </li>
                 )}
             </ul>
 

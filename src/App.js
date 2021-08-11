@@ -8,6 +8,7 @@ import About from './components/About';
 import Favorites from './components/Favorites';
 import Hotels from "./components/Hotels";
 import TopHotels from "./components/TopHotels";
+import HotelDetails from "./components/HotelDetails";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route exact path="/activities/:latitude/:longitude" component={ActivityList}/>
                 <Route exact path="/hotels/:cityName" component={Hotels}/>
                 <Route exact path="/top-hotels" component={TopHotels}/>
+                <Route exact path="/hotel-details" component={HotelDetails}/>
             </Switch>
         </Layout>
     );

@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import classes from "./CountryList.module.css";
 import Card from "../ui/Card";
 import {atom, useAtom} from 'jotai';
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
+
 
 export const searchAtom = atom('');
 
@@ -27,7 +28,6 @@ function TopHotels() {
     }
 
     let path = "/hotels/" + search
-
     return (
         <div>
             <div className={classes.searchDiv}>
@@ -36,9 +36,21 @@ function TopHotels() {
             </div>
             <ul className={classes.list}>
                 {topHotels.map(hotel =>
+                    <li className={classes.content}>
                     <Card>
-                        <li className={classes.cityName}><h3>{hotel.name}</h3></li>
+                        <Link to={{pathname: "/hotel-details", state: {hotel:hotel}}}>
+                        <div>
+                            <img className={classes.image} src={hotel.picture} alt={hotel.picture}></img>
+                        </div>
+                        </Link>
+                        <div>
+                            <h3>{hotel.name}</h3>
+                            <h5>
+                                <span>Rating: {hotel.rating +  "⭐" }</span>
+                            </h5>
+                        </div>
                     </Card>
+                    </li>
                 )}
             </ul>
         </div>
