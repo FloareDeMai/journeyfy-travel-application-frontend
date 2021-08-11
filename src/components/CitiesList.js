@@ -29,7 +29,6 @@ function CitiesList(props) {
         "x-rapidapi-host": "spott.p.rapidapi.com",
       },
     };
-
     axios
       .request(options)
       .then(function (response) {
