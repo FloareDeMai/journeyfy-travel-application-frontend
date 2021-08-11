@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
-import FavoritesContext from "../store/favorites-context";
 import { atom, useAtom } from 'jotai';
 
 const searchAtomAfterActivity = atom('');
@@ -44,9 +43,15 @@ function ActivityList(props) {
 
   return (
     <div className={classes.container}>
-        <div className={classes.searchDiv}>
-            <input className={classes.search} type="text" placeholder="Search for an activity" value={searchActivity} onChange={handleChangeActivity} />
-        </div>
+      <div className={classes.searchDiv}>
+        <input
+          className={classes.search}
+          type="text"
+          placeholder="Search for an activity"
+          value={searchActivity}
+          onChange={handleChangeActivity}
+        />
+      </div>
       <ul className={classes.list}>
         {activities.length > 0 ? (
           activities.map((activity) => (
@@ -69,9 +74,7 @@ function ActivityList(props) {
                     </span>
                   </h5>
                   <h5>
-                    <span>
-                      Rating: {Number(activity.rating).toFixed(2)} ⭐
-                    </span>
+                    <span>Rating: {activity.rating ? Number(activity.rating).toFixed(2) +  "⭐" : "No rating yet"} </span>
                   </h5>
                   <button className={classes.btn}>Add to Favorites</button>
                 </div>
