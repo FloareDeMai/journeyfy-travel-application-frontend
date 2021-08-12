@@ -10,8 +10,10 @@ import Hotels from "./components/Hotels";
 import TopHotels from "./components/TopHotels";
 import HotelDetails from "./components/HotelDetails";
 import ClubsList from './components/ClubsList';
+import Club from './components/Club';
 
 function App() {
+
     return (
         <Layout>
             <Switch>
@@ -25,6 +27,7 @@ function App() {
                 <Route exact path="/top-hotels" component={TopHotels}/>
                 <Route exact path="/hotel-details" component={HotelDetails}/>
                 <Route exact path="/clubs/:cityName" component={ClubsList}>
+                <Route export path="/club/:clubName" component={Club}></Route>
       
             </Switch>
         </Layout>

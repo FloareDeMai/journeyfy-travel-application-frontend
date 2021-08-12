@@ -3,6 +3,7 @@ import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
 import { atom, useAtom } from "jotai";
+import { Link } from "react-router-dom";
 
 
 const searchAtomAfterActivity = atom("");
@@ -134,7 +135,13 @@ function ActivityList(props) {
           <h1>Top Clubs from {props.location.state.cityName}</h1>
         </div>
         <ul className={classes.list}>
-          {clubs.map((club) => (
+          {clubs.map((club) => {
+            return <Link to={{
+              pathname: `/club/${club.name}`,
+              state: {
+              club: club
+            },
+            }}>
             <li key={club.name} className={classes.content}>
               <Card>
                 <div>
@@ -160,7 +167,8 @@ function ActivityList(props) {
                 </div>
               </Card>
             </li>
-          ))}
+            </Link>
+})}
         </ul>
       </div>
       <div className={classes.museums}>
