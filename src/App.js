@@ -6,6 +6,9 @@ import ActivityList from './components/ActivityList';
 import IntroductionPage from './components/IntroductionPage';
 import About from './components/About';
 import Favorites from './components/Favorites';
+import MuseumList from './components/MuseumList';
+import Museum from './components/Museum';
+import ThingsToDo from './components/ThingsToDo';
 
 function App() {
   return (
@@ -17,6 +20,10 @@ function App() {
         <Route path="/favorites" exact><Favorites></Favorites></Route>
         <Route path="/about" exact><About></About></Route>
         <Route exact path="/activities/:latitude/:longitude" component={ActivityList}></Route>
+
+        <Route exact path="/museums/:cityName" component={MuseumList}></Route>
+        <Route exact path="/museum/:museumName" component={Museum}></Route>
+        <Route exact path="/things-to-do" component={ThingsToDo}></Route>
 
       </Switch>
       </Layout>

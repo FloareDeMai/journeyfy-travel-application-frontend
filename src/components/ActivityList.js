@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
@@ -6,11 +6,18 @@ import { atom, useAtom } from 'jotai';
 
 const searchAtomAfterActivity = atom('');
 
+export const activitiesToExport = atom([]);
+
 function ActivityList(props) {
+  console.log(props.location.state.cityName);
   const [isLoading, setLoading] = useState(true);
   let [activities, setActivities] = useState([]);
   const [searchActivity, setSearchActivity] = useAtom(searchAtomAfterActivity);
   const handleChangeActivity = event => setSearchActivity(event.target.value.toLowerCase());
+
+  // for export
+
+const [activitiesToExportVar, setActivitiesToExportVar] = useAtom(activitiesToExport);
 
   useEffect(() => {
     let amadeus = new Amadeus({
@@ -25,9 +32,10 @@ function ActivityList(props) {
       })
       .then((response) => {
         setActivities(response.data);
+        setActivitiesToExportVar(response.data)
         setLoading(false);
       });
-  }, [props]);
+  }, [props, setActivitiesToExportVar]);
 
   let activitiesAfterSearch = Object.values(activities).filter((activity) => {
     return activity.name.toLowerCase().includes(searchActivity)

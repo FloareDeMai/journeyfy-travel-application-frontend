@@ -1,4 +1,4 @@
-import classes from './Favorites.module.css';
+
 import { useContext } from 'react'
 import FavoritesContext from '../store/favorites-context';
 import ActivityList from './ActivityList';
