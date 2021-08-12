@@ -3,11 +3,17 @@ import Card from "../ui/Card";
 import classes from "./ActivityList.module.css";
 import { Link } from "react-router-dom";
 import "./ThingsToDo.css";
+import { atom, useAtom } from "jotai";
+
+const searchAtomAfterActivity = atom("");
 
 function ThingsToDo() {
-  const [topActivities, setTopActivities] = useState([]);
-  const [topClubs, setTopClubs] = useState([]);
-  const [topMuseums, setTopMuseums] = useState([]);
+  let [topActivities, setTopActivities] = useState([]);
+  let [topClubs, setTopClubs] = useState([]);
+  let [topMuseums, setTopMuseums] = useState([]);
+  const [searchActivity, setSearchActivity] = useAtom(searchAtomAfterActivity);
+  const handleChangeActivity = (event) =>
+    setSearchActivity(event.target.value.toLowerCase());
 
   useEffect(() => {
     fetch("museums/top-museums")
@@ -27,9 +33,38 @@ function ThingsToDo() {
       .then((data) => setTopClubs(data));
   }, []);
 
+
+  let activitiesAfterSearch = Object.values(topActivities).filter((activity) => {
+    return activity.name.toLowerCase().includes(searchActivity);
+  });
+  let clubsAfterSearch = Object.values(topClubs).filter((club) => {
+    return club.name.toLowerCase().includes(searchActivity);
+  });
+  let museumsAfterSearch = Object.values(topMuseums).filter((museum) => {
+    return museum.name.toLowerCase().includes(searchActivity);
+  });
+
+
+  if (searchActivity.length >= 1) {
+    topActivities = activitiesAfterSearch;
+    topClubs = clubsAfterSearch;
+    topMuseums = museumsAfterSearch;
+  }
+
   return (
     <div className={"atraction"}>
-      <div><h1>ATRACTIONS</h1></div>
+      <div>
+        <h1>ATRACTIONS</h1>
+      </div>
+      <div className={classes.searchDiv}>
+        <input
+          className={classes.search}
+          type="text"
+          placeholder={"Search in activities" }
+          value={searchActivity}
+          onChange={handleChangeActivity}
+        />
+      </div>
       <div className={classes.topClubs}>
         <h2>Top clubs</h2>
         <ul className={classes.list}>
