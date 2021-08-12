@@ -14,6 +14,7 @@ import Club from "./components/Club";
 import MuseumsList from "./components/MuseumsList";
 import Museum from "./components/Museum";
 import ThingsToDo from "./components/ThingsToDo";
+import Activity from "./components/Activity";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/museums/:cityName" component={MuseumsList}></Route>
         <Route exact path="/museum/:museumName" component={Museum}></Route>
         <Route exact path="/things-to-do" component={ThingsToDo}></Route>
+        <Route exact path="/activity/:activityName" component={Activity}></Route>
       </Switch>
     </Layout>
   );
