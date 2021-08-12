@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
 import { atom, useAtom } from "jotai";
 import { Link } from "react-router-dom";
+
 
 const searchAtomAfterActivity = atom("");
 
@@ -16,22 +17,23 @@ function ActivityList(props) {
   const handleChangeActivity = (event) =>
     setSearchActivity(event.target.value.toLowerCase());
 
-  useEffect(() => {
-    let amadeus = new Amadeus({
-      clientId: "gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b",
-      clientSecret: "WuPTFB32DJbLgmP7",
-    });
+    useEffect(() => {
+        let amadeus = new Amadeus({
+            clientId: "gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b",
+            clientSecret: "WuPTFB32DJbLgmP7",
+        });
 
-    amadeus.shopping.activities
-      .get({
-        latitude: props.location.state.latitude,
-        longitude: props.location.state.longitude,
-      })
-      .then((response) => {
-        setActivities(response.data);
-        setLoading(false);
-      });
-  }, [props]);
+        amadeus.shopping.activities
+            .get({
+                latitude: props.location.state.latitude,
+                longitude: props.location.state.longitude,
+            })
+            .then((response) => {
+                setActivities(response.data);
+                setLoading(false);
+            });
+    }, [props]);
+
 
   useEffect(() => {
     fetch(`http://localhost:8080/clubs/${props.location.state.cityName}`)
@@ -70,9 +72,9 @@ function ActivityList(props) {
     museums = museumsAfterSearch;
   }
 
-  if (isLoading) {
-    <p>Loading activities...</p>;
-  }
+    if (isLoading) {
+        <p>Loading activities...</p>;
+    }
 
   return (
     <div className={classes.container}>
