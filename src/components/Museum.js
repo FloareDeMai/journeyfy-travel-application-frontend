@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import classes from "./Museum.module.css";
 
 function Museum(props) {
   let museum = props.location.state;
-  console.log(museum);
+  let history = useHistory();
   return (
     <div>
       <div>
@@ -17,6 +18,9 @@ function Museum(props) {
         >
           Link to site <span>&#8599;</span>
         </Link>
+      </div>
+      <div>
+        <button className={classes.button}  onClick={()=> history.goBack()}>BACK</button>
       </div>
     </div>
   );

@@ -100,12 +100,16 @@ li {
   }
 
 .buttonSearch {
-    background-color: #4CAF50; /* Green */
+    background-color: rgb(74, 184, 178);
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+.buttonSearch:hover {
+  background-color: rgb(44, 146, 150);
 }

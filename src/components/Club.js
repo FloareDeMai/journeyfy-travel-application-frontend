@@ -1,23 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import classes from "./Club.module.css";
 
 function Club(props) {
   let club = props.location.state;
-
-  console.log(club);
+  let history = useHistory();
   return (
     <div>
       <div>
-        <h2>{club.club.name}</h2>
-        <img src={club.club.pictureLink} alt="" />
-        <p>{club.club.description}</p>
-        <Link
-          to={{ pathname: club.club.siteLink }}
-          target="blank"
-          style={{ color: "black" }}
-        >
-          Link to site <span>&#8599;</span>
-        </Link>
+        <div>
+          <h2>{club.club.name}</h2>
+          <img width="100%" height="100%" src={club.club.pictureLink} alt="" />
+          <div>
+            <h5>
+              <span>Address: {club.club.address}</span>
+            </h5>
+          </div>
+          <p>{club.club.description}</p>
+          <h5>
+            <span>Rating: {club.club.rating + "⭐"}</span>
+          </h5>
+        </div>
+      </div>
+      <div>
+        <button className={classes.button}  onClick={()=> history.goBack()}>BACK</button>
       </div>
     </div>
   );

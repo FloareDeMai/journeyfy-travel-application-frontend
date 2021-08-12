@@ -1,22 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import classes from "./Activity.module.css";
+
 
 function Activity(props) {
   let activity = props.location.state;
-  
+  let history = useHistory();
+
   return (
     <div>
       <div>
         <h2>{activity.activity.name}</h2>
-        <img src={activity.activity.pictureLink} alt="" />
+        <img width="100%" height="100%" src={activity.activity.pictureLink} alt="" />
         <p>{activity.activity.description}</p>
-        <Link
-          to={{ pathname: activity.activity.siteLink }}
-          target="blank"
-          style={{ color: "black" }}
-        >
-          Link to site <span>&#8599;</span>
-        </Link>
+      </div>
+      <div>
+        <button className={classes.button}  onClick={()=> history.goBack()}>BACK</button>
       </div>
     </div>
   );

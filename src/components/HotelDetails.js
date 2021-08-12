@@ -1,5 +1,3 @@
-import Card from "../ui/Card";
-import classes from "./CountryList.module.css";
 import React from "react";
 import {Link} from "react-router-dom";
 
@@ -9,10 +7,10 @@ function HotelDetails(props) {
     let hotel = props.location.state.hotel
     return (
         <div>
-            <Card>
-                <img  width="840" height="450" src={hotel.picture} alt={hotel.picture}></img>
                 <div>
-                    <h3>{hotel.name}</h3>
+                    <h2>{hotel.name}</h2>
+                    <img  width="100%" height="100%" src={hotel.picture} alt={hotel.picture}></img>
+
                 </div>
                 <div>
                     <h5>
@@ -22,7 +20,7 @@ function HotelDetails(props) {
                     </h5>
                 </div>
                 <div>
-                    <h5>{hotel.description}</h5>
+                    <p>{hotel.description}</p>
                 </div>
                 <div>
                     <h5>
@@ -39,8 +37,6 @@ function HotelDetails(props) {
                     <Link to={{pathname: hotel.siteAddress}} target="blank"
                           style={{color: "black"}}>Link to hotel <span>&#8599;</span></Link>
                 </div>
-            </Card>
-
         </div>
     )
 }
