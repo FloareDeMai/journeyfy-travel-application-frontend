@@ -26,9 +26,8 @@ function App() {
                 <Route exact path="/hotels/:cityName" component={Hotels}/>
                 <Route exact path="/top-hotels" component={TopHotels}/>
                 <Route exact path="/hotel-details" component={HotelDetails}/>
-                <Route exact path="/clubs/:cityName" component={ClubsList}>
+                <Route exact path="/clubs/:cityName" component={ClubsList}/>
                 <Route export path="/club/:clubName" component={Club}></Route>
-      
             </Switch>
         </Layout>
     );
