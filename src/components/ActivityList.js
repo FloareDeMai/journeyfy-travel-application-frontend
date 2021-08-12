@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";
 import { atom, useAtom } from "jotai";
 import { Link } from "react-router-dom";
-
 
 const searchAtomAfterActivity = atom("");
 
@@ -17,23 +16,22 @@ function ActivityList(props) {
   const handleChangeActivity = (event) =>
     setSearchActivity(event.target.value.toLowerCase());
 
-    useEffect(() => {
-        let amadeus = new Amadeus({
-            clientId: "gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b",
-            clientSecret: "WuPTFB32DJbLgmP7",
-        });
+  useEffect(() => {
+    let amadeus = new Amadeus({
+      clientId: "gfuLA4rbE3NLFR3hEp1lSUEAgeWWcR6b",
+      clientSecret: "WuPTFB32DJbLgmP7",
+    });
 
-        amadeus.shopping.activities
-            .get({
-                latitude: props.location.state.latitude,
-                longitude: props.location.state.longitude,
-            })
-            .then((response) => {
-                setActivities(response.data);
-                setLoading(false);
-            });
-    }, [props]);
-
+    amadeus.shopping.activities
+      .get({
+        latitude: props.location.state.latitude,
+        longitude: props.location.state.longitude,
+      })
+      .then((response) => {
+        setActivities(response.data);
+        setLoading(false);
+      });
+  }, [props]);
 
   useEffect(() => {
     fetch(`http://localhost:8080/clubs/${props.location.state.cityName}`)
@@ -51,9 +49,6 @@ function ActivityList(props) {
       });
   }, [props.location.state.cityName]);
 
-
-
-
   let activitiesAfterSearch = Object.values(activities).filter((activity) => {
     return activity.name.toLowerCase().includes(searchActivity);
   });
@@ -64,17 +59,15 @@ function ActivityList(props) {
     return museum.name.toLowerCase().includes(searchActivity);
   });
 
-
-
   if (searchActivity.length >= 1) {
     activities = activitiesAfterSearch;
     clubs = clubsAfterSearch;
     museums = museumsAfterSearch;
   }
 
-    if (isLoading) {
-        <p>Loading activities...</p>;
-    }
+  if (isLoading) {
+    <p>Loading activities...</p>;
+  }
 
   return (
     <div className={classes.container}>
@@ -92,7 +85,7 @@ function ActivityList(props) {
           <h1>Activities from {props.location.state.cityName}</h1>
         </div>
         <ul className={classes.list}>
-          {(activities.length > 0)&&(!isLoading) ? (
+          {activities.length > 0 && !isLoading ? (
             activities.map((activity) => (
               <li className={classes.content}>
                 <Card>
@@ -132,43 +125,47 @@ function ActivityList(props) {
       </div>
       <div className={classes.clubs}>
         <div>
-          <h1>Top Clubs from {props.location.state.cityName}</h1>
+          <h1>Nightlife from {props.location.state.cityName}</h1>
         </div>
         <ul className={classes.list}>
           {clubs.map((club) => {
-            return <Link to={{
-              pathname: `/club/${club.name}`,
-              state: {
-              club: club
-            },
-            }}>
-            <li key={club.name} className={classes.content}>
-              <Card>
-                <div>
-                  <img
-                    className={classes.image}
-                    src={club.pictureLink}
-                    alt={club.name}
-                  ></img>
-                </div>
-                <div>
-                  <h3>{club.name}</h3>
-                  <h5>
-                    <span>{club.address}</span>
-                  </h5>
-                  <h5>
-                    <span>
-                      Rating:{" "}
-                      {club.rating
-                        ? Number(club.rating).toFixed(2) + "⭐"
-                        : "No rating yet"}{" "}
-                    </span>
-                  </h5>
-                </div>
-              </Card>
-            </li>
-            </Link>
-})}
+            return (
+              <Link
+                to={{
+                  pathname: `/club/${club.name}`,
+                  state: {
+                    club: club,
+                  },
+                }}
+              >
+                <li key={club.name} className={classes.content}>
+                  <Card>
+                    <div>
+                      <img
+                        className={classes.image}
+                        src={club.pictureLink}
+                        alt={club.name}
+                      ></img>
+                    </div>
+                    <div>
+                      <h3>{club.name}</h3>
+                      <h5>
+                        <span>{club.address}</span>
+                      </h5>
+                      <h5>
+                        <span>
+                          Rating:{" "}
+                          {club.rating
+                            ? Number(club.rating).toFixed(2) + "⭐"
+                            : "No rating yet"}{" "}
+                        </span>
+                      </h5>
+                    </div>
+                  </Card>
+                </li>
+              </Link>
+            );
+          })}
         </ul>
       </div>
       <div className={classes.museums}>
@@ -177,31 +174,40 @@ function ActivityList(props) {
         </div>
         <ul className={classes.list}>
           {museums.map((museum) => (
-            <li key={museum.name} className={classes.content}>
-              <Card>
-                <div>
-                  <img
-                    className={classes.image}
-                    src={museum.pictureLink}
-                    alt={museum.name}
-                  ></img>
-                </div>
-                <div>
-                  <h3>{museum.name}</h3>
-                  <h5>
-                    <span>{museum.address}</span>
-                  </h5>
-                  <h5>
-                    <span>
-                      Rating:{" "}
-                      {museum.rating
-                        ? Number(museum.rating).toFixed(2) + "⭐"
-                        : "No rating yet"}{" "}
-                    </span>
-                  </h5>
-                </div>
-              </Card>
-            </li>
+            <Link
+              to={{
+                pathname: `/museum/${museum.name}`,
+                state: {
+                  museum: museum,
+                },
+              }}
+            >
+              <li key={museum.name} className={classes.content}>
+                <Card>
+                  <div>
+                    <img
+                      className={classes.image}
+                      src={museum.pictureLink}
+                      alt={museum.name}
+                    ></img>
+                  </div>
+                  <div>
+                    <h3>{museum.name}</h3>
+                    <h5>
+                      <span>{museum.address}</span>
+                    </h5>
+                    <h5>
+                      <span>
+                        Rating:{" "}
+                        {museum.rating
+                          ? Number(museum.rating).toFixed(2) + "⭐"
+                          : "No rating yet"}{" "}
+                      </span>
+                    </h5>
+                  </div>
+                </Card>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
