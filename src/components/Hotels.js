@@ -38,7 +38,7 @@ function Hotels(props) {
                                 </div>
                             </Link>
                             <div>
-                                <h3>{hotel.name}</h3>
+                                <h3 key={hotel.name}>{hotel.name}</h3>
                                 <h5>
                                     <span>Rating: {hotel.rating +  "⭐" }</span>
                                 </h5>
