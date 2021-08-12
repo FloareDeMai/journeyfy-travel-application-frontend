@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect} from "react";
 import Amadeus from "amadeus";
 import classes from "./ActivityList.module.css";
 import Card from "../ui/Card";

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import classes from "./ClubsList.module.css";
 import Card from "../ui/Card";
 import { Link } from "react-router-dom";
@@ -13,7 +12,6 @@ function ClubsList(props) {
       .then(response => response.json())
       .then(data=> {
           setClubs(data);
-          console.log(data)
       })
       
       
