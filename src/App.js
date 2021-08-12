@@ -9,6 +9,7 @@ import Favorites from './components/Favorites';
 import Hotels from "./components/Hotels";
 import TopHotels from "./components/TopHotels";
 import HotelDetails from "./components/HotelDetails";
+import ClubsList from './components/ClubsList';
 
 function App() {
     return (
@@ -23,9 +24,10 @@ function App() {
                 <Route exact path="/hotels/:cityName" component={Hotels}/>
                 <Route exact path="/top-hotels" component={TopHotels}/>
                 <Route exact path="/hotel-details" component={HotelDetails}/>
+                <Route exact path="/clubs/:cityName" component={ClubsList}>
+      
             </Switch>
         </Layout>
     );
 }
-
 export default App;
