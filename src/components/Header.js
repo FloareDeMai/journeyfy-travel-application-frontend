@@ -42,7 +42,7 @@ function Header() {
                 </li>
 
                 <li className={classes.link}>
-                    <Link to="/thingstodo">Things to do</Link>
+                    <Link to="/things-to-do">Things to do</Link>
                 </li>
 
                 <li className={classes.link}>

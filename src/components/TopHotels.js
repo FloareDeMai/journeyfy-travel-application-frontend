@@ -11,7 +11,7 @@ function TopHotels() {
     const [topHotels, setTopHotels] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     let [search, setSearch] = useAtom(searchAtom);
-    const handleChange = event => setSearch(event.target.value);
+    const handleChange = (event) => setSearch(event.target.value);
 
     useEffect(() => {
         fetch("http://localhost:8080/hotels/top-hotels")
