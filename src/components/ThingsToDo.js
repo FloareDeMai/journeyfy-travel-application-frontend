@@ -60,7 +60,7 @@ function ThingsToDo() {
         <input
           className={classes.search}
           type="text"
-          placeholder={"Search in activities" }
+          placeholder={"Search in atractions" }
           value={searchActivity}
           onChange={handleChangeActivity}
         />
