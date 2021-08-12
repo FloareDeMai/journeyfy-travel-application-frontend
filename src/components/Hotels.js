@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Card from "../ui/Card";
-import classes from './CountryList.module.css';
+import classes from './ActivityList.module.css';
 import {atom, useAtom} from "jotai"
 import {searchAtom} from "./TopHotels";
 import {Link} from "react-router-dom";
@@ -30,7 +30,7 @@ function Hotels(props) {
         <div>
             <ul className={classes.list}>
                 {hotels.map(hotel =>
-                    <li className={classes.content}>
+                    <li key={hotel.name} className={classes.content}>
                         <Card>
                             <Link to={{pathname: "/hotel-details", state: {hotel:hotel}}}>
                                 <div>
@@ -38,7 +38,14 @@ function Hotels(props) {
                                 </div>
                             </Link>
                             <div>
-                                <h3 key={hotel.name}>{hotel.name}</h3>
+                                <h3>{hotel.name}</h3>
+                                <h5>
+                                    {hotel.cityName}
+                                </h5>
+                                <h5>
+                    <span>
+                      Price: {hotel.price}{" "}{"RON"}
+                    </span></h5>
                                 <h5>
                                     <span>Rating: {hotel.rating +  "⭐" }</span>
                                 </h5>
