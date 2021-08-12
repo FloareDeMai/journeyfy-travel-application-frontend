@@ -12,6 +12,7 @@ function TopHotels() {
     const [isLoading, setIsLoading] = useState(true)
     let [search, setSearch] = useAtom(searchAtom);
     const handleChange = (event) => setSearch(event.target.value);
+    const handleClear = () => setSearch("");
 
     useEffect(() => {
         fetch("http://localhost:8080/hotels/top-hotels")
@@ -20,7 +21,6 @@ function TopHotels() {
                 setTopHotels(data)
                 setIsLoading(false)
             })
-
     }, [])
 
     if (isLoading) {
@@ -35,7 +35,8 @@ function TopHotels() {
                        type="text"
                        placeholder="Search for a city"
                        value={search}
-                       onChange={handleChange}/>
+                       onChange={handleChange}
+                />
                 <Link to={{pathname: path}} className={classes.buttonSearch}>search</Link>
             </div>
             <ul className={classes.list}>

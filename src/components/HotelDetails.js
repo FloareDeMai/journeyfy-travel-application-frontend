@@ -10,7 +10,7 @@ function HotelDetails(props) {
     return (
         <div>
             <Card>
-                <img src={hotel.picture} alt={hotel.picture}></img>
+                <img  width="840" height="450" src={hotel.picture} alt={hotel.picture}></img>
                 <div>
                     <h3>{hotel.name}</h3>
                 </div>
