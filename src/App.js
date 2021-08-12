@@ -15,6 +15,7 @@ import MuseumsList from "./components/MuseumsList";
 import Museum from "./components/Museum";
 import ThingsToDo from "./components/ThingsToDo";
 import Activity from "./components/Activity";
+import ActivityFromApi from "./components/ActivityFromApi";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route exact path="/museum/:museumName" component={Museum}></Route>
         <Route exact path="/things-to-do" component={ThingsToDo}></Route>
         <Route exact path="/activity/:activityName" component={Activity}></Route>
+        <Route exact path="/activity-api/:activityName" component={ActivityFromApi}/>
       </Switch>
     </Layout>
   );

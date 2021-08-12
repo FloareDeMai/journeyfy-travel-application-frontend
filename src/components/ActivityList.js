@@ -90,11 +90,20 @@ function ActivityList(props) {
               <li className={classes.content}>
                 <Card>
                   <div>
-                    <img
-                      className={classes.image}
-                      src={activity.pictures[0]}
-                      alt={activity.pictures[0]}
-                    ></img>
+                    <Link
+                      to={{
+                        pathname: `/activity-api/${activity.name}`,
+                        state: {
+                          activity: activity,
+                        },
+                      }}
+                    >
+                      <img
+                        className={classes.image}
+                        src={activity.pictures[0]}
+                        alt={activity.pictures[0]}
+                      ></img>
+                    </Link>
                   </div>
 
                   <div>
@@ -113,6 +122,7 @@ function ActivityList(props) {
                           : "No rating yet"}{" "}
                       </span>
                     </h5>
+
                     <button className={classes.btn}>Add to Favorites</button>
                   </div>
                 </Card>
