@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column wrap;
+    list-style-type: none;
+    margin-left: 5vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    background-color: #f1f1f1;
+    width: 89vw;
+
+}
+
+.containerTitle { 
+    margin-top:100px;
+}
+
+.containerPhoto { 
+    display: flex;
+    margin-top:20px;
+    margin-bottom:20px;
+    flex-direction: row;
+}
+
+.picture {
+    margin-left: 10vw;
+}

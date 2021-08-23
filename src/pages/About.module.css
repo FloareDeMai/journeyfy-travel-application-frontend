@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat";
+  margin: 0;
+  overflow: hidden;
+}
+
+.titleAbout {
+  color: grey;
+  position: absolute;
+  bottom: 50%;
+  right: 40%;
+  margin-left: 120px;
+  top: 570px;
+  font-size: 1.5rem;
+}
+
+.content {
+  position: absolute;
+  right: 15%;
+  top: 700px;
+  margin-left: 20%;
+  background-color: rgb(255, 255, 255, 0.5);
+  padding: 50px;
+}
+
+.paragraphIntroduction {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 2000px;
+  height: auto;
+  margin: 0 0 0 0;
+}
+
+.more {
+  display: none;
+}
+
+.readMeButton {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 400px) {
+  .image {
+    width: 2900px;
+  }
+  .titleAbout {
+    font-size: 0.8rem;
+    top: 66%;
+    width: 100%;
+    left: 0%;
+    right: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  .titleAbout h1 {
+    margin-right: 10px;
+  }
+  .paragraphIntroduction {
+    font-size: 1rem;
+  }
+
+  .content {
+    top: 74%;
+    left: -15%;
+    background-color: rgb(255, 255, 255, 0.5);
+    width: 90%;
+  }
+}
+
+
+@media only screen and (min-width: 2000px) {
+  .image {
+    width: 100%;
+  }
+.titleAbout {
+  color: grey;
+  position: absolute;
+  bottom: 50%;
+  right: 40%;
+  margin-left: 120px;
+  top: 600px;
+  font-size: 1.5rem;
+}
+
+  .titleAbout h1 {
+    margin-right: 10px;
+  }
+.paragraphIntroduction {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.content {
+  position: absolute;
+  right: 15%;
+  top: 750px;
+  margin-left: 20%;
+  background-color: rgb(255, 255, 255, 0.5);
+  padding:50px;
+}
+}
+
+/* @media only screen and (min-width: 1500px) {
+  .image {
+    width: 2000px;
+  }
+  .paragraphIntroduction {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .image {
+    width: 2440px;
+  }
+  .paragraphIntroduction {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (min-width: 2440px) {
+  .image {
+    width: 3440px;
+  }
+  .paragraphIntroduction {
+    font-size: 1.8rem;
+  }
+} */
