@@ -126,7 +126,19 @@ a {
   color:tomato;
 }
 
-@media only screen and (max-width:800px) {
+.login {
+  position: absolute;
+  margin-top: -55px;
+  right: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+.login:hover { color: tomato}
+.login:active { color: rgb(255, 144, 124)}
+
+@media only screen and (max-width:1100px) {
   .navbarOne{display: none}
   .navbarTwo{display:flex}
+  .login{display:none}
 }
