@@ -3,6 +3,7 @@ import styles from "./Register.module.css";
 import { Form, Input, Select, Checkbox, Button } from "antd";
 import { useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -40,13 +41,13 @@ function Register() {
   const [form] = Form.useForm();
 
   const onFinishRegister = async (values) => {
-    console.log("Received values of form: ", values);
-    let username = values.username;
+    let userName = values.username;
     let password = values.confirm;
     let gender = values.gender.toUpperCase();
     let email = values.email;
-    let user = { username, password, email, gender };
+    let user = { userName, password, email, gender };
     await axios.post("http://localhost:8080/api/user/add-user", user);
+
   };
 
   return (
@@ -160,20 +161,20 @@ function Register() {
             ]}
             {...tailFormItemLayout}
           >
-            <Checkbox>
-              I have read the agreement
-            </Checkbox>
+            <Checkbox>I have read the agreement</Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Button
-              style={buttonStyle({ hover })}
-              onPointerOver={() => setHover(true)}
-              onPointerOut={() => setHover(false)}
-              type="primary"
-              htmlType="submit"
-            >
-              Submit
-            </Button>
+            <Redirect to={"/signin"}>
+              <Button
+                style={buttonStyle({ hover })}
+                onPointerOver={() => setHover(true)}
+                onPointerOut={() => setHover(false)}
+                type="primary"
+                htmlType="submit"
+              >
+                Submit
+              </Button>
+            </Redirect>
           </Form.Item>
         </Form>
       </div>
