@@ -14,6 +14,7 @@ import UserPage from "./pages/UserPage";
 import Wishlist from "./pages/Wishlist";
 
 import ThingsToDo from "./pages/ThingsToDo";
+import MuseumDetails from "./pages/MuseumDetails";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/about"><About></About></Route>
         <Route exact path="/activity/:activityName" component={Activity}></Route>
         <Route exact path="/places-to-stay/:hotelName" component={HotelDetails}></Route>
+        <Route exact path="/museums/:museumName" component={MuseumDetails}></Route>
         <Route path="/signin" exact><Signin></Signin></Route>
         <Route path="/register" exact><Register></Register></Route>
         <Route exact path="/user-page" component={UserPage}></Route>
