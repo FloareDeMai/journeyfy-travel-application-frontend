@@ -12,9 +12,11 @@ import PlacesToStay from "./pages/PlacesToStay";
 import HotelDetails from "./pages/HotelDetails";
 import UserPage from "./pages/UserPage";
 import Wishlist from "./pages/Wishlist";
-
 import ThingsToDo from "./pages/ThingsToDo";
+import ClubDetails from "./pages/ClubDetails";
+import ActivityDetails from "./pages/ActivtyDetails";
 import MuseumDetails from "./pages/MuseumDetails";
+
 
 
 function App() {
@@ -27,8 +29,9 @@ function App() {
         <Route exact path="/cities/:countryCode" component={Cities}></Route>
         <Route exact path="/activities/:latitude/:longitude" component={Activities}></Route>
         <Route exact path="/about"><About></About></Route>
-        <Route exact path="/activity/:activityName" component={Activity}></Route>
+        <Route exact path="/activity/:activityName" component={ActivityDetails}></Route>
         <Route exact path="/places-to-stay/:hotelName" component={HotelDetails}></Route>
+        <Route exact path="/club/:clubName" component={ClubDetails}></Route>
         <Route exact path="/museums/:museumName" component={MuseumDetails}></Route>
         <Route path="/signin" exact><Signin></Signin></Route>
         <Route path="/register" exact><Register></Register></Route>

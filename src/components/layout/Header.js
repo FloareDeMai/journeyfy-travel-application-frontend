@@ -46,7 +46,7 @@ function Header() {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Link to="/top-hotels">Places to stay</Link>
+          <Link to="/places-to-stay">Places to stay</Link>
         </Menu.Item>
 
         <Menu.Item>
