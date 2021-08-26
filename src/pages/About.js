@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./About.module.css";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
-import { useLocation, useHistory } from "react-router-dom";
+
 
 function readMeClick() {
   let dots = document.querySelector("#dots");

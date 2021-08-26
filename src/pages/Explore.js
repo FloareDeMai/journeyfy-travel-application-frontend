@@ -5,7 +5,6 @@ import React from "react";
 import axios from "axios";
 import styles from "./Explore.module.css";
 import CountryImage from "./CountryImage";
-import { getCountryImage } from "./CountryImage";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory"
 
 

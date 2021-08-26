@@ -1,17 +1,7 @@
 import React from "react";
 import styles from "./Register.module.css";
-import {
-  Form,
-  Input,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete,
-} from "antd";
-import { useState, useEffect } from "react";
+import { Form, Input, Select, Checkbox, Button } from "antd";
+import { useState } from "react";
 import axios from "axios";
 
 const buttonStyle = ({ hover }) => ({
@@ -49,18 +39,15 @@ function Register() {
   const { Option } = Select;
   const [form] = Form.useForm();
 
-
   const onFinishRegister = async (values) => {
     console.log("Received values of form: ", values);
-    let username = values.username
-    let password = values.confirm
-    let gender = values.gender.toUpperCase()
-    let email = values.email
-    let user = {username, password, email, gender}
-    await axios.post("http://localhost:8080/api/user/add-user",
-        user)
+    let username = values.username;
+    let password = values.confirm;
+    let gender = values.gender.toUpperCase();
+    let email = values.email;
+    let user = { username, password, email, gender };
+    await axios.post("http://localhost:8080/api/user/add-user", user);
   };
-
 
   return (
     <div className={styles.container}>
@@ -75,7 +62,6 @@ function Register() {
             prefix: "86",
           }}
           scrollToFirstError
-
         >
           <Form.Item
             name="email"
@@ -175,7 +161,7 @@ function Register() {
             {...tailFormItemLayout}
           >
             <Checkbox>
-              I have read the <a href="">agreement</a>
+              I have read the agreement
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>

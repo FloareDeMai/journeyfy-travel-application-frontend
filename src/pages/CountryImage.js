@@ -6,7 +6,7 @@ function CountryImage(props) {
   let [countryPicture, setCountryPicture] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
 
-  let URL = `https://restcountries.eu/data/${props.text}.svg`;
+  // let URL = `https://restcountries.eu/data/${props.text}.svg`;
   let URL2 = `https://api.teleport.org/api/urban_areas/slug%3A${props.text2}/images/`;
 
   useEffect(()=> axios.get(URL2).then((response) => {

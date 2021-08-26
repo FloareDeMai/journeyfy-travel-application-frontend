@@ -4,7 +4,7 @@ import styles from "./PlacesToStay.module.css";
 import {Card} from "antd";
 import {Link} from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
-import {atom, useAtom} from "jotai";
+import {atom} from "jotai";
 import {addToWishlist} from "./addToWishlist";
 
 export let atomForFav = atom('')
@@ -14,7 +14,6 @@ const {Meta} = Card;
 function PlacesToStay(props) {
     let [hotels, setHotels] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    let [favorite, setFavorite] = useAtom(atomForFav)
 
     const URL = "http://localhost:8080/hotels/all-hotels";
 

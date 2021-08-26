@@ -5,7 +5,6 @@ import Explore from "./pages/Explore";
 import Cities from "./pages/Cities";
 import Activities from "./pages/Activities";
 import About from "./pages/About";
-import Activity from "./pages/Activity";
 import Signin from "./pages/Signin";
 import Register from "./pages/Register"
 import PlacesToStay from "./pages/PlacesToStay";
@@ -36,7 +35,7 @@ function App() {
         <Route path="/signin" exact><Signin></Signin></Route>
         <Route path="/register" exact><Register></Register></Route>
         <Route exact path="/user-page" component={UserPage}></Route>
-        <Route exact path="/add-to-favorite" component={Wishlist}/>
+        <Route exact path="/wishlist" component={Wishlist}/>
         <Route exact path="/things-to-do" component={ThingsToDo}></Route>
       </Switch>
 

@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./HotelDetails.module.css";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { Rate } from "antd";
 

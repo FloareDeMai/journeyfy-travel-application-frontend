@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "./Activity.module.css";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
-import { Rate } from 'antd';
+import { Rate } from "antd";
 
 function Activity(props) {
   let activity = props.location.state;
-  console.log(props);
+
 
   return (
     <div>
@@ -35,7 +34,19 @@ function Activity(props) {
           <div className={styles.title}>
             <h1>{activity.activity.name}</h1>
           </div>
-          <div className={styles.rating}> <p><Rate disabled allowHalf defaultValue={Math.round((activity.activity.rating)*100)/100} /> {Math.round((activity.activity.rating)*100)/100} • {activity.activity.price.amount} {activity.activity.price.currencyCode} </p></div>
+          <div className={styles.rating}>
+            {" "}
+            <p>
+              <Rate
+                disabled
+                allowHalf
+                defaultValue={Math.round(activity.activity.rating * 100) / 100}
+              />{" "}
+              {Math.round(activity.activity.rating * 100) / 100} •{" "}
+              {activity.activity.price.amount}{" "}
+              {activity.activity.price.currencyCode}{" "}
+            </p>
+          </div>
           <div className={styles.hoursAndWebsiteLink}>
             <a href={activity.activity.bookingLink}>
               Visit website{" "}
@@ -54,8 +65,16 @@ function Activity(props) {
           </div>
         </div>
         <div className={styles.containerPhoto}>
-          <div className={styles.topComments}><h2>What people are saying:</h2> </div>
-          <div className={styles.picture}><img style={{width:'100%'}} src={activity.activity.pictures} alt={activity.activity.name}></img></div>
+          <div className={styles.topComments}>
+            <h2>What people are saying:</h2>{" "}
+          </div>
+          <div className={styles.picture}>
+            <img
+              style={{ width: "100%" }}
+              src={activity.activity.pictures}
+              alt={activity.activity.name}
+            ></img>
+          </div>
         </div>
         <div className={styles.containerMap}>
           <div className={styles.locationDescription}>
@@ -64,7 +83,9 @@ function Activity(props) {
           <div className={styles.map}>[MAP HERE]</div>
         </div>
         <div className={styles.containerUsers}>
-          <div className={styles.writeReview}><button>Write a review!</button></div>
+          <div className={styles.writeReview}>
+            <button>Write a review!</button>
+          </div>
           <div className={styles.allReviews}>Comments:</div>
         </div>
       </div>
