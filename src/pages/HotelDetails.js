@@ -8,25 +8,41 @@ import { Rate } from "antd";
 function HotelDetails(props) {
   const [hotel, setHotel] = useState();
   const [isLoading, setLoading] = useState(true);
+  console.log(props.location.state.hotel.cityName);
+
   console.log(props.location.state);
 
   return (
     <div>
+      <BreadcrumbHistory
+        name="about"
+        times={{
+          pages: [
+            { name: "places to stay", link: "/places-to-stay" },
+            {name:props.location.state.hotel.name,
+              link: "",
+            },
+          ],
+        }}
+      />
       <div className={styles.container}>
         <div className={styles.containerTitle}>
           <div className={styles.title}>
-            <h1>NAME</h1>
+            <h1>{props.location.state.hotel.name}</h1>
           </div>
           <div className={styles.rating}>
             <Rate
               disabled
               allowHalf
-              defaultValue={Math.round(4.854 * 100) / 100}
+              defaultValue={
+                Math.round(props.location.state.hotel.rating * 100) / 100
+              }
             />
-            {Math.round(4.854 * 100) / 100} • PRET EURO{" "}
+            {Math.round(props.location.state.hotel.rating * 100) / 100} • PRET
+            EURO{" "}
           </div>
           <div className={styles.hoursAndWebsiteLink}>
-            <a href="http">
+            <a href={props.location.state.hotel.siteLink}>
               Visit website{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,14 +64,14 @@ function HotelDetails(props) {
           <div className={styles.picture}>
             <img
               style={{ width: "100%" }}
-              src={"activity.activity.pictures"}
-              alt={"nume"}
+              src={props.location.state.hotel.pictureLink}
+              alt={props.location.state.hotel.name}
             ></img>
           </div>
         </div>
         <div className={styles.containerMap}>
           <div className={styles.locationDescription}>
-            <h3>DESCRIERE</h3>
+            <h3>{props.location.state.hotel.description}</h3>
           </div>
           <div className={styles.map}>[MAP HERE]</div>
         </div>
