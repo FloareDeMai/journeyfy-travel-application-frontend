@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from "./UserPage.module.css";
-import { Row, Col, Divider } from "antd";
+import { Row, Col } from "antd";
 import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button } from "antd";

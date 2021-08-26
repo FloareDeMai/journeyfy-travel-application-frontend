@@ -1,39 +1,69 @@
-import {React, useEffect, useState} from "react";
-import {fetchUser} from "./fetchUser";
-import {Card} from "antd";
-import styles from "./ThingsToDo.module.css";
+import { React, useEffect, useState } from "react";
+import { fetchUser } from "./fetchUser";
+import { Card } from "antd";
+import styles from "./PlacesToStay.module.css";
 
-const {Meta} = Card;
-
+const { Meta } = Card;
 
 function Wishlist() {
-    const [wishes, setWishes] = useState({})
-    const [eachWish, setEachWish] = useState({})
-    useEffect(() => {
-        fetchUser().then(data => setWishes(data.wish))
-    }, [wishes])
+  const [wishes, setWishes] = useState({});
+  useEffect(() => {
+    fetchUser().then((data) => setWishes(data.wish));
+  }, [wishes]);
 
-
-    return (
-        Object.keys(wishes).map(key =>
-            <div className={styles.container}>
-            <Card className={styles.hozoccard}
-                  hoverable
-                  style={{
-                      width: 300,
-                      boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-                      borderRadius: "8px",}} >
+  return (
+    <div>
+      <div className={styles.container}>
+        {Object.keys(wishes).map((key) => {
+            return (
+              <Card key={wishes[key].entity.id}
+                className={styles.hozoccard}
+                hoverable
+                style={{
+                  width: 300,
+                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "8px",
+                }}
+                cover={
+                  <div>
+                    <img
+                      className={styles.cardImage}
+                      alt={wishes[key].name}
+                      src={wishes[key].entity.pictureLink}
+                    />
+                  </div>
+                }
+              >
                 <Meta
-                    className={styles.card}
-                    title={
-                        <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                  className={styles.card}
+                  title={
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>
                       {wishes[key].name}
                     </span>
-                    }
-                /></Card>
-            </div>
-                      )
-                      );
                   }
+                />
+                <h3 className={styles.text}>
+                  <span>
+                    <small style={{ fontSize: "20px" }}>
+                      Price: {wishes[key].entity.price} EUR
+                    </small>
+                  </span>
+                </h3>
+                <h3>
+                  <span>
+                    {wishes[key].entity.price
+                      ? Number(wishes[key].entity.price).toFixed(2) + "⭐"
+                      : "No rating yet"}{" "}
+                  </span>
+                </h3>
+              </Card>
+            );
+        })}
+      </div>
+    </div>
+  );
+}
 
-                      export default Wishlist;
+export default Wishlist;
+
+

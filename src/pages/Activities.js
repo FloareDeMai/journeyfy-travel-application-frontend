@@ -1,22 +1,20 @@
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-import { Carousel } from "antd";
 import styles from "./Cities.module.css";
 import React, { useEffect, useState } from "react";
 import Amadeus from "amadeus";
-import { Empty } from "antd";
+
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
-import {useHistory} from 'react-router-dom';
-import {useCallback} from 'react';
+// import {useHistory} from 'react-router-dom';
 
 const { Meta } = Card;
 
 function Activities(props) {
-  let history = useHistory();
+  // let history = useHistory();
   const [isLoading, setLoading] = useState(true);
   let [activities, setActivities] = useState([]);
-  let [clubs, setClubs] = useState([]);
-  let [museums, setMuseums] = useState([]);
+  // let [clubs, setClubs] = useState([]);
+  // let [museums, setMuseums] = useState([]);
   console.log(props.location.state.latitude)
 
   useEffect(() => {
@@ -107,7 +105,7 @@ function Activities(props) {
         })
       ) : (
         <div style={{ textAlign: "center" }} className={styles.nodata}>
-          <img src="https://img.icons8.com/ios/96/000000/file-delete.png" />
+          <img src="https://img.icons8.com/ios/96/000000/file-delete.png" alt="delete"/>
           <br></br>
           <br></br>
           <h1>NO ACTIVITIES YET</h1>

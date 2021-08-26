@@ -5,7 +5,6 @@ import Explore from "./pages/Explore";
 import Cities from "./pages/Cities";
 import Activities from "./pages/Activities";
 import About from "./pages/About";
-import Activity from "./pages/Activity";
 import Signin from "./pages/Signin";
 import Register from "./pages/Register"
 import PlacesToStay from "./pages/PlacesToStay";
