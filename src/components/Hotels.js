@@ -13,6 +13,7 @@ function Hotels(props) {
     const [hotelsToExportVar, setHotelsToExport] = useAtom(hotelsToExport)
     const [cityNameParam] = useAtom(searchAtom)
     // let cityNameParam = props.match.params.cityName
+    
 
     useEffect(() => {
         fetch(`http://localhost:8080/hotels/${cityNameParam}`)
@@ -34,7 +35,7 @@ function Hotels(props) {
                         <Card>
                             <Link to={{pathname: "/hotel-details", state: {hotel:hotel}}}>
                                 <div>
-                                    <img className={classes.image} src={hotel.picture} alt={hotel.picture}></img>
+                                    <img className={classes.image} src={hotel.pictureLink} alt={hotel.pictureLink}></img>
                                 </div>
                             </Link>
                             <div>

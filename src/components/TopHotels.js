@@ -26,7 +26,7 @@ function TopHotels() {
     if (isLoading) {
         return "Loading..."
     }
-
+console.log(topHotels);
     let path = "/hotels/" + search
     return (
         <div className={classes.container}>
@@ -46,8 +46,8 @@ function TopHotels() {
                             <Link to={{pathname: "/hotel-details", state: {hotel: hotel}}}>
                                 <div>
                                     <img className={classes.image}
-                                         src={hotel.picture}
-                                         alt={hotel.picture}></img>
+                                         src={hotel.pictureLink}
+                                         alt={hotel.pictureLink}></img>
                                 </div>
                             </Link>
                             <div>

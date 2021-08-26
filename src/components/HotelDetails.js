@@ -14,8 +14,8 @@ function HotelDetails(props) {
         <img
           width="100%"
           height="100%"
-          src={hotel.picture}
-          alt={hotel.picture}
+          src={hotel.pictureLink}
+          alt={hotel.pictureLink}
         ></img>
       </div>
       <div>
