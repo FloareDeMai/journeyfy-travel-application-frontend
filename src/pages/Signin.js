@@ -2,8 +2,11 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import styles from "./Signin.module.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
+import { atom, useAtom } from 'jotai';
+
+const atomul = atom('');
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -11,33 +14,29 @@ const buttonStyle = ({ hover }) => ({
   border: hover ? "1px #4AB8B2 solid" : "1px #4AB8B2 solid",
 });
 
+
 function Signin() {
   const [hover, setHover] = useState(false);
   const [user, setUser] = useState()
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userAtom, setUserAtom] = useAtom(atomul);
 
-  const onFinish = async (values) => {
-    // console.log("Success:", values);
-    let username = values.username
-    let password = values.password
-    console.log(username)
-    console.log(password)
-    const user = {username, password}
+  const onFinish = async () => {
+    const user = {userName, password}
     const response = await axios.post("http://localhost:8080/api/user/login", user)
 
-    if(response.ok) {
-      setUser(response.data)
-      localStorage.setItem('user', response.data)
-      console.log(response.data)
+    if(response.status === 200) {
+      setUser(response.config.data)
+      localStorage.setItem('user', response.config.data)
+      // setUserAtom(user)
     }
-    else if (response.status === 404) {
-      console.log("nop")
-    }
-
   };
+
+
   if (user) {
-    return <div>{user.name} is loggged in</div>;
+    return <Redirect to="/"/>
+
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -71,8 +70,7 @@ function Signin() {
               },
             ]}
           >
-            <Input
-                />
+            <Input onChange={({ target }) => setUsername(target.value)}/>
           </Form.Item>
 
           <Form.Item
@@ -85,7 +83,7 @@ function Signin() {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password onChange={({ target }) => setPassword(target.value)} />
           </Form.Item>
 
           <Form.Item
