@@ -4,9 +4,9 @@ import styles from "./Signin.module.css";
 import { useState } from "react";
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
-import { atom, useAtom } from 'jotai';
+// import { atom, useAtom } from 'jotai';
 
-const atomul = atom('');
+// const atomul = atom('');
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -20,9 +20,11 @@ function Signin() {
   const [user, setUser] = useState()
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userAtom, setUserAtom] = useAtom(atomul);
+  // const [userAtom, setUserAtom] = useAtom(atomul);
+
 
   const onFinish = async () => {
+    // console.log("Success:", values);
     const user = {userName, password}
     const response = await axios.post("http://localhost:8080/api/user/login", user)
 
