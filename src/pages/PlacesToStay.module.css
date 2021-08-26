@@ -1,16 +1,22 @@
 .container {
     display: flex;
     flex-flow: row wrap;
-    gap: 2rem;
+    gap: 5rem;
     list-style-type: none;
     align-items: center;
     justify-content: center;
     margin:10%;
     margin-top: 5%;
   }
-
+  
   .card  {
     font-size: 30px;
+  }
+  
+  
+  .title {
+    text-align: center;
+    margin-top:100px;
   }
 
 .containerLoading {
@@ -78,9 +84,6 @@
     }
   }
 
-  .nodata {
-    position: absolute;
-    top:700px;
-    left:40vw;
-    right:40vw;
-  }
+  .text {
+    font-size: 2rem;
+}

@@ -21,8 +21,8 @@ function Activities(props) {
 
   useEffect(() => {
     let amadeus = new Amadeus({
-      clientId: "OWP7Dqsei0lFcgsUhDTVOPnS7tde2638",
-      clientSecret: "jBvEPPW31fq5wDl0",
+      clientId: "JwAIsSldNtbkAlHgz0n4qlXOKQ74lmoJ",
+      clientSecret: "G34bHqYphuBO84A1",
     });
 
     amadeus.shopping.activities
@@ -106,7 +106,7 @@ function Activities(props) {
           );
         })
       ) : (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }} className={styles.nodata}>
           <img src="https://img.icons8.com/ios/96/000000/file-delete.png" />
           <br></br>
           <br></br>

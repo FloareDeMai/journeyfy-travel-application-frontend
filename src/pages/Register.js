@@ -13,6 +13,12 @@ import {
 } from "antd";
 import { useState, useEffect } from "react";
 
+const buttonStyle = ({ hover }) => ({
+  background: hover ? "#4AB8B2" : "white",
+  color: hover ? "white" : "black",
+  border: hover ? "1px #4AB8B2 solid" : "1px #4AB8B2 solid",
+});
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -38,22 +44,12 @@ const tailFormItemLayout = {
 };
 
 function Register() {
+  const [hover, setHover] = useState(false);
   const { Option } = Select;
-
   const [form] = Form.useForm();
-
-  const onFinish = (values: any) => {
+  const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
 
   return (
     <div className={styles.container}>
@@ -128,30 +124,19 @@ function Register() {
           </Form.Item>
 
           <Form.Item
-            name="nickname"
-            label="Nickname"
+            name="username"
+            label="Username"
             tooltip="What do you want others to call you?"
             rules={[
               {
                 required: true,
-                message: "Please input your nickname!",
+                message: "Please input your username!",
                 whitespace: true,
               },
             ]}
           >
             <Input />
           </Form.Item>
-
-          <Form.Item
-            name="phone"
-            label="Phone Number"
-            rules={[
-              { required: true, message: "Please input your phone number!" },
-            ]}
-          >
-            <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
-          </Form.Item>
-
           <Form.Item
             name="gender"
             label="Gender"
@@ -162,31 +147,6 @@ function Register() {
               <Option value="female">Female</Option>
               <Option value="other">Other</Option>
             </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Captcha"
-            extra="We must make sure that your are a human."
-          >
-            <Row gutter={8}>
-              <Col span={12}>
-                <Form.Item
-                  name="captcha"
-                  noStyle
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input the captcha you got!",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Button>Get captcha</Button>
-              </Col>
-            </Row>
           </Form.Item>
 
           <Form.Item
@@ -207,8 +167,14 @@ function Register() {
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              Register
+            <Button
+              style={buttonStyle({ hover })}
+              onPointerOver={() => setHover(true)}
+              onPointerOut={() => setHover(false)}
+              type="primary"
+              htmlType="submit"
+            >
+              Submit
             </Button>
           </Form.Item>
         </Form>

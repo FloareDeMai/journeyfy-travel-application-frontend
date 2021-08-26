@@ -91,7 +91,7 @@ function Signin() {
               Submit
             </Button>
           </Form.Item>
-          <p>If you don't have yet an account, please <Link to="/register">Register</Link> </p>
+          <p style={{position: "absolute", width: "200%", left: "5px"}}>If you don't have yet an account, please <Link to="/register">Register</Link> </p>
         </Form>
       </div>
     </div>
