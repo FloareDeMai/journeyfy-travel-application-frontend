@@ -1,6 +1,10 @@
 .upperBar {
    background-color: black; 
-   height: 200px;
+   padding: 10px 0px 5px 10px;
+   display: flex !important;
+   align-items: flex-start !important;
+   flex-direction: column !important;
+   justify-content: center !important;
 }
 
 .sideBar {
@@ -19,4 +23,13 @@
 
 .baraBadge {
     background-color:red;
+}
+
+.avatardiv h1{
+    display: block;
+    font-size: 1em;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
 }

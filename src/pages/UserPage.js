@@ -9,18 +9,26 @@ function UserPage() {
     <>
       <Row>
         <Col span={24} className={styles.upperBar}>
-          <Avatar
-            size={{
-              xs: 24,
-              sm: 32,
-              md: 40,
-              lg: 64,
-              xl: 250,
-              xxl: 200,
-            }}
-            icon={<AntDesignOutlined 
-            src={"https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"}/>}
-          />
+          <div style={{ textAlign: 'center'}} className={styles.avatardiv}>
+            <Avatar
+              size={{
+                xs: 60,
+                sm: 80,
+                md: 100,
+                lg: 120,
+                xl: 180,
+                xxl: 200,
+              }}
+              icon={
+                <AntDesignOutlined
+                  src={
+                    "https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"
+                  }
+                />
+              }
+            />
+            <h1 style={{ color: "white"}}>@User0</h1>
+          </div>
         </Col>
       </Row>
       <Row>
