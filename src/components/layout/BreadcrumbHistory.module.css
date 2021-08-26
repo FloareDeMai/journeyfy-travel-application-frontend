@@ -1,0 +1,41 @@
+.breadcrumb {
+  font-size: 20px;
+}
+
+.breadcrumbHome {
+  font-size: 17px;
+}
+
+.breadcrumbContainer {
+  /* bottom: 58%;
+  left: 5%; */
+  width: 70%;
+  background-color: rgb(255, 157, 140,0);
+  position: absolute;
+  top: 490px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.breadcrumbIcon svg {
+  margin-right: 10px;
+  margin-left: 20%;
+  height: 30px;
+  width: 30px;
+}
+
+.breadcrumbIcon {
+  font-size: 20px;
+  margin: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .breadcrumbIcon svg {
+    margin-right: 10px;
+    margin-left: 20%;
+    height: 20px;
+    width: 20px;
+  }
+}

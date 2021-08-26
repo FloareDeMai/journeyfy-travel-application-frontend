@@ -1,0 +1,22 @@
+.upperBar {
+   background-color: black; 
+   height: 200px;
+}
+
+.sideBar {
+    background-color: red;
+    height: 200px;
+}
+
+.baraReviewuri {
+    background-color: pink;
+    height: 100px;
+}
+
+.baraCommenturi {
+    background-color: black;
+}
+
+.baraBadge {
+    background-color:red;
+}

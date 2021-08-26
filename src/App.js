@@ -1,57 +1,39 @@
 import { Route, Switch } from "react-router-dom";
-import CitiesList from "./components/CitiesList";
-import CountryList from "./components/CountryList";
-import Layout from "./components/Layout";
-import ActivityList from "./components/ActivityList";
-import IntroductionPage from "./components/IntroductionPage";
-import About from "./components/About";
-import Favorites from "./components/Favorites";
-import Hotels from "./components/Hotels";
-import TopHotels from "./components/TopHotels";
-import HotelDetails from "./components/HotelDetails";
-import ClubsList from "./components/ClubsList";
-import Club from "./components/Club";
-import MuseumsList from "./components/MuseumsList";
-import Museum from "./components/Museum";
-import ThingsToDo from "./components/ThingsToDo";
-import Activity from "./components/Activity";
-import ActivityFromApi from "./components/ActivityFromApi";
-
+import IntroductionPage from "./pages/IntroductionPage";
+import LayoutDesign from "./components/layout/LayoutDesign";
+import Explore from "./pages/Explore";
+import Cities from "./pages/Cities";
+import Activities from "./pages/Activities";
+import About from "./pages/About";
+import Activity from "./pages/Activity";
+import Signin from "./pages/Signin";
+import Register from "./pages/Register"
+import PlacesToStay from "./pages/PlacesToStay";
+import HotelDetails from "./pages/HotelDetails";
+import UserPage from "./pages/UserPage";
 
 function App() {
-  return (
-    <Layout>
+  return (<div>
+    <LayoutDesign>
       <Switch>
-        <Route path="/" exact>
-          <IntroductionPage></IntroductionPage>
-        </Route>
-        <Route path="/countries" exact>
-          <CountryList />
-        </Route>
-        <Route exact path="/cities/:countryCode" component={CitiesList} />
-        <Route path="/favorites" exact>
-          <Favorites></Favorites>
-        </Route>
-        <Route path="/about" exact>
-          <About></About>
-        </Route>
-        <Route
-          exact
-          path="/activities/:latitude/:longitude"
-          component={ActivityList}
-        />
-        <Route exact path="/hotels/:cityName" component={Hotels} />
-        <Route exact path="/top-hotels" component={TopHotels} />
-        <Route exact path="/hotel-details" component={HotelDetails} />
-        <Route exact path="/clubs/:cityName" component={ClubsList} />
-        <Route export path="/club/:clubName" component={Club}></Route>
-        <Route exact path="/museums/:cityName" component={MuseumsList}></Route>
-        <Route exact path="/museum/:museumName" component={Museum}></Route>
-        <Route exact path="/things-to-do" component={ThingsToDo}></Route>
+        <Route path="/" exact><IntroductionPage></IntroductionPage></Route>
+        <Route path="/explore" exact><Explore></Explore></Route>
+        <Route path="/places-to-stay" exact><PlacesToStay></PlacesToStay></Route>
+        <Route exact path="/cities/:countryCode" component={Cities}></Route>
+        <Route exact path="/activities/:latitude/:longitude" component={Activities}></Route>
+        <Route exact path="/about"><About></About></Route>
         <Route exact path="/activity/:activityName" component={Activity}></Route>
-        <Route exact path="/activity-api/:activityName" component={ActivityFromApi}/>
+        <Route exact path="/places-to-stay/:hotelName" component={HotelDetails}></Route>
+        <Route path="/signin" exact><Signin></Signin></Route>
+        <Route path="/register" exact><Register></Register></Route>
+        <Route exact path="/user-page" component={UserPage}></Route>
+
       </Switch>
-    </Layout>
+
+    </LayoutDesign>
+
+    </div>
   );
 }
+
 export default App;
