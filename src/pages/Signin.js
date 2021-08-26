@@ -19,11 +19,11 @@ function Signin() {
 
   const onFinish = async (values) => {
     // console.log("Success:", values);
-    let username = values.username
+    let userName = values.username
     let password = values.password
-    console.log(username)
+    console.log(userName)
     console.log(password)
-    const user = {username, password}
+    const user = {userName, password}
     const response = await axios.post("http://localhost:8080/api/user/login", user)
 
     if(response.ok) {
