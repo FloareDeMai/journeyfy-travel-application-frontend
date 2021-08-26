@@ -9,17 +9,14 @@ function Header() {
   const [user, setUser] = useState()
   
   const loggedInUser = localStorage.getItem("user");
-  const logged = async () => {
-    if (loggedInUser) {
-      console.log(loggedInUser)
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
-    }
-  }
   
     useEffect(() => {
-      logged().then()
-    }, [logged]);
+      if (loggedInUser) {
+        console.log(loggedInUser)
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser);
+      }
+    }, [loggedInUser]);
 
   const handleLogOut = () => {
     setUser({})

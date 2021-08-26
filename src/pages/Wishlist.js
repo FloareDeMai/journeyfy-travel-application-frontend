@@ -1,9 +1,13 @@
 import axios from 'axios'
 import {useEffect, useState} from "react";
+import {atomForFav} from "./PlacesToStay";
+import {useAtom} from 'jotai'
 
 function Wishlist() {
 
-    axios.post()
+    let [favorite] = useAtom(atomForFav)
+
+    console.log(favorite)
 
     return(
         <div></div>
