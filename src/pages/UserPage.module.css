@@ -1,11 +1,11 @@
-.baraSus {
+.upperBar {
    background-color: black; 
-   height: 140px;
+   height: 200px;
 }
 
-.baraLaterala {
+.sideBar {
     background-color: red;
-    height: 500px;
+    height: 200px;
 }
 
 .baraReviewuri {

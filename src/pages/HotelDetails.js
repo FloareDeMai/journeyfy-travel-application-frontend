@@ -8,15 +8,7 @@ import { Rate } from "antd";
 function HotelDetails(props) {
   const [hotel, setHotel] = useState();
   const [isLoading, setLoading] = useState(true);
-  console.log(props.location.state.hotelId);
-  const URL = `http://localhost:8080/hotels/${props.location.state.hotelId}`;
-  useEffect(() => {
-    fetch(URL).then((response) => {
-      response.json().then((data) => {
-        console.log(data);
-      });
-    });
-  });
+  console.log(props.location.state);
 
   return (
     <div>
@@ -26,15 +18,12 @@ function HotelDetails(props) {
             <h1>NAME</h1>
           </div>
           <div className={styles.rating}>
-            {" "}
-            <p>
-              <Rate
-                disabled
-                allowHalf
-                defaultValue={Math.round(4.854 * 100) / 100}
-              />{" "}
-              {Math.round(4.854 * 100) / 100} • PRET EURO{" "}
-            </p>
+            <Rate
+              disabled
+              allowHalf
+              defaultValue={Math.round(4.854 * 100) / 100}
+            />
+            {Math.round(4.854 * 100) / 100} • PRET EURO{" "}
           </div>
           <div className={styles.hoursAndWebsiteLink}>
             <a href="http">

@@ -53,16 +53,42 @@ function PlacesToStay(props) {
               key={hotel.name}
               to={{
                 pathname: `/places-to-stay/${hotel.name}`,
-                state: {hotelName: hotel.name, cityName: hotel.cityName, hotelId:hotel.id}
+                state: { hotel: hotel },
               }}
             >
-              <Card className={styles.hozoccard}
+              <Card
+                className={styles.hozoccard}
                 hoverable
-                style={{ width: 300,  boxShadow:"0px 2px 10px rgba(0, 0, 0, 0.1)", borderRadius: "8px"}}
-                cover={<img className={styles.cardImage} alt={hotel.name} src={hotel.pictureLink} />}
+                style={{
+                  width: 300,
+                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "8px",
+                }}
+                cover={
+                  <div>
+                    <img
+                      className={styles.cardImage}
+                      alt={hotel.name}
+                      src={hotel.pictureLink}
+                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="white"
+                      className={styles.wishIcon}
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                      />
+                    </svg>
+                  </div>
+                }
               >
                 <Meta
-                className={styles.card}
+                  className={styles.card}
                   title={
                     <span style={{ fontSize: "20px", fontWeight: "bold" }}>
                       {hotel.name}
@@ -70,14 +96,18 @@ function PlacesToStay(props) {
                   }
                 />
                 <h3 className={styles.text}>
-                  <span><small style={{fontSize: "20px"}}>Price: {hotel.price} EUR</small></span>
+                  <span>
+                    <small style={{ fontSize: "20px" }}>
+                      Price: {hotel.price} EUR
+                    </small>
+                  </span>
                 </h3>
                 <h3>
-                    <span>
+                  <span>
                     {hotel.rating
                       ? Number(hotel.rating).toFixed(2) + "⭐"
                       : "No rating yet"}{" "}
-                    </span>
+                  </span>
                 </h3>
               </Card>
             </Link>
