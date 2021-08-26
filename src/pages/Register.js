@@ -12,6 +12,7 @@ import {
   AutoComplete,
 } from "antd";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -47,9 +48,19 @@ function Register() {
   const [hover, setHover] = useState(false);
   const { Option } = Select;
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+
+
+  const onFinishRegister = async (values) => {
     console.log("Received values of form: ", values);
+    let username = values.username
+    let password = values.confirm
+    let gender = values.gender.toUpperCase()
+    let email = values.email
+    let user = {username, password, email, gender}
+    await axios.post("http://localhost:8080/api/user/add-user",
+        user)
   };
+
 
   return (
     <div className={styles.container}>
@@ -58,12 +69,13 @@ function Register() {
           {...formItemLayout}
           form={form}
           name="register"
-          onFinish={onFinish}
+          onFinish={onFinishRegister}
           initialValues={{
             residence: ["zhejiang", "hangzhou", "xihu"],
             prefix: "86",
           }}
           scrollToFirstError
+
         >
           <Form.Item
             name="email"

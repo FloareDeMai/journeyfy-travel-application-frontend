@@ -2,7 +2,9 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import styles from "./Signin.module.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import axios from "axios";
+
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -10,12 +12,32 @@ const buttonStyle = ({ hover }) => ({
   border: hover ? "1px #4AB8B2 solid" : "1px #4AB8B2 solid",
 });
 
+
 function Signin() {
   const [hover, setHover] = useState(false);
+  const [user, setUser] = useState()
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+
+  const onFinish = async () => {
+    // console.log("Success:", values);
+    const userForFetch = {userName, password}
+    const response = await axios.post("http://localhost:8080/api/user/login", userForFetch)
+
+    if(response.status === 200) {
+      setUser(response.data)
+      localStorage.setItem('user', JSON.stringify(response.data))
+      console.log(localStorage.getItem('user'))
+      console.log(response.data)
+    }
   };
+
+
+  if (user) {
+    return <Redirect to="/"/>
+
+  }
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -48,7 +70,7 @@ function Signin() {
               },
             ]}
           >
-            <Input />
+            <Input onChange={({ target }) => setUsername(target.value)}/>
           </Form.Item>
 
           <Form.Item
@@ -61,7 +83,7 @@ function Signin() {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password onChange={({ target }) => setPassword(target.value)} />
           </Form.Item>
 
           <Form.Item

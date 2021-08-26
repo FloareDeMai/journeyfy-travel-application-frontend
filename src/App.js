@@ -11,7 +11,10 @@ import Register from "./pages/Register"
 import PlacesToStay from "./pages/PlacesToStay";
 import HotelDetails from "./pages/HotelDetails";
 import UserPage from "./pages/UserPage";
+import Wishlist from "./pages/Wishlist";
+
 import ThingsToDo from "./pages/ThingsToDo";
+
 
 function App() {
   return (<div>
@@ -28,8 +31,8 @@ function App() {
         <Route path="/signin" exact><Signin></Signin></Route>
         <Route path="/register" exact><Register></Register></Route>
         <Route exact path="/user-page" component={UserPage}></Route>
+        <Route exact path="/add-to-favorite" component={Wishlist}/>
         <Route exact path="/things-to-do" component={ThingsToDo}></Route>
-
       </Switch>
 
     </LayoutDesign>
