@@ -1,16 +1,10 @@
 import React from "react";
 import styles from "./HotelDetails.module.css";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { Rate } from "antd";
 
 function HotelDetails(props) {
-  const [hotel, setHotel] = useState();
-  const [isLoading, setLoading] = useState(true);
-  console.log(props.location.state.hotel.cityName);
-
-  console.log(props.location.state);
+  let hotel = props.location.state.hotel
 
   return (
     <div>
@@ -28,21 +22,21 @@ function HotelDetails(props) {
       <div className={styles.container}>
         <div className={styles.containerTitle}>
           <div className={styles.title}>
-            <h1>{props.location.state.hotel.name}</h1>
+            <h1>{hotel.name}</h1>
           </div>
           <div className={styles.rating}>
             <Rate
               disabled
               allowHalf
               defaultValue={
-                Math.round(props.location.state.hotel.rating * 100) / 100
+                Math.round(hotel.rating * 100) / 100
               }
             />
-            {Math.round(props.location.state.hotel.rating * 100) / 100} • PRET
-            EURO{" "}
+            {Math.round(hotel.rating * 100) / 100} • PRET
+            {" "} {hotel.price} €
           </div>
           <div className={styles.hoursAndWebsiteLink}>
-            <a href={props.location.state.hotel.siteLink}>
+            <a href={hotel.siteLink}>
               Visit website{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,14 +58,14 @@ function HotelDetails(props) {
           <div className={styles.picture}>
             <img
               style={{ width: "100%" }}
-              src={props.location.state.hotel.pictureLink}
-              alt={props.location.state.hotel.name}
+              src={hotel.pictureLink}
+              alt={hotel.name}
             ></img>
           </div>
         </div>
         <div className={styles.containerMap}>
           <div className={styles.locationDescription}>
-            <h3>{props.location.state.hotel.description}</h3>
+            <h3>{hotel.description}</h3>
           </div>
           <div className={styles.map}>[MAP HERE]</div>
         </div>
