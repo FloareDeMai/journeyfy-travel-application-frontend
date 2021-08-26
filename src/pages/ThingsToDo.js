@@ -4,6 +4,7 @@ import styles from "./ThingsToDo.module.css";
 import { Link } from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { atom, useAtom } from "jotai";
+import {addToWishlist} from "./addToWishlist";
 
 const { Meta } = Card;
 const searchAtomAfterActivity = atom("");
@@ -50,6 +51,17 @@ function ThingsToDo() {
     topActivities = activitiesAfterSearch;
     topClubs = clubsAfterSearch;
     topMuseums = museumsAfterSearch;
+  }
+
+  const handleClickWish = async e => {
+      e.preventDefault()
+      let user = JSON.parse(localStorage.getItem('user'))
+      let wish = {'name' : e.currentTarget.getAttribute('data-name'),
+          'activity_entity_id' : e.currentTarget.getAttribute('data-id'),
+          'user_id' : user.id
+      }
+      console.log(wish)
+      addToWishlist(wish)
   }
 
   return (
@@ -99,12 +111,15 @@ function ThingsToDo() {
                       src={club.pictureLink}
                     />
                     <svg
+                        data-id={club.id}
+                        data-name={club.name}
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
                       height="25"
                       fill="white"
                       className={styles.wishIcon}
                       viewBox="0 0 16 16"
+                        onClick={handleClickWish}
                     >
                       <path
                         fill-rule="evenodd"
@@ -169,15 +184,18 @@ function ThingsToDo() {
                       src={museum.pictureLink}
                     />
                     <svg
+                        data-id={museum.id}
+                        data-name={museum.name}
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
                       height="25"
                       fill="white"
                       className={styles.wishIcon}
                       viewBox="0 0 16 16"
+                        onClick={handleClickWish}
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                       />
                     </svg>
@@ -239,15 +257,18 @@ function ThingsToDo() {
                       src={activity.pictureLink}
                     />
                     <svg
+                        data-id={activity.id}
+                        data-name={activity.name}
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
                       height="25"
                       fill="white"
                       className={styles.wishIcon}
                       viewBox="0 0 16 16"
+                        onClick={handleClickWish}
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                       />
                     </svg>

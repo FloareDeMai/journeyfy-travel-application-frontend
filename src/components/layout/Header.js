@@ -26,6 +26,23 @@ function Header() {
   const menu = (
       <Menu>
         <Menu.Item>
+          <Link to="/wishlist">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="black"
+                viewBox="0 0 16 16"
+                className={styles.link}
+            >
+              <path
+                  fillRule="evenodd"
+                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
           <Link to="/plan">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +126,23 @@ function Header() {
       </div>
       <nav>
         <ul className={styles.navbarOne}>
+          <li className={styles.link}>
+            <Link to="/wishlist">
+              <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="white"
+                  viewBox="0 0 16 16"
+                  className={styles.link}
+              >
+                <path
+                    fillRule="evenodd"
+                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                />
+              </svg>
+            </Link>
+          </li>
           <li className={styles.link}>
             <Link to="/plan">
               <svg

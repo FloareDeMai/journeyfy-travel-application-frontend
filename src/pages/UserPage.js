@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./UserPage.module.css";
 import { Row, Col, Divider } from "antd";
 import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button } from "antd";
 import { Link } from "react-router-dom";
+import {fetchUser} from "./fetchUser";
 
 const menu = (
   <Menu className={styles.menu}>
@@ -27,6 +28,13 @@ const menu = (
 );
 
 function UserPage() {
+    let [user, setUser] = useState({})
+    let userForFetch = JSON.parse(localStorage.getItem('user'))
+    useEffect(() => {
+        fetchUser().then(data => setUser(data))
+    },[userForFetch.id])
+    console.log(user)
+
   return (
     <div className={styles.container}>
       <Row>
@@ -46,7 +54,7 @@ function UserPage() {
               "https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"
             }
           />
-          <h1 style={{ color: "black", margin: "0" }}>@user0</h1>
+          <h1 style={{ color: "black", margin: "0" }}>{user.userName}</h1>
         </Col>
         <Col span={8} className={styles.upperBarLeft}>
           

@@ -36,7 +36,7 @@ function App() {
         <Route path="/signin" exact><Signin></Signin></Route>
         <Route path="/register" exact><Register></Register></Route>
         <Route exact path="/user-page" component={UserPage}></Route>
-        <Route exact path="/add-to-favorite" component={Wishlist}/>
+        <Route exact path="/wishlist" component={Wishlist}/>
         <Route exact path="/things-to-do" component={ThingsToDo}></Route>
       </Switch>
 
