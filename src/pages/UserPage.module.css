@@ -1,0 +1,22 @@
+.baraSus {
+   background-color: black; 
+   height: 140px;
+}
+
+.baraLaterala {
+    background-color: red;
+    height: 500px;
+}
+
+.baraReviewuri {
+    background-color: pink;
+    height: 100px;
+}
+
+.baraCommenturi {
+    background-color: black;
+}
+
+.baraBadge {
+    background-color:red;
+}

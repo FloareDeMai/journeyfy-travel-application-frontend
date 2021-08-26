@@ -52,13 +52,14 @@ function PlacesToStay(props) {
             <Link
               key={hotel.name}
               to={{
-                pathname: `/${hotel.cityName}`,
+                pathname: `/places-to-stay/${hotel.name}`,
+                state: {hotelName: hotel.name, cityName: hotel.cityName, hotelId:hotel.id}
               }}
             >
-              <Card
+              <Card className={styles.hozoccard}
                 hoverable
-                style={{ width: 300 }}
-                cover={<img alt={hotel.name} src={hotel.pictureLink} />}
+                style={{ width: 300,  boxShadow:"0px 2px 10px rgba(0, 0, 0, 0.1)", borderRadius: "8px"}}
+                cover={<img className={styles.cardImage} alt={hotel.name} src={hotel.pictureLink} />}
               >
                 <Meta
                 className={styles.card}
