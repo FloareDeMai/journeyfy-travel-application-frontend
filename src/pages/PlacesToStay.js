@@ -23,6 +23,10 @@ function PlacesToStay(props) {
     );
   }, []);
 
+  const handleClickWishIcon = async e => {
+
+  }
+
   if (isLoading) {
     return (
       <div className={styles.containerLoading}>
@@ -78,6 +82,7 @@ function PlacesToStay(props) {
                       fill="white"
                       className={styles.wishIcon}
                       viewBox="0 0 16 16"
+                      onClick={handleClickWishIcon}
                     >
                       <path
                         fill-rule="evenodd"

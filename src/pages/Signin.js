@@ -3,6 +3,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import styles from "./Signin.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -12,10 +13,32 @@ const buttonStyle = ({ hover }) => ({
 
 function Signin() {
   const [hover, setHover] = useState(false);
+  const [user, setUser] = useState()
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    // console.log("Success:", values);
+    let username = values.username
+    let password = values.password
+    console.log(username)
+    console.log(password)
+    const user = {username, password}
+    const response = await axios.post("http://localhost:8080/api/user/login", user)
+
+    if(response.ok) {
+      setUser(response.data)
+      localStorage.setItem('user', response.data)
+      console.log(response.data)
+    }
+    else if (response.status === 404) {
+      console.log("nop")
+    }
+
   };
+  if (user) {
+    return <div>{user.name} is loggged in</div>;
+  }
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -48,7 +71,8 @@ function Signin() {
               },
             ]}
           >
-            <Input />
+            <Input
+                />
           </Form.Item>
 
           <Form.Item
