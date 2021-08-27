@@ -7,16 +7,19 @@ const { Meta } = Card;
 
 function Wishlist() {
   const [wishes, setWishes] = useState({});
+  let userForFetch = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    fetchUser().then((data) => setWishes(data.wish));
-  }, [wishes]);
+    // fetchUser().then((data) => setWishes(data.wish));
+    fetch(`http://localhost:8080/wish-list/all-wishes/${userForFetch.id}`).then(response => response.json())
+    .then(data => setWishes(data))
+  }, [userForFetch.id]);
 
   return (
     <div>
       <div className={styles.container}>
         {Object.keys(wishes).map((key) => {
             return (
-              <Card key={wishes[key].entity.id}
+              <Card
                 className={styles.hozoccard}
                 hoverable
                 style={{

@@ -3,7 +3,7 @@ import styles from "./Register.module.css";
 import { Form, Input, Select, Checkbox, Button } from "antd";
 import { useState } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom"; 
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -35,10 +35,13 @@ const tailFormItemLayout = {
   },
 };
 
+
+
 function Register() {
   const [hover, setHover] = useState(false);
   const { Option } = Select;
   const [form] = Form.useForm();
+  let history = useHistory();
 
   const onFinishRegister = async (values) => {
     let userName = values.username;
@@ -47,8 +50,11 @@ function Register() {
     let email = values.email;
     let user = { userName, password, email, gender };
     await axios.post("http://localhost:8080/api/user/add-user", user);
-
+     history.push("/");
+    
   };
+
+  
 
   return (
     <div className={styles.container}>
@@ -164,7 +170,7 @@ function Register() {
             <Checkbox>I have read the agreement</Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Redirect to={"/signin"}>
+            
               <Button
                 style={buttonStyle({ hover })}
                 onPointerOver={() => setHover(true)}
@@ -174,7 +180,6 @@ function Register() {
               >
                 Submit
               </Button>
-            </Redirect>
           </Form.Item>
         </Form>
       </div>
