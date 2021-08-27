@@ -15,6 +15,7 @@ import ThingsToDo from "./pages/ThingsToDo";
 import ClubDetails from "./pages/ClubDetails";
 import ActivityDetails from "./pages/ActivtyDetails";
 import MuseumDetails from "./pages/MuseumDetails";
+import Activity from "./pages/Activity";
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
             exact
             path="/activity/:activityName"
             component={ActivityDetails}
+          ></Route>
+          <Route
+            exact
+            path="/activity/:activityName"
+            component={Activity}
           ></Route>
           <Route
             exact
