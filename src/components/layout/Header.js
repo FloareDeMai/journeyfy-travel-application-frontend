@@ -26,6 +26,7 @@ function Header() {
 
   const menu = (
     <Menu>
+      {loggedInUser ? 
       <Menu.Item>
         <Link to={`/wishlist/${userForFetch.id}`}>
           <svg
@@ -42,7 +43,7 @@ function Header() {
             />
           </svg>
         </Link>
-      </Menu.Item>
+      </Menu.Item>: <Menu.Item></Menu.Item>}
       <Menu.Item>
         <Link to="/plan">
           <svg
@@ -129,7 +130,7 @@ function Header() {
       </div>
       <nav>
         <ul className={styles.navbarOne}>
-          {user ? (
+          {loggedInUser ? (
             <li className={styles.link}>
               <Link to={`/wishlist/${userForFetch.id}`}>
                 <svg
