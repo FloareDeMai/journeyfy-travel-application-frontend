@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button } from "antd";
 import { Link } from "react-router-dom";
-import {fetchUser} from "./fetchUser";
+import {fetchUser} from "../components/layout/fetchUser";
 
 const menu = (
   <Menu className={styles.menu}>

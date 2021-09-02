@@ -5,7 +5,7 @@ import {Card} from "antd";
 import {Link} from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import {atom} from "jotai";
-import {addToWishlist} from "./addToWishlist";
+import {addToWishlist} from "../components/layout/addToWishlist";
 
 export let atomForFav = atom('')
 

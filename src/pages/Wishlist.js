@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { fetchUser } from "./fetchUser";
+import { fetchUser } from "../components/layout/fetchUser";
 import { Card } from "antd";
 import styles from "./PlacesToStay.module.css";
 

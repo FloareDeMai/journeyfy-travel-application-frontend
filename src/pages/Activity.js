@@ -5,6 +5,7 @@ import { Rate } from "antd";
 
 function Activity(props) {
   let activity = props.location.state;
+  console.log(props.location.state);
 
 
   return (

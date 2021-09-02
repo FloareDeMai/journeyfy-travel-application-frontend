@@ -15,7 +15,7 @@ function Activities(props) {
   let [activities, setActivities] = useState([]);
   // let [clubs, setClubs] = useState([]);
   // let [museums, setMuseums] = useState([]);
-  console.log(props.location.state.latitude)
+  console.log(props.location.state.latitude);
 
   useEffect(() => {
     let amadeus = new Amadeus({
@@ -55,8 +55,11 @@ function Activities(props) {
         times={{
           pages: [
             { name: "explore", link: "/explore" },
-            { name: "cities", link: `/cities/${props.location.state.pathname}` },
-            {name:'activities', link: ""}
+            {
+              name: "cities",
+              link: `/cities/${props.location.state.pathname}`,
+            },
+            { name: "activities", link: "" },
           ],
         }}
       />
@@ -67,9 +70,7 @@ function Activities(props) {
               key={activity.name}
               to={{
                 pathname: `/activity/${activity.name}`,
-                state: {
-                  activity: activity,
-                },
+                state: { activity: activity },
               }}
             >
               <Card
@@ -105,7 +106,10 @@ function Activities(props) {
         })
       ) : (
         <div style={{ textAlign: "center" }} className={styles.nodata}>
-          <img src="https://img.icons8.com/ios/96/000000/file-delete.png" alt="delete"/>
+          <img
+            src="https://img.icons8.com/ios/96/000000/file-delete.png"
+            alt="delete"
+          />
           <br></br>
           <br></br>
           <h1>NO ACTIVITIES YET</h1>

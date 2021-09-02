@@ -4,7 +4,7 @@ import styles from "./ThingsToDo.module.css";
 import { Link } from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { atom, useAtom } from "jotai";
-import {addToWishlist} from "./addToWishlist";
+import {addToWishlist} from "../components/layout/addToWishlist";
 
 const { Meta } = Card;
 const searchAtomAfterActivity = atom("");
@@ -237,7 +237,7 @@ function ThingsToDo() {
             <Link
               key={activity.name}
               to={{
-                pathname: `/activity/${activity.name}`,
+                pathname: `/activity-details/${activity.name}`,
                 state: { activity: activity },
               }}
             >

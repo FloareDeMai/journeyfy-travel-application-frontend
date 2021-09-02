@@ -13,7 +13,7 @@ import UserPage from "./pages/UserPage";
 import Wishlist from "./pages/Wishlist";
 import ThingsToDo from "./pages/ThingsToDo";
 import ClubDetails from "./pages/ClubDetails";
-import ActivityDetails from "./pages/ActivtyDetails";
+import ActivityDetails from "./pages/ActivityDetails";
 import MuseumDetails from "./pages/MuseumDetails";
 import Activity from "./pages/Activity";
 
@@ -42,7 +42,7 @@ function App() {
           </Route>
           <Route
             exact
-            path="/activity/:activityName"
+            path="/activity-details/:activityName"
             component={ActivityDetails}
           ></Route>
           <Route

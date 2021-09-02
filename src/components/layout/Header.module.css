@@ -142,6 +142,25 @@ a {
   background-color: rgb(34, 177, 170) !important;
 }
 
+.logout {
+  position: absolute !important;
+  margin-top: -55px !important ;
+  right: 50px !important;
+  color: white !important;
+  cursor: pointer !important;
+  background-color: rgb(255, 130, 108) !important;
+  border-style: none!important;
+  
+}
+
+.logout:hover {
+  background-color: rgb(97, 212, 207) !important;
+}
+.logout:active {
+  background-color: rgb(34, 177, 170) !important;
+}
+
+
 
 @media only screen and (max-width: 1100px) {
   .navbarOne {

@@ -2,48 +2,28 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import { MenuOutlined } from "@ant-design/icons";
 import { Menu, Dropdown, Button } from "antd";
-import React, {useEffect, useState} from "react";
-
+import React, { useEffect, useState } from "react";
 
 function Header() {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   let userForFetch = JSON.parse(localStorage.getItem("user"));
-  
+
   let loggedInUser = localStorage.getItem("user");
 
-  
-    useEffect(() => {
-      if (loggedInUser) {
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser);
-      }
-    }, [loggedInUser]);
+  useEffect(() => {
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, [loggedInUser]);
 
   const handleLogOut = () => {
-    setUser({})
-    localStorage.clear()
-  }
+    setUser({});
+    localStorage.clear();
+  };
 
   const menu = (
     <Menu>
-      {loggedInUser ? 
-      <Menu.Item>
-        <Link to={`/wishlist/${userForFetch.id}`}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            fill="white"
-            viewBox="0 0 16 16"
-            className={styles.link}
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-            />
-          </svg>
-        </Link>
-      </Menu.Item>: <Menu.Item></Menu.Item>}
       <Menu.Item>
         <Link to="/plan">
           <svg
@@ -79,7 +59,28 @@ function Header() {
       <Menu.Item>
         <Link to="/about">About us</Link>
       </Menu.Item>
-
+      {loggedInUser ? (
+        <Menu.Item>
+          <Link to={`/wishlist/${userForFetch.id}`}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              fill="red"
+              viewBox="0 0 16 16"
+              className={styles.link}
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
+            &nbsp; Wishlist
+          </Link>
+        </Menu.Item>
+      ) : (
+        <Menu.Item></Menu.Item>
+      )}
       {loggedInUser ? (
         <Menu.Item>
           <Button onClick={handleLogOut}>Log out</Button>
@@ -130,28 +131,7 @@ function Header() {
       </div>
       <nav>
         <ul className={styles.navbarOne}>
-          {loggedInUser ? (
-            <li className={styles.link}>
-              <Link to={`/wishlist/${userForFetch.id}`}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="white"
-                  viewBox="0 0 16 16"
-                  className={styles.link}
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                  />
-                </svg>
-              </Link>
-            </li>
-          ) : (
-            <li></li>
-          )}
-          <li className={styles.link}>
+                    <li className={styles.link}>
             <Link to="/plan">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -184,9 +164,31 @@ function Header() {
           <li className={styles.link}>
             <Link to="/about">About us</Link>
           </li>
+          {loggedInUser ? (
+            <li className={styles.link}>
+              <Link to={`/wishlist/${userForFetch.id}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="white"
+                  viewBox="0 0 16 16"
+                  className={styles.link}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                  />
+                </svg>
+              </Link>
+            </li>
+          ) : (
+            <li></li>
+          )}
         </ul>
+        
         {loggedInUser ? (
-          <Button className={styles.login} onClick={handleLogOut}>
+          <Button className={styles.logout} onClick={handleLogOut}>
             Log out
           </Button>
         ) : (
