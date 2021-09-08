@@ -175,4 +175,21 @@ a {
   .logout {
     display: none !important;
   }
+  .wishlistButton { 
+    display: none !important;
+  }
+}
+
+.wishlistButton { 
+  position: absolute;
+  top: 30px;
+  right: 160px;
+
+}
+
+.signinLogoutButton { 
+  position: absolute;
+  top:20%;
+  left:100%;
+
 }
