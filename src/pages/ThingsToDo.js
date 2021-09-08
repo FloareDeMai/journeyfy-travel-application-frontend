@@ -1,10 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { Card } from "antd";
 import styles from "./ThingsToDo.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { atom, useAtom } from "jotai";
 import {addToWishlist} from "../components/layout/addToWishlist";
+import authHeader from "../services/auth-header";
+import axios from "axios";
 
 const { Meta } = Card;
 const searchAtomAfterActivity = atom("");
@@ -13,27 +15,26 @@ function ThingsToDo() {
   let [topActivities, setTopActivities] = useState([]);
   let [topClubs, setTopClubs] = useState([]);
   let [topMuseums, setTopMuseums] = useState([]);
+  let history = useHistory();
   const [searchActivity, setSearchActivity] = useAtom(searchAtomAfterActivity);
   const handleChangeActivity = (event) =>
     setSearchActivity(event.target.value.toLowerCase());
 
-  useEffect(() => {
-    fetch("http://localhost:8080/museums/top-museums")
-      .then((resp) => resp.json())
-      .then((data) => setTopMuseums(data));
-  }, []);
+    useEffect(() => {
+        axios.get("http://localhost:8080/museums/top-museums", {headers : authHeader()})
+            .then((data) => {setTopMuseums(data.data)})
+    }, [])
 
-  useEffect(() => {
-    fetch("http://localhost:8080/activities/top-activities")
-      .then((resp) => resp.json())
-      .then((data) => setTopActivities(data));
-  }, []);
+    useEffect(() => {
+        axios.get("http://localhost:8080/clubs/top-clubs", {headers : authHeader()})
+            .then((data) => {setTopClubs(data.data)})
+    }, [])
 
-  useEffect(() => {
-    fetch("http://localhost:8080/clubs/top-clubs")
-      .then((resp) => resp.json())
-      .then((data) => setTopClubs(data));
-  }, []);
+    useEffect(() => {
+        axios.get("http://localhost:8080/activities/top-activities", {headers : authHeader()})
+            .then((data) => {setTopActivities(data.data)})
+    }, [])
+
 
   let activitiesAfterSearch = Object.values(topActivities).filter(
     (activity) => {
@@ -53,16 +54,27 @@ function ThingsToDo() {
     topMuseums = museumsAfterSearch;
   }
 
+
   const handleClickWish = async e => {
       e.preventDefault()
       let user = JSON.parse(localStorage.getItem('user'))
-      let wish = {'name' : e.currentTarget.getAttribute('data-name'),
-          'activity_entity_id' : e.currentTarget.getAttribute('data-id'),
-          'user_id' : user.id
+      if(user) {
+          let user = JSON.parse(localStorage.getItem('user'))
+          let wish = {'name' : e.currentTarget.getAttribute('data-name'),
+              'activity_entity_id' : e.currentTarget.getAttribute('data-id'),
+              'user_id' : user.id
+          }
+          console.log(wish)
+          addToWishlist(wish)
       }
-      console.log(wish)
-      addToWishlist(wish)
+      else {
+          // TODO send message via props
+          history.push( "/signin")
+      }
+
   }
+
+
 
   return (
     <div>

@@ -9,7 +9,6 @@ function Wishlist() {
   const [wishes, setWishes] = useState({});
   let userForFetch = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    // fetchUser().then((data) => setWishes(data.wish));
     fetch(`http://localhost:8080/wish-list/all-wishes/${userForFetch.id}`).then(response => response.json())
     .then(data => setWishes(data))
   }, [userForFetch.id]);

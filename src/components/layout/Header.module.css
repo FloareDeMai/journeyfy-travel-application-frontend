@@ -172,4 +172,7 @@ a {
   .login {
     display: none !important;
   }
+  .logout {
+    display: none !important;
+  }
 }

@@ -44,11 +44,11 @@ function Register() {
   let history = useHistory();
 
   const onFinishRegister = async (values) => {
-    let userName = values.username;
+    let username = values.username;
     let password = values.confirm;
     let gender = values.gender.toUpperCase();
     let email = values.email;
-    let user = { userName, password, email, gender };
+    let user = { username, password, email, gender };
     await axios.post("http://localhost:8080/api/user/add-user", user);
      history.push("/");
     

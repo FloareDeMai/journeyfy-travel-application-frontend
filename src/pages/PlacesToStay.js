@@ -2,41 +2,45 @@ import React from "react";
 import {useState, useEffect} from "react";
 import styles from "./PlacesToStay.module.css";
 import {Card} from "antd";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import {atom} from "jotai";
 import {addToWishlist} from "../components/layout/addToWishlist";
-
-export let atomForFav = atom('')
+import axios from "axios";
+import authHeader from "../services/auth-header";
 
 const {Meta} = Card;
 
-function PlacesToStay(props) {
+function PlacesToStay() {
     let [hotels, setHotels] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    let history = useHistory()
 
     const URL = "http://localhost:8080/hotels/all-hotels";
 
     useEffect(() => {
-        fetch(URL).then((response) =>
-            response.json().then((data) => {
-                console.log(data);
-                setHotels(data);
-                setLoading(false);
+        axios.get(URL, {headers: authHeader()})
+            .then((data) => {
+                setHotels(data.data)
+                setLoading(false)
             })
-        );
-    }, []);
+    }, [])
 
 
     const handleClickWishIcon = async e => {
         e.preventDefault()
         let user = JSON.parse(localStorage.getItem('user'))
-        let wish = {'name' : e.currentTarget.getAttribute('data-name'),
-            'activity_entity_id' : e.currentTarget.getAttribute('data-id'),
-            'user_id' : user.id
+        if(user) {
+            let wish = {
+                'name': e.currentTarget.getAttribute('data-name'),
+                'activity_entity_id': e.currentTarget.getAttribute('data-id'),
+                'user_id': user.id
+            }
+            console.log(wish)
+            addToWishlist(wish)
+        } else {
+            history.push("/signin")
         }
-        console.log(wish)
-        addToWishlist(wish)
     }
 
     if (isLoading) {
@@ -100,7 +104,7 @@ function PlacesToStay(props) {
                                         onClick={handleClickWishIcon}
                                     >
                                         <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                                         />
                                     </svg>

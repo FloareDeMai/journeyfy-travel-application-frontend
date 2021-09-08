@@ -31,9 +31,12 @@ function UserPage() {
     let [user, setUser] = useState({})
     let userForFetch = JSON.parse(localStorage.getItem('user'))
     useEffect(() => {
-        fetchUser().then(data => setUser(data))
+        fetchUser().then(data => {
+            console.log(data)
+            setUser(data)
+        })
     },[userForFetch.id])
-    console.log(user)
+
 
   return (
     <div className={styles.container}>
@@ -54,7 +57,7 @@ function UserPage() {
               "https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"
             }
           />
-          <h1 style={{ color: "black", margin: "0" }}>{user.userName}</h1>
+          <h1 style={{ color: "black", margin: "0" }}>{user.username}</h1>
         </Col>
         <Col span={8} className={styles.upperBarLeft}>
           

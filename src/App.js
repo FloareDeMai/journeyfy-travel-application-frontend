@@ -16,6 +16,10 @@ import ClubDetails from "./pages/ClubDetails";
 import ActivityDetails from "./pages/ActivityDetails";
 import MuseumDetails from "./pages/MuseumDetails";
 import Activity from "./pages/Activity";
+import { atom } from 'jotai';
+
+export const userAtom = atom(false)
+export const tokenAtom = atom(false)
 
 function App() {
   return (
@@ -67,7 +71,7 @@ function App() {
           <Route path="/register" exact>
             <Register></Register>
           </Route>
-          <Route exact path="/user-page" component={UserPage}></Route>
+          <Route exact path="/user-page/:username" component={UserPage}></Route>
           <Route exact path="/wishlist/:userId" component={Wishlist} />
           <Route exact path="/things-to-do" component={ThingsToDo}></Route>
         </Switch>
