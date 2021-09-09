@@ -111,6 +111,11 @@
   
   }
 
+  .wishIcon:active {
+  
+    fill:red;
+
+}
   .searchDiv {
     padding-bottom: 0;
     padding-right: 2rem;
