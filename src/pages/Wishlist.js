@@ -2,18 +2,26 @@ import { React, useEffect, useState } from "react";
 import { fetchUser } from "../components/layout/fetchUser";
 import { Card } from "antd";
 import styles from "./PlacesToStay.module.css";
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import axios from "axios";
 
 const { Meta } = Card;
 
 function Wishlist() {
   const [wishes, setWishes] = useState({});
   let userForFetch = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     fetch(`http://localhost:8080/wish-list/all-wishes/${userForFetch.id}`)
       .then((response) => response.json())
       .then((data) => setWishes(data));
-  }, [userForFetch.id]);
+  }, [userForFetch.id, wishes]);
+
+  const handleDeleteWish = (e) => {
+    let wish = { wishId: e.currentTarget.getAttribute("data-id") };
+    axios
+      .delete(`http://localhost:8080/wish-list/remove/${wish.wishId}`)
+  };
 
   return (
     <div>
@@ -21,6 +29,7 @@ function Wishlist() {
         {Object.keys(wishes).map((key) => {
           return (
             <Card
+              key={key}
               className={styles.hozoccard}
               hoverable
               style={{
@@ -36,7 +45,16 @@ function Wishlist() {
                     src={wishes[key].entity.pictureLink}
                   />
                   <div className={styles.circle}></div>
-                  <DeleteForeverIcon className={styles.deleteButton} style={{color:'rgb(34, 177, 170)', height:'30px', width:'30px'}} />
+                  <DeleteForeverIcon
+                    data-id={wishes[key].id}
+                    className={styles.deleteButton}
+                    style={{
+                      color: "rgb(34, 177, 170)",
+                      height: "30px",
+                      width: "30px",
+                    }}
+                    onClick={handleDeleteWish}
+                  />
                 </div>
               }
             >

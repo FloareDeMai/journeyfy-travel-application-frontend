@@ -16,6 +16,7 @@ import ClubDetails from "./pages/ClubDetails";
 import ActivityDetails from "./pages/ActivityDetails";
 import MuseumDetails from "./pages/MuseumDetails";
 import Activity from "./pages/Activity";
+import Plan from "./pages/Plan";
 import { atom } from 'jotai';
 
 export const userAtom = atom(false)
@@ -28,17 +29,18 @@ function App() {
         <Switch>
           <Route path="/" exact><IntroductionPage></IntroductionPage></Route>
           <Route path="/explore" exact><Explore></Explore></Route>
+          <Route path="/signin" exact><Signin></Signin></Route>
+          <Route path="/register" exact><Register></Register></Route>
           <Route path="/places-to-stay" exact><PlacesToStay></PlacesToStay></Route>
+          <Route path="/about" exact><About></About></Route>
+          <Route path="/plan" exact><Plan></Plan></Route>
           <Route exact path="/cities/:countryCode" component={Cities}></Route>
           <Route exact path="/activities/:latitude/:longitude" component={Activities}></Route>
-          <Route exact path="/about"><About></About></Route>
           <Route exact path="/activity-details/:activityName" component={ActivityDetails}></Route>
           <Route exact path="/activity/:activityName" component={Activity}></Route>
           <Route exact path="/places-to-stay/:hotelName" component={HotelDetails}></Route>
           <Route exact path="/club/:clubName" component={ClubDetails}></Route>
           <Route exact path="/museums/:museumName" component={MuseumDetails}></Route>
-          <Route path="/signin" exact><Signin></Signin></Route>
-          <Route path="/register" exact><Register></Register></Route>
           <Route exact path="/user-page/:username" component={UserPage}></Route>
           <Route exact path="/wishlist/:userId" component={Wishlist} />
           <Route exact path="/things-to-do" component={ThingsToDo}></Route>
