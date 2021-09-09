@@ -16,7 +16,6 @@ import ClubDetails from "./pages/ClubDetails";
 import ActivityDetails from "./pages/ActivityDetails";
 import MuseumDetails from "./pages/MuseumDetails";
 import Activity from "./pages/Activity";
-import TestingMap from "./pages/TestingMap";
 import { atom } from 'jotai';
 
 export const userAtom = atom(false)
@@ -27,9 +26,7 @@ function App() {
     <div>
       <LayoutDesign>
         <Switch>
-          <Route path="/" exact>
-            <IntroductionPage></IntroductionPage>
-          </Route>
+          <Route path="/" exact><IntroductionPage></IntroductionPage></Route>
           <Route path="/explore" exact><Explore></Explore></Route>
           <Route path="/places-to-stay" exact><PlacesToStay></PlacesToStay></Route>
           <Route exact path="/cities/:countryCode" component={Cities}></Route>
@@ -45,9 +42,6 @@ function App() {
           <Route exact path="/user-page/:username" component={UserPage}></Route>
           <Route exact path="/wishlist/:userId" component={Wishlist} />
           <Route exact path="/things-to-do" component={ThingsToDo}></Route>
-
-          <Route path="/testing-map" component={TestingMap}></Route>
-          
         </Switch>
       </LayoutDesign>
     </div>

@@ -1,83 +1,88 @@
-import { Card } from "antd";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import React from "react";
-import axios from "axios";
-import styles from "./Explore.module.css";
-import CountryImage from "./CountryImage";
-import BreadcrumbHistory from "../components/layout/BreadcrumbHistory"
+import React, { useState, useEffect } from "react";
+import { Grid } from "@material-ui/core";
 
+import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
+import { getPlacesData } from "../components/map/api/getDataAPI";
 
-const { Meta } = Card;
+import MapHeader from "../components/map/components/header/MapHeader";
+import List from "../components/map/components/list/List";
+import Map from "../components/map/components/map/Map";
 
-function Explore() {
-  let [countries, setCountries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+function TestingMap() {
+  const [type, setType] = useState("hotels");
+  const [rating, setRating] = useState("");
 
-  const API_URL_COUNTRIES = "https://restcountries.eu/rest/v2/region/europe";
+  const [coordinates, setCoordinates] = useState({});
+  const [bounds, setBounds] = useState({});
+
+  const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [childClicked, setChildClicked] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    axios.get(API_URL_COUNTRIES).then((response) => {
-      setCountries(response.data);
-      setIsLoading(false);
-    });
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        setCoordinates({ lat: latitude, lng: longitude });
+      }
+    );
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className={styles.containerLoading}>
-        <div className={styles.ldsellipsis}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const filteredPlaces = places.filter((place) => place.rating > rating);
+    setFilteredPlaces(filteredPlaces);
+  }, [rating]);
+
+  useEffect(() => {
+    if (bounds.sw && bounds.ne) {
+      setIsLoading(true);
+
+      getPlacesData(type, bounds).then((data) => {
+        setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
+        setFilteredPlaces([]);
+        setIsLoading(false);
+      });
+    }
+  }, [type, bounds]);
+
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+
+    setCoordinates({ lat, lng });
+  };
 
   return (
-    <div>
-      <BreadcrumbHistory name="about" times={{"pages" : [
-                                                      {"name":"explore", "link":""},
-                                                      ]}} />
-      <h1 className={styles.title}>Where do you want to go .. ?</h1>
-      <div className={styles.container}>
-      
-        {countries.map((country) => {
-          return (
-            <Link
-              key={country.name}
-              to={{
-                pathname: "/cities/" + country.alpha2Code,
-                state: country.alpha2Code,
-              }}
-            >
-              <Card
-                hoverable
-                style={{ width: 200 }}
-                cover={
-                  <CountryImage
-                    text2={country.capital.toLowerCase()}
-                  ></CountryImage>
-                }
-              >
-                <Meta
-                  className={styles.card}
-                  title={
-                    <span style={{ fontSize: "30px" }}>{country.name}</span>
-                  }
-                  description={<span style={{fontSize: '18px', color: 'black'}}>
-                    <div>{country.currencies[0].code}</div>
-                    </span>}
-                />
-              </Card>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+    <ScopedCssBaseline>
+      <MapHeader onPlaceChanged={onPlaceChanged} onLoad={onLoad} />
+      <Grid container spacing={3} style={{ width: "100%" }}>
+        <Grid item cs={12} md={4}>
+          <List
+            places={filteredPlaces.length ? filteredPlaces : places}
+            childClicked={childClicked}
+            isLoading={isLoading}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+          />
+        </Grid>
+        <Grid item cs={12} md={8}>
+          <Map
+            setCoordinates={setCoordinates}
+            setBounds={setBounds}
+            coordinates={coordinates}
+            places={filteredPlaces.length ? filteredPlaces : places}
+            setChildClicked={setChildClicked}
+          />
+        </Grid>
+      </Grid>
+    </ScopedCssBaseline>
   );
 }
 
-export default Explore;
+export default TestingMap;
