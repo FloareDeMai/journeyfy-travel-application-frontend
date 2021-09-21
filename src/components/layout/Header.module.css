@@ -178,6 +178,9 @@ a {
   .wishlistButton { 
     display: none !important;
   }
+  .avatarButton {
+    display: none !important;
+  }
 }
 
 .wishlistButton { 
@@ -192,4 +195,11 @@ a {
   top:20%;
   left:100%;
 
+}
+
+.avatarButton {
+  position: absolute;
+  top:26px;
+  right:215px;
+  border-radius: 50%;
 }

@@ -19,7 +19,7 @@ import Activity from "./pages/Activity";
 import Plan from "./pages/Plan";
 import { atom } from 'jotai';
 
-export const userAtom = atom(false)
+export const userAtom = atom(true)
 export const tokenAtom = atom(false)
 
 function App() {
