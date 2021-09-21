@@ -18,6 +18,7 @@ import MuseumDetails from "./pages/MuseumDetails";
 import Activity from "./pages/Activity";
 import Plan from "./pages/Plan";
 import { atom } from 'jotai';
+import TestingPlaces from "./pages/TestingPlaces";
 
 export const userAtom = atom(false)
 export const tokenAtom = atom(false)
@@ -34,6 +35,7 @@ function App() {
           <Route path="/places-to-stay" exact><PlacesToStay></PlacesToStay></Route>
           <Route path="/about" exact><About></About></Route>
           <Route path="/plan" exact><Plan></Plan></Route>
+          <Route path="/testingPlaces" exact><TestingPlaces></TestingPlaces></Route>
           <Route exact path="/cities/:countryCode" component={Cities}></Route>
           <Route exact path="/activities/:latitude/:longitude" component={Activities}></Route>
           <Route exact path="/activity-details/:activityName" component={ActivityDetails}></Route>
