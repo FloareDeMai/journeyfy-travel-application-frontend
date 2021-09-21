@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import styles from './IntroductionPage.module.css'
+import styles from "./IntroductionPage.module.css";
 
 function IntroductionPage() {
+
   return (
     <div className={styles.container}>
       <div className={styles.titleIntroduction}>
