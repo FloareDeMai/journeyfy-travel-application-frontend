@@ -42,10 +42,10 @@ function PlacesToStay() {
             console.log(data.data.data)
             setLoading(false)
         })
-    }, [entityId])
+    }, [])
 
 
-    const saveToDatabase = (e) => {
+    const saveToDatabase = async (e) => {
         let entity = {
             'name' : e.currentTarget.getAttribute('data-entity-name'),
             'rating' : parseFloat(e.currentTarget.dataset.rating),
@@ -57,39 +57,45 @@ function PlacesToStay() {
         }
 
         const URL = "http://localhost:8080/hotels/add-hotel"
-         axios.post(URL, entity)
-             .then(res => {
-                     console.log(res)
-                 }
-             )
-        console.log("saved")
+         const response = await fetch(URL, {method : 'POST', headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json'
+             }, body: JSON.stringify(entity)})
+        const data = await response.json()
+        console.log(data)
     }
 
-    const getLastEntity = () => {
-        axios.get("http://localhost:8080/hotels/last")
-            .then(res => {
-                console.log(res)
-                    setEntityId(res.data.id)
-                }
-            )
+    // useEffect(() => {
+    //     async function getLastEntity() {
+    //         const {response} = await axios.get("http://localhost:8080/hotels/last")
+    //         setEntityId(response.id)
+    //         console.log(response.id)
+    //     }
+    // }, [])
 
-        console.log("last entity")
+
+    const getLastEntity = async () => {
+        const response = await axios.get("http://localhost:8080/hotels/last")
+        setEntityId(response.data.id)
+        console.log(response)
     }
 
 
-    const addToWish = (e) => {
+    const addToWish = async () => {
         let wish = {
-            'name': e.currentTarget.getAttribute('data-name'),
+            'name': 'pisici',
             'activity_entity_id': entityId,
             'user_id': user.id
         }
+        console.log(entityId)
 
         const URL = "http://localhost:8080/wish-list/add-wish"
-        axios.post(URL, wish)
-            .then(response => console.log(response))
-
-        console.log("add wish")
-
+        const response = await fetch(URL, {method : 'POST', headers: {
+            'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        }, body: JSON.stringify(wish)})
+        const data = await response.json()
+        console.log(data)
     }
 
 
@@ -175,10 +181,10 @@ function PlacesToStay() {
                                         fill="white"
                                         className={styles.wishIcon}
                                         viewBox="0 0 16 16"
-                                        onClick={(event) => {
-                                            saveToDatabase(event)
-                                            getLastEntity()
-                                            addToWish(event)
+                                        onClick={async (event) => {
+                                            await saveToDatabase(event)
+                                            await getLastEntity()
+                                            await addToWish(event)
 
                                         }}
                                     >
