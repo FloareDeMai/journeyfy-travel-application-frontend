@@ -13,11 +13,10 @@ export const getPlacesData = async (type, bounds) => {
           bl_longitude: bounds.sw.lng,
           tr_longitude: bounds.ne.lng,
         },
-        headers: {
-          "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
-          "x-rapidapi-key":
-            "77a7dfe288mshcae2fbda6cf7425p18a5acjsnac609e2bcebc",
-        },
+          headers: {
+              'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
+              'x-rapidapi-key': '76b7ea0a2cmsh053780f28264739p1bc686jsna682c5326e58'
+          },
       }
     );
 

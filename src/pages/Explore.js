@@ -40,6 +40,7 @@ function TestingMap() {
       setIsLoading(true);
 
       getPlacesData(type, bounds).then((data) => {
+        console.log(data)
         setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
         setFilteredPlaces([]);
         setIsLoading(false);
