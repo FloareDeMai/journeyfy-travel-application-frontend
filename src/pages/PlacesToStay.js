@@ -14,6 +14,7 @@ function PlacesToStay() {
     let [entityId, setEntityId] = useState(null)
     const [lastHotel, setLastHotel] = useState(null);
     let history = useHistory()
+    let user = JSON.parse(localStorage.getItem('user'))
 
     const URL = "http://localhost:8080/hotels/all-hotels";
 
@@ -44,48 +45,60 @@ function PlacesToStay() {
     }, [entityId])
 
 
-    const saveToDatabase = async() => {
-        let entity = getLastEntity()
+    const saveToDatabase = (e) => {
+        let entity = {
+            'name' : e.currentTarget.getAttribute('data-entity-name'),
+            'rating' : parseFloat(e.currentTarget.dataset.rating),
+            'price' : parseFloat(e.currentTarget.dataset.price.slice(1, 3).trim()),
+            'hotelClass' : e.currentTarget.dataset.hotelClass,
+            'pictureLink' : e.currentTarget.dataset.pictureLink,
+            'cityName' : 'Bucharest',
+            'activityType' : 'HOTEL'
+        }
+
         const URL = "http://localhost:8080/hotels/add-hotel"
-        await axios.post(URL, entity).then(data => {
-            console.log(data)
-        })
+         axios.post(URL, entity)
+             .then(res => {
+                     console.log(res)
+                 }
+             )
+        console.log("saved")
     }
 
-    const getLastEntity = async() => {
+    const getLastEntity = () => {
         axios.get("http://localhost:8080/hotels/last")
             .then(res => {
-                    console.log(res)
+                console.log(res)
                     setEntityId(res.data.id)
-                    return res.data
-                })
+                }
+            )
+
+        console.log("last entity")
     }
 
-    useEffect(() => {
-        saveToDatabase().then(addToWishlist())
-        getLastEntity()
-    }, [entityId])
+
+    const addToWish = (e) => {
+        let wish = {
+            'name': e.currentTarget.getAttribute('data-name'),
+            'activity_entity_id': entityId,
+            'user_id': user.id
+        }
+
+        const URL = "http://localhost:8080/wish-list/add-wish"
+        axios.post(URL, wish)
+            .then(response => console.log(response))
+
+        console.log("add wish")
+
+    }
 
 
 
-    const handleClickWishIcon = async e => {
-        e.preventDefault()
-        let user = JSON.parse(localStorage.getItem('user'))
-        console.log(e.currentTarget.getAttribute('data-entity-name'))
-
-        console.log(entity.name)
+    const handleClickWishIcon = () => {
+        console.log("handle wish")
 
 
         if (user) {
-            let wish = {
-                'name': e.currentTarget.getAttribute('data-name'),
-                'activity_entity_id': entityId,
-                'user_id': user.id
-            }
-
-
-            addToWishlist(wish)
-
 
         } else {
             history.push("/signin")
@@ -162,7 +175,12 @@ function PlacesToStay() {
                                         fill="white"
                                         className={styles.wishIcon}
                                         viewBox="0 0 16 16"
-                                        onClick={handleClickWishIcon}
+                                        onClick={(event) => {
+                                            saveToDatabase(event)
+                                            getLastEntity()
+                                            addToWish(event)
+
+                                        }}
                                     >
                                         <path
                                             fillRule="evenodd"
