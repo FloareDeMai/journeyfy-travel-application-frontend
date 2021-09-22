@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "./PlacesToStay.module.css";
 import {Card} from "antd";
 import {Link, useHistory} from "react-router-dom";
@@ -9,12 +9,12 @@ import axios from "axios";
 const {Meta} = Card;
 
 function PlacesToStay() {
-    let [hotels, setHotels] = useState([]);
+    const [hotels, setHotels] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    let [entityId, setEntityId] = useState(null)
+    const [entity, setEntity] = useState(null)
     const [lastHotel, setLastHotel] = useState(null);
-    let history = useHistory()
-    let user = JSON.parse(localStorage.getItem('user'))
+    const history = useHistory()
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const URL = "http://localhost:8080/hotels/all-hotels";
 
@@ -24,91 +24,73 @@ function PlacesToStay() {
         //         setHotels(data.data)
         //         setLoading(false)
         //     })
-        axios.get(
-            `https://travel-advisor.p.rapidapi.com/hotels/list-in-boundary`, {
-                params: {
-                    bl_latitude: '52.520008',
-                    bl_longitude: '13.404954',
-                    tr_longitude: '139.149359',
-                    tr_latitude: '10.838442',
-                    limit: '30',
-                },
-                headers: {
-                    'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-                    'x-rapidapi-key': '76b7ea0a2cmsh053780f28264739p1bc686jsna682c5326e58'
-                }
-            }).then(data => {
-            setHotels(data.data.data)
-            console.log(data.data.data)
-            setLoading(false)
-        })
+        async function fetchData() {
+            const response = await axios.get(
+                `https://travel-advisor.p.rapidapi.com/hotels/list-in-boundary`, {
+                    params: {
+                        bl_latitude: '52.520008',
+                        bl_longitude: '13.404954',
+                        tr_longitude: '139.149359',
+                        tr_latitude: '10.838442',
+                        limit: '30',
+                    },
+                    headers: {
+                        'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
+                        'x-rapidapi-key': '5a6124cfb2msh9362155c4703c7cp1adf25jsn6217f18237e0'
+                    }
+                })
+                const data = await response.data.data
+                setHotels(data)
+                console.log(data)
+                setLoading(false)
+        }
+        fetchData()
     }, [])
 
 
-    const saveToDatabase = async (e) => {
+    const saveToDatabase = (e) => {
         let entity = {
             'name' : e.currentTarget.getAttribute('data-entity-name'),
             'rating' : parseFloat(e.currentTarget.dataset.rating),
             'price' : parseFloat(e.currentTarget.dataset.price.slice(1, 3).trim()),
             'hotelClass' : e.currentTarget.dataset.hotelClass,
             'pictureLink' : e.currentTarget.dataset.pictureLink,
+            'id' : e.currentTarget.dataset.listingKey,
             'cityName' : 'Bucharest',
             'activityType' : 'HOTEL'
         }
 
         const URL = "http://localhost:8080/hotels/add-hotel"
-         const response = await fetch(URL, {method : 'POST', headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json'
-             }, body: JSON.stringify(entity)})
-        const data = await response.json()
-        console.log(data)
+         const response = axios.post(URL, entity)
+        console.log(response)
+        console.log(entity)
     }
 
-    // useEffect(() => {
-    //     async function getLastEntity() {
-    //         const {response} = await axios.get("http://localhost:8080/hotels/last")
-    //         setEntityId(response.id)
-    //         console.log(response.id)
-    //     }
-    // }, [])
+
+    // const getLastEntity = async () => {
+    //     const response = await axios.get("http://localhost:8080/hotels/last")
+    //     setEntity(response?.data.id)
+    //     console.log(response.data.id)
+    // }
 
 
-    const getLastEntity = async () => {
-        const response = await axios.get("http://localhost:8080/hotels/last")
-        setEntityId(response.data.id)
+    const addToWish = (e) => {
+        let wish = {
+            'name': e.currentTarget.getAttribute('data-entity-name'),
+            'activity_entity_id': e.currentTarget?.dataset.listingKey,
+            'user_id': user.id
+        }
+
+        const URL = "http://localhost:8080/wish-list/add-wish"
+        const response = axios.post(URL, wish)
         console.log(response)
     }
 
 
-    const addToWish = async () => {
-        let wish = {
-            'name': 'pisici',
-            'activity_entity_id': entityId,
-            'user_id': user.id
-        }
-        console.log(entityId)
+    const handleClickWishIcon = (e) => {
+        saveToDatabase(e)
+        addToWish(e)
 
-        const URL = "http://localhost:8080/wish-list/add-wish"
-        const response = await fetch(URL, {method : 'POST', headers: {
-            'Accept': 'application/json',
-                'Content-Type': 'application/json'
-        }, body: JSON.stringify(wish)})
-        const data = await response.json()
-        console.log(data)
-    }
-
-
-
-    const handleClickWishIcon = () => {
-        console.log("handle wish")
-
-
-        if (user) {
-
-        } else {
-            history.push("/signin")
-        }
     }
 
     if (isLoading) {
@@ -169,6 +151,7 @@ function PlacesToStay() {
                                         data-price={hotel.price ? hotel.price : ""}
                                         data-rating={hotel.rating ? hotel.rating : ""}
                                         data-hotel-class={hotel.hotel_class ? hotel.hotel_class : ""}
+                                        data-listing-key={hotel.listing_key}
                                         data-picture={
                                             hotel.photo
                                                 ? hotel.photo.images.large.url
@@ -181,10 +164,8 @@ function PlacesToStay() {
                                         fill="white"
                                         className={styles.wishIcon}
                                         viewBox="0 0 16 16"
-                                        onClick={async (event) => {
-                                            await saveToDatabase(event)
-                                            await getLastEntity()
-                                            await addToWish(event)
+                                        onClick={(event) => {
+                                            handleClickWishIcon(event)
 
                                         }}
                                     >
