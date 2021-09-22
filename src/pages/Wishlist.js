@@ -15,12 +15,13 @@ function Wishlist() {
     fetch(`http://localhost:8080/wish-list/all-wishes/${userForFetch.id}`)
       .then((response) => response.json())
       .then((data) => setWishes(data));
-  }, [userForFetch.id, wishes]);
+  }, [userForFetch.id]);
 
-  const handleDeleteWish = (e) => {
-    let wish = { wishId: e.currentTarget.getAttribute("data-id") };
+  const handleDeleteWish = (id) => {
     axios
-      .delete(`http://localhost:8080/wish-list/remove/${wish.wishId}`)
+      .delete(`http://localhost:8080/wish-list/remove/${id}`)
+    const newWishes = wishes.filter((wishFiltered) => wishFiltered.id !== id)
+    setWishes(newWishes)
   };
 
   return (
@@ -29,7 +30,7 @@ function Wishlist() {
         {Object.keys(wishes).map((key) => {
           return (
             <Card
-              key={key}
+              key={wishes[key].id}
               className={styles.hozoccard}
               hoverable
               style={{
@@ -53,7 +54,7 @@ function Wishlist() {
                       height: "30px",
                       width: "30px",
                     }}
-                    onClick={handleDeleteWish}
+                    onClick={()=>handleDeleteWish(wishes[key].id)}
                   />
                 </div>
               }
