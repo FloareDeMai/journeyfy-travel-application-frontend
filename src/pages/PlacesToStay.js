@@ -7,6 +7,7 @@ import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { getPlacesData } from "../components/map/api/getDataAPI";
 import { Card } from "antd";
 import {Link, useHistory} from "react-router-dom";
+import axios from "axios";
 
 const {Meta} = Card;
 
@@ -19,6 +20,8 @@ function TestingPlaces() {
 
   const [autocomplete, setAutocomplete] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -57,6 +60,42 @@ function TestingPlaces() {
   console.log(coordinates);
   console.log(bounds);
   console.log(places)
+
+
+  const saveToDatabase = (e) => {
+    let entity = {
+      'name' : e.currentTarget.getAttribute('data-entity-name'),
+      'rating' : parseFloat(e.currentTarget.dataset.rating),
+      'price' : parseFloat(e.currentTarget.dataset.price.slice(1, 3).trim()),
+      'hotelClass' : e.currentTarget.dataset.hotelClass,
+      'pictureLink' : e.currentTarget.getAttribute("data-picture"),
+      'id' : e.currentTarget.dataset.listingKey,
+      'cityName' : e.currentTarget.getAttribute("data-city-name"),
+      'activityType' : 'HOTEL'
+    }
+
+    const URL = "http://localhost:8080/hotels/add-hotel"
+    const response = axios.post(URL, entity)
+    console.log(response)
+    console.log(entity)
+  }
+
+  const addToWish = (e) => {
+    let wish = {
+      'name': e.currentTarget.getAttribute('data-entity-name'),
+      'activity_entity_id': e.currentTarget?.dataset.listingKey,
+      'user_id': user.id
+    }
+
+    const URL = "http://localhost:8080/wish-list/add-wish"
+    const response = axios.post(URL, wish)
+    console.log(response)
+  }
+
+  const handleClickWishIcon = (e) => {
+    saveToDatabase(e)
+    addToWish(e)
+  }
 
   return (
     <div>
@@ -110,14 +149,27 @@ function TestingPlaces() {
                             />
                         </Link>
                         <svg
-                            data-name={hotel.name}
-                            data-id={hotel.id}
+                            data-entity-name={hotel.name ? hotel.name : ""}
+                            data-price={hotel.price ? hotel.price : ""}
+                            data-rating={hotel.rating ? hotel.rating : ""}
+                            data-hotel-class={hotel.hotel_class ? hotel.hotel_class : ""}
+                            data-listing-key={hotel.listing_key}
+                            data-city-name={hotel.ranking_geo}
+                            data-picture={
+                              hotel.photo
+                                  ? hotel.photo.images.large.url
+                                  : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg"
+                            }
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
                             height="25"
                             fill="white"
                             className={styles.wishIcon}
                             viewBox="0 0 16 16"
+                            onClick={(event) => {
+                              handleClickWishIcon(event)
+
+                            }}
                         >
                             <path
                                 fillRule="evenodd"

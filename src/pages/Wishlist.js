@@ -76,8 +76,8 @@ function Wishlist() {
               </h3>
               <h3>
                 <span>
-                  {wishes[key].entity.price
-                    ? Number(wishes[key].entity.price).toFixed(2) + "⭐"
+                  {wishes[key].entity.rating
+                    ? Number(wishes[key].entity.rating).toFixed(2) + "⭐"
                     : "No rating yet"}{" "}
                 </span>
               </h3>
