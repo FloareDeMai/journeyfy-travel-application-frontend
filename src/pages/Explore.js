@@ -55,7 +55,7 @@ function TestingMap() {
 
     setCoordinates({ lat, lng });
   };
-console.log(bounds)
+console.log(places)
 
   return (
     <ScopedCssBaseline>

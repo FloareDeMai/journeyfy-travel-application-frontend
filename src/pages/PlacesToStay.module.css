@@ -9,6 +9,15 @@
   margin-top: 5%;
 }
 
+.container2 {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5rem;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+}
+
 .card {
   font-size: 30px;
 }
@@ -141,4 +150,14 @@
   position: absolute;
   top:-1px;
   border: 0.5px solid rgb(255, 76, 76);
+}
+
+.searchBar { 
+  width:50%;
+
+}
+
+.searchBarContainer {
+  margin-top:100px;
+  margin-left:32%;
 }
