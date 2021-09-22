@@ -51,7 +51,6 @@ function Register() {
     let user = { username, password, email, gender };
     await axios.post("http://localhost:8080/api/user/add-user", user);
      history.push("/");
-    
   };
 
   

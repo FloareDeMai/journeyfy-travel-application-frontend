@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserPage.module.css";
 import { Row, Col } from "antd";
 import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button } from "antd";
 import { Link } from "react-router-dom";
-import {fetchUser} from "../components/layout/fetchUser";
+import { fetchUser } from "../components/layout/fetchUser";
+import { editUserProfile } from "../components/user/postUserAPI";
+import { EditOutlined } from "@ant-design/icons";
 
 const menu = (
   <Menu className={styles.menu}>
@@ -28,15 +30,20 @@ const menu = (
 );
 
 function UserPage() {
-    let [user, setUser] = useState({})
-    let userForFetch = JSON.parse(localStorage.getItem('user'))
-    useEffect(() => {
-        fetchUser().then(data => {
-            console.log(data)
-            setUser(data)
-        })
-    },[userForFetch.id])
+  let [user, setUser] = useState({});
+  let userForFetch = JSON.parse(localStorage.getItem("user"));
+  let [aboutState, setAboutState] = useState(false);
+  let [description, setDescription] = useState("");
 
+  useEffect(() => {
+    fetchUser().then((data) => {
+      console.log(data);
+      setUser(data);
+      setDescription(user.description);
+    });
+  }, [userForFetch.id, aboutState]);
+
+  console.log(description);
 
   return (
     <div className={styles.container}>
@@ -59,9 +66,7 @@ function UserPage() {
           />
           <h1 style={{ color: "black", margin: "0" }}>{user.username}</h1>
         </Col>
-        <Col span={8} className={styles.upperBarLeft}>
-          
-        </Col>
+        <Col span={8} className={styles.upperBarLeft}></Col>
         <Col span={8} className={styles.upperBarRight}>
           <div className={styles.buttonsLeft}>
             <Button>
@@ -105,7 +110,7 @@ function UserPage() {
       </Row>
       <Row>
         <Col span={6} className={styles.sideBar}>
-        <div className={styles.location}>
+          <div className={styles.location}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -115,24 +120,62 @@ function UserPage() {
             >
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg>
-            <p style={{fontSize:"20px"}}>Bucharest, Romania</p>
+            <p style={{ fontSize: "20px" }}>Bucharest, Romania</p>
           </div>
-          <div><p style={{fontSize:"17px"}}>Joined in Aug 2016</p></div>
-          <h2>About me: </h2><br></br>
-          <h3 style={{paddingRight:"40px"}}>saifj fjdsi fsd sdf sdf sdf sdfsd s fsd sd sdf sf sdf sdf sdf sd fsf sd fsd fsdfsdf sds sidjfi sdfjisd fsjd fisdjf idsj fisjf sdifjd sifdjs ifsdj ifdsj ifdsj fdsij fsdifjsd ifjsd i sijfs sfdi jsfdi fsjiifjs ifjs jfsij fisjf</h3>
+          <div>
+            <p style={{ fontSize: "17px" }}>Joined in Aug 2016</p>
+          </div>
+          <div style={{display: "flex"}}>
+            {" "}
+            <h2 for="description">About me </h2>{" "}
+            <EditOutlined
+              onClick={() => setAboutState((prevCheck) => !prevCheck)}
+            />
+          </div>
+
+          <br></br>
+          {!aboutState ? (
+            <h3 style={{ paddingRight: "40px" }}>{user.description}</h3>
+          ) : (
+            <div>
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+                id="description"
+                name="description"
+                rows="4"
+                cols="50"
+              ></textarea>
+              <button
+                onClick={() => {
+                  editUserProfile(user.username, {
+                    username: user.username,
+                    email: user.email,
+                    password: user.password,
+                    city: user.city,
+                    country: user.country,
+                    gender: user.gender,
+                    description: description,
+                  });
+                  setAboutState(false);
+                }}
+              >
+                Change
+              </button>
+            </div>
+          )}
         </Col>
-        <Col span={18} className={styles.profileInfoContainer}>
-        </Col>
+        <Col span={18} className={styles.profileInfoContainer}></Col>
       </Row>
       <Row>
         <Col span={8} className={styles.baraReviewuri}>
           <h1>Reviews:</h1>
         </Col>
         <Col span={8} className={styles.baraCommenturi}>
-        <h1>Comments:</h1>
+          <h1>Comments:</h1>
         </Col>
         <Col span={8} className={styles.baraBadge}>
-        <h1>Awards:</h1>
+          <h1>Awards:</h1>
         </Col>
       </Row>
     </div>

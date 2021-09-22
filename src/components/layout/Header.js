@@ -25,7 +25,7 @@ function Header() {
     setUserLogged(false);
   };
 
-  console.log(userLogged ? "AVEM USER IN LOCAL" : "NU AVEM USER IN LOCALSTORAGE")
+  console.log(user)
 
   const menu = (
     <Menu>
