@@ -2,9 +2,12 @@ import React from "react";
 import styles from "./HotelDetails.module.css";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { Rate } from "antd";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import PhoneIcon from "@material-ui/icons/Phone";
+
 
 function ActivityDetails(props) {
-    let activity = props.location.state.activity
+    let activity = props.location.state.attraction
     console.log(activity)
 
     return (
@@ -25,6 +28,9 @@ function ActivityDetails(props) {
                     <div className={styles.title}>
                         <h1>{activity.name}</h1>
                     </div>
+                    <div className={styles.title}>
+                        <h3>{activity.ranking}</h3>
+                    </div>
                     <div className={styles.rating}>
                         <Rate
                             disabled
@@ -37,6 +43,17 @@ function ActivityDetails(props) {
                        {" "} {activity.price} €
 
                     </div>
+                    <br></br>
+                    <div style={{display: 'flex', flexDirection:'row'}}>
+                        <LocationOnIcon/> &nbsp; <p>{activity.address}</p>
+                    </div>
+                    <div style={{display: 'flex', flexDirection:'row'}}>
+                        <PhoneIcon/> &nbsp; <p>{activity.phone}</p>
+                    </div>
+
+                    <div>
+                        <a href={activity.web_url}>Trip Advisor</a> &nbsp; &nbsp; <a href={activity.website}>Visit Website</a>
+                    </div>
 
                 </div>
                 <div className={styles.containerPhoto}>
@@ -46,7 +63,7 @@ function ActivityDetails(props) {
                     <div className={styles.picture}>
                         <img
                             style={{ width: "100%" }}
-                            src={activity.pictureLink}
+                            src={activity.photo.images.large.url}
                             alt={activity.name}
                         ></img>
                     </div>
@@ -56,6 +73,8 @@ function ActivityDetails(props) {
                         <h3>{activity.description}</h3>
                     </div>
                     <div className={styles.map}>[MAP HERE]</div>
+                    <div className={styles.infoNeighbourhood}>  
+                    </div>
                 </div>
                 <div className={styles.containerUsers}>
                     <div className={styles.writeReview}>

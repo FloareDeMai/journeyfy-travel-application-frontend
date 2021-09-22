@@ -4,7 +4,7 @@ import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { Rate } from "antd";
 
 function HotelDetails(props) {
-  let hotel = props.location.state.hotel
+  let hotel = props.location.state.hotel;
 
   return (
     <div>
@@ -13,9 +13,7 @@ function HotelDetails(props) {
         times={{
           pages: [
             { name: "places to stay", link: "/places-to-stay" },
-            {name:props.location.state.hotel.name,
-              link: "",
-            },
+            { name: props.location.state.hotel.name, link: "" },
           ],
         }}
       />
@@ -24,16 +22,16 @@ function HotelDetails(props) {
           <div className={styles.title}>
             <h1>{hotel.name}</h1>
           </div>
+          <div className={styles.title}>
+            <h3>{hotel.ranking}</h3>
+          </div>
           <div className={styles.rating}>
             <Rate
               disabled
               allowHalf
-              defaultValue={
-                Math.round(hotel.rating * 100) / 100
-              }
+              defaultValue={Math.round(hotel.rating * 100) / 100}
             />
-            {Math.round(hotel.rating * 100) / 100} • PRET
-            {" "} {hotel.price} €
+            {hotel.price} €
           </div>
           <div className={styles.hoursAndWebsiteLink}>
             <a href={hotel.siteLink}>
@@ -58,7 +56,11 @@ function HotelDetails(props) {
           <div className={styles.picture}>
             <img
               style={{ width: "100%" }}
-              src={hotel.photo ? hotel.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg"}
+              src={
+                hotel.photo
+                  ? hotel.photo.images.large.url
+                  : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg"
+              }
               alt={hotel.name}
             ></img>
           </div>
@@ -66,6 +68,12 @@ function HotelDetails(props) {
         <div className={styles.containerMap}>
           <div className={styles.locationDescription}>
             <h3>{hotel.description}</h3>
+          </div>
+          <div className={styles.infoNeighbourhood}>
+            <h2>What you can find nearby:</h2>
+            {hotel.neighborhood_info?.map((place) => {
+              return <h3>{place.name}</h3>
+            })}
           </div>
           <div className={styles.map}>[MAP HERE]</div>
         </div>

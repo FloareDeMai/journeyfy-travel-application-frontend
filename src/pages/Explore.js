@@ -9,7 +9,7 @@ import List from "../components/map/components/list/List";
 import Map from "../components/map/components/map/Map";
 
 function TestingMap() {
-  const [type, setType] = useState("hotels");
+  const [type, setType] = useState("attractions");
   const [rating, setRating] = useState("");
 
   const [coordinates, setCoordinates] = useState({});

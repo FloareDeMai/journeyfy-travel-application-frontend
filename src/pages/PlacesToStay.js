@@ -1,5 +1,5 @@
 import { Autocomplete } from "@react-google-maps/api";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Input } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import SearchBar from "material-ui-search-bar";
 import styles from "./PlacesToStay.module.css";
@@ -11,7 +11,6 @@ import {Link, useHistory} from "react-router-dom";
 const {Meta} = Card;
 
 function TestingPlaces() {
-  const [type, setType] = useState("hotels");
 
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({});
@@ -33,14 +32,15 @@ function TestingPlaces() {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true);
 
-      getPlacesData(type, bounds).then((data) => {
+      getPlacesData("hotels", bounds).then((data) => {
         setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
         setIsLoading(false);
       });
     }
-  }, [type, bounds]);
+  }, [bounds]);
 
   const onLoad = (autoC) => setAutocomplete(autoC);
+
   const onPlaceChanged = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
@@ -65,8 +65,7 @@ function TestingPlaces() {
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <div>
             <div className={styles.searchBarContainer}>
-              <SearchBar className={styles.searchBar} placeholder="Enter a city..." />
-            </div>
+            <Input placeholder={"Enter a city..."} className={styles.searchBar} />            </div>
           </div>
         </Autocomplete>
       </div>
@@ -85,7 +84,7 @@ function TestingPlaces() {
           />
         ) : (
           <div className={styles.container2}>
-          {places.length > 0 ? (
+          {places?.length > 0 ? (
               places.map((hotel) => {
                 return <Card
                 className={styles.hozoccard}
@@ -153,7 +152,7 @@ function TestingPlaces() {
             </Card>
               })
             ) : (
-              <p>NO HOTELS FOUND</p>
+              <p>NO HOTEL WAS FOUND</p>
             )}
           </div>
         )}
