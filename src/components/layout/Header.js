@@ -2,21 +2,30 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "./Header.module.css";
 import { MenuOutlined } from "@ant-design/icons";
 import { Menu, Dropdown, Button } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthService from "../../services/auth.service";
 import { useAtom } from "jotai";
 import { userAtom } from "../../App";
+import { Avatar } from 'antd';
+import { AntDesignOutlined } from '@ant-design/icons';
 
 function Header() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
   const [user] = useState(AuthService.getCurrentUser);
   let history = useHistory();
 
+  useEffect(() => {
+    console.log(userLogged);
+
+  }, [userLogged])
+
   const handleLogOut = () => {
     AuthService.logout();
     history.push("/signin");
     setUserLogged(false);
   };
+
+  console.log(userLogged ? "AVEM USER IN LOCAL" : "NU AVEM USER IN LOCALSTORAGE")
 
   const menu = (
     <Menu>
@@ -55,17 +64,18 @@ function Header() {
       <Menu.Item>
         <Link to="/about">About us</Link>
       </Menu.Item>
-      {userLogged ? (
+      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
         <Menu.Item>
-          <Link to={`/user-page/${user.username}`}>To profile</Link>
+          <Link to={`/user-page/${user?.username}`}>To profile</Link>
+          
         </Menu.Item>
       ) : (
         <p></p>
       )}
 
-      {userLogged ? (
+      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
         <Menu.Item>
-          <Link to={`/wishlist/${user.id}`}>
+          <Link to={`/wishlist/${user?.id}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="15"
@@ -81,11 +91,12 @@ function Header() {
             </svg>
             &nbsp; Wishlist
           </Link>
+          
         </Menu.Item>
       ) : (
         <Menu.Item></Menu.Item>
       )}
-      {userLogged ? (
+      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
         <Menu.Item>
           <Button onClick={handleLogOut}>Log out</Button>
         </Menu.Item>
@@ -133,8 +144,17 @@ function Header() {
           </div>
         </div>
         <div>
-          {userLogged ? (
-            <Link to={`/wishlist/${user.id}`}>
+        {(localStorage.getItem(localStorage.key(0))?.includes("token")) ? (
+            <Link className={styles.avatarButton} to={`/user-page/${user?.username}`}>
+              <Avatar src={"https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"} size={{md: 40}} icon={<AntDesignOutlined />} />
+            </Link>
+          ) : (
+            <p></p>
+          )}
+        </div>
+        <div>
+        {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
+            <Link to={`/wishlist/${user?.id}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -153,11 +173,13 @@ function Header() {
             <p></p>
           )}
           <div className={styles.signinLogoutButton}>
-            {userLogged ? (
+            {(localStorage.getItem(localStorage.key(0))?.includes("token"))&& (
               <Button className={styles.logout} onClick={handleLogOut}>
                 Log out
               </Button>
-            ) : (
+            )}
+            
+            {(!localStorage.getItem(localStorage.key(0))?.includes("token"))&& (
               <Link to="/signin">
                 <div>
                   <Button className={styles.login}>SIGN IN</Button>
