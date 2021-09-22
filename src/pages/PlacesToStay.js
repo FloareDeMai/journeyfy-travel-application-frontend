@@ -63,11 +63,10 @@ function TestingPlaces() {
 
 
     const saveToDatabase = async (e) => {
-        debugger
         let entity = {
             'name': e.name,
             'rating': parseFloat(e.rating),
-            'price': parseFloat(e.price.slice(1, 3).trim()),
+            'price': parseFloat(e.price?.slice(1, 3).trim()),
             'hotelClass': e.hotel_class,
             'pictureLink': e.photo?.images.large.url ? e.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg",
             'id': e.listing_key,

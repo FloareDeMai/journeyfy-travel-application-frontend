@@ -8,6 +8,7 @@ import { getPlacesDataByLatAndLng } from "../components/map/api/getDataAPI";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import axios from "axios";
 
 const { Meta } = Card;
 
@@ -17,6 +18,9 @@ function TestingPlaces() {
   const [autocomplete, setAutocomplete] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [location, setLocation] = useState("near you");
+
+  const user = JSON.parse(localStorage.getItem('user'))
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -50,10 +54,41 @@ function TestingPlaces() {
     setCoordinates({ lat, lng });
   };
 
-  console.log(coordinates);
-  console.log(places);
-  console.log(location);
+  const saveToDatabase = async (e) => {
 
+    let entity = {
+      'name': e.name,
+      'rating': parseFloat(e.rating),
+      'pictureLink': e.photo?.images.large.url ? e.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg",
+      'id': e.location_id,
+      'cityName': e.ranking_geo,
+      'activityType': 'ACTIVITY'
+    }
+
+    const URL = "http://localhost:8080/activities/add-activity"
+    const response = await axios.post(URL, entity)
+    console.log(response)
+    console.log(entity)
+  }
+
+  const addToWish = async (e) => {
+    let wish = {
+      'name': e.name,
+      'activity_entity_id': e.location_id,
+      'user_id': user.id
+    }
+
+    const URL = "http://localhost:8080/wish-list/add-wish"
+    const response = await axios.post(URL, wish)
+    console.log(response)
+  }
+
+  const handleClickWishIcon = async (e) => {
+    await saveToDatabase(e)
+    await addToWish(e)
+  }
+
+  console.log(places)
   return (
     <div>
       <h1 className={styles.title}>Explore top attractions </h1>
@@ -124,6 +159,11 @@ function TestingPlaces() {
                           fill="white"
                           className={styles.wishIcon}
                           viewBox="0 0 16 16"
+                          onClick={async (event) => {
+                            // await handleClickWishIcon(event)
+                            await handleClickWishIcon(attraction)
+
+                          }}
                         >
                           <path
                             fillRule="evenodd"

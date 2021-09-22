@@ -18,12 +18,13 @@ function Wishlist() {
   }, [userForFetch.id]);
 
   const handleDeleteWish = (id) => {
+    let stringId = id.toString()
     axios
-      .delete(`http://localhost:8080/wish-list/remove/${id}`)
-    const newWishes = wishes.filter((wishFiltered) => wishFiltered.id !== id)
+      .delete(`http://localhost:8080/wish-list/remove/${stringId}/${userForFetch.id}`)
+    const newWishes = wishes.filter((wishFiltered) => wishFiltered.entity.id !== id)
     setWishes(newWishes)
   };
-
+  console.log(wishes)
   return (
     <div>
       <div className={styles.container}>
@@ -54,7 +55,7 @@ function Wishlist() {
                       height: "30px",
                       width: "30px",
                     }}
-                    onClick={()=>handleDeleteWish(wishes[key].id)}
+                    onClick={()=>handleDeleteWish(wishes[key].entity.id)}
                   />
                 </div>
               }
