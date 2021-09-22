@@ -80,6 +80,7 @@ function TestingPlaces() {
         console.log(entity)
     }
 
+    //TODO click pe iconita=>sign in
     const addToWish = async (e) => {
         let wish = {
             'name': e.name,
