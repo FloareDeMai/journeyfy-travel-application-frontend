@@ -58,7 +58,7 @@ function HotelDetails(props) {
           <div className={styles.picture}>
             <img
               style={{ width: "100%" }}
-              src={hotel.pictureLink}
+              src={hotel.photo ? hotel.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg"}
               alt={hotel.name}
             ></img>
           </div>
