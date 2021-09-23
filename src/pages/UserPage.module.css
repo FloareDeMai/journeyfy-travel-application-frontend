@@ -83,3 +83,17 @@
   direction: row;
   margin-top: 60px;
 }
+
+.containerModal {
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-around;
+
+}
+
+.containerPhotoModal {
+}
+
+.containerFormModal {
+}
