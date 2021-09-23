@@ -11,7 +11,7 @@ import { AntDesignOutlined } from '@ant-design/icons';
 
 function Header() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
-  const [user] = useState(AuthService.getCurrentUser);
+  let user = JSON.parse(localStorage.getItem("user"));
   let history = useHistory();
 
   const handleLogOut = () => {

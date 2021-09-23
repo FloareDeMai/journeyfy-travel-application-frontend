@@ -11,7 +11,6 @@ import { EditOutlined } from "@ant-design/icons";
 import { getCountries } from "../components/api/fetchCountriesAndCities";
 import { getCities } from "../components/api/fetchCountriesAndCities";
 
-
 const menu = (
   <Menu className={styles.menu}>
     <Menu.Item>
@@ -39,7 +38,6 @@ function UserPage() {
   const [countryForm, setCountryForm] = useState("");
   const [cities, setCities] = useState([]);
 
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,11 +46,14 @@ function UserPage() {
   const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
   const [form] = Form.useForm();
+
   const { Option } = Select;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  let userForFetch = JSON.parse(localStorage.getItem("user"));  
+  let userForFetch = JSON.parse(localStorage.getItem("user"));
+
+  let history = useHistory();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -76,17 +77,15 @@ function UserPage() {
   useEffect(() => {
     getCountries().then((data) => {
       setCountries(data);
-      console.log(data)
+      console.log(data);
     });
   }, []);
 
   useEffect(() => {
     getCities(countryForm).then((data) => {
       setCities(data);
-    })
+    });
   }, [countryForm]);
-
-  console.log(user)
 
   return (
     <div className={styles.container}>
@@ -163,7 +162,9 @@ function UserPage() {
             >
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg>
-            <p style={{ fontSize: "20px" }}>{user.city}, {user.country}</p>
+            <p style={{ fontSize: "20px" }}>
+              {user.city}, {user.country}
+            </p>
           </div>
           <div>
             <p style={{ fontSize: "17px" }}>Joined in Aug 2016</p>
@@ -247,7 +248,10 @@ function UserPage() {
                   { message: "Please input your username!", whitespace: true },
                 ]}
               >
-                <Input onChange={(e) => setUsername(e.target.value)} placeholder={user.username} />
+                <Input
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder={user.username}
+                />
               </Form.Item>
 
               <Form.Item
@@ -260,7 +264,7 @@ function UserPage() {
                   },
                 ]}
               >
-                <Input onChange={(e) => setEmail(e.target.value)}/>
+                <Input onChange={(e) => setEmail(e.target.value)} />
               </Form.Item>
 
               <Form.Item
@@ -268,7 +272,10 @@ function UserPage() {
                 label="Gender"
                 rules={[{ message: "Please select gender!" }]}
               >
-                <Select onChange={(e) => setGender(e.toUpperCase())} placeholder="select your gender">
+                <Select
+                  onChange={(e) => setGender(e.toUpperCase())}
+                  placeholder="select your gender"
+                >
                   <Option value="male">Male</Option>
                   <Option value="female">Female</Option>
                   <Option value="other">Other</Option>
@@ -276,11 +283,16 @@ function UserPage() {
               </Form.Item>
 
               <Form.Item>
-                <Select onChange={(country) => {setCountryForm(country); setCountry(country)}} placeholder="Select a country">
+                <Select
+                  onChange={(country) => {
+                    setCountryForm(country);
+                    setCountry(country);
+                  }}
+                  placeholder="Select a country"
+                >
                   {countries?.map((country, i) => {
-                  
                     return (
-                      <Option key={i} selected value={(country.key)} >
+                      <Option key={i} selected value={country.key}>
                         {country.value}
                       </Option>
                     );
@@ -289,35 +301,41 @@ function UserPage() {
               </Form.Item>
 
               <Form.Item>
-                <Select onChange={(e) => setCity(e)} placeholder="Select a city">
+                <Select
+                  onChange={(e) => setCity(e)}
+                  placeholder="Select a city"
+                >
                   {cities?.map((city, i) => {
                     return (
                       <Option key={i} selected value={city.name}>
                         {city.name}
                       </Option>
-                    )
+                    );
                   })}
                 </Select>
               </Form.Item>
               <Form.Item>
-            <Button
-              onClick={() => {editUserProfile(user.username, {
-                username: username,
-                email: email,
-                password: password,
-                city: city,
-                country: country,
-                gender: gender,
-                description: description,
-              })
+                <Button
+                  onClick={() => {
+                    editUserProfile(user.username, userForFetch.token, {
+                      username: username,
+                      email: email,
+                      password: password,
+                      city: city,
+                      country: country,
+                      gender: gender,
+                      description: description,
+                    });
+                    handleOk();
 
-            }}
-              type="primary"
-              htmlType="submit"
-            >
-              Submit
-            </Button>
-          </Form.Item>
+                    history.push(`/user-page/${username}`);
+                  }}
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Submit
+                </Button>
+              </Form.Item>
             </Form>
           </div>
         </div>
