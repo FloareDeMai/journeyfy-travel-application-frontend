@@ -14,18 +14,11 @@ function Header() {
   const [user] = useState(AuthService.getCurrentUser);
   let history = useHistory();
 
-  useEffect(() => {
-    console.log(userLogged);
-
-  }, [userLogged])
-
   const handleLogOut = () => {
     AuthService.logout();
     history.push("/signin");
     setUserLogged(false);
   };
-
-  console.log(user)
 
   const menu = (
     <Menu>
