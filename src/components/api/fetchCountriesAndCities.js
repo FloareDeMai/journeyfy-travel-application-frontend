@@ -1,4 +1,5 @@
 import axios from "axios";
+const {token} = require('../../config.json')
 
 export const getCountries = async () => {
   try {
@@ -12,7 +13,7 @@ export const getCountries = async () => {
         headers: {
           "x-rapidapi-host": "referential.p.rapidapi.com",
           "x-rapidapi-key":
-            "03428783fcmsh55a297f558069dep119b22jsn958309206635",
+            token,
         },
       }
     );
@@ -31,7 +32,7 @@ export const getCities = async (country) => {
         headers: {
           "x-rapidapi-host": "spott.p.rapidapi.com",
           "x-rapidapi-key":
-            "03428783fcmsh55a297f558069dep119b22jsn958309206635",
+            token,
         },
       }
     );

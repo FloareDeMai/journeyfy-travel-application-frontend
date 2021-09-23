@@ -1,7 +1,7 @@
 import axios from "axios";
+const {token} = require('../../../config.json')
 
 export const getPlacesData = async (type, bounds) => {
-    const {token} = require('../../../config.json')
   try {
     const {
       data: { data },
@@ -64,7 +64,7 @@ export const getPlacesDataByLatAndLng = async (type, latAndLng) => {
         headers: {
           "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
           "x-rapidapi-key":
-            "2d7f9e8e57msh09f7cd38d8df485p1ef16fjsn26aa9247b2f4",
+            token,
         },
       }
     );
