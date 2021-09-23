@@ -6,7 +6,7 @@ import styles from "./PlacesToStay.module.css";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
 import { getPlacesDataByLatAndLng } from "../components/map/api/getDataAPI";
 import { Card } from "antd";
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ function TestingPlaces() {
   const [location, setLocation] = useState("near you");
 
   const user = JSON.parse(localStorage.getItem('user'))
-
+  let history = useHistory()
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -84,8 +84,14 @@ function TestingPlaces() {
   }
 
   const handleClickWishIcon = async (e) => {
-    await saveToDatabase(e)
-    await addToWish(e)
+    if(user) {
+      await saveToDatabase(e)
+      await addToWish(e)
+    }
+    else {
+      history.push("/signin")
+    }
+
   }
 
   console.log(places)

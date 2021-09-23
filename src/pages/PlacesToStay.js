@@ -22,6 +22,7 @@ function TestingPlaces() {
     const [isLoading, setIsLoading] = useState(false);
 
     const user = JSON.parse(localStorage.getItem('user'))
+    let history = useHistory()
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -80,7 +81,7 @@ function TestingPlaces() {
         console.log(entity)
     }
 
-    //TODO click pe iconita=>sign in
+    //TODO refactor wish function
     const addToWish = async (e) => {
         let wish = {
             'name': e.name,
@@ -94,19 +95,13 @@ function TestingPlaces() {
     }
 
     const handleClickWishIcon = async (e) => {
-        // const hotel = {
-        //     'name': e.currentTarget?.getAttribute('data-entity-name'),
-        //     'activity_entity_id': e.currentTarget?.dataset.listingKey,
-        //     'rating': parseFloat(e.currentTarget?.dataset.rating),
-        //     'price': parseFloat(e.currentTarget?.dataset.price.slice(1, 3).trim()),
-        //     'hotelClass': e.currentTarget?.dataset.hotelClass,
-        //     'pictureLink': e.currentTarget?.getAttribute("data-picture"),
-        //     'id': e.currentTarget?.dataset.listingKey,
-        //     'cityName': e.currentTarget?.getAttribute("data-city-name"),
-        //     'activityType': 'HOTEL'
-        // }
-        await saveToDatabase(e)
-        await addToWish(e)
+        if(user) {
+            await saveToDatabase(e)
+            await addToWish(e)
+        } else {
+            history.push("/signin")
+        }
+
     }
 
     return (
