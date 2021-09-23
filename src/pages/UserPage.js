@@ -81,17 +81,12 @@ function UserPage() {
   }, []);
 
   useEffect(() => {
-    getCities(countryForm.slice(0,2)).then((data) => {
+    getCities(countryForm).then((data) => {
       setCities(data);
     })
   }, [countryForm]);
 
   console.log(user)
-  console.log(username)
-  console.log(gender)
-  console.log(email)
-  console.log(city)
-  console.log(country)
 
   return (
     <div className={styles.container}>
@@ -168,7 +163,7 @@ function UserPage() {
             >
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg>
-            <p style={{ fontSize: "20px" }}>Bucharest, Romania</p>
+            <p style={{ fontSize: "20px" }}>{user.city}, {user.country}</p>
           </div>
           <div>
             <p style={{ fontSize: "17px" }}>Joined in Aug 2016</p>
@@ -281,11 +276,11 @@ function UserPage() {
               </Form.Item>
 
               <Form.Item>
-                <Select onChange={(country) => {setCountryForm(country);setCountry(country)}} placeholder="Select a country">
+                <Select onChange={(country) => {setCountryForm(country); setCountry(country)}} placeholder="Select a country">
                   {countries?.map((country, i) => {
                   
                     return (
-                      <Option key={i} selected value={country.key}>
+                      <Option key={i} selected value={(country.key)} >
                         {country.value}
                       </Option>
                     );
@@ -314,7 +309,8 @@ function UserPage() {
                 country: country,
                 gender: gender,
                 description: description,
-              });
+              })
+
             }}
               type="primary"
               htmlType="submit"
