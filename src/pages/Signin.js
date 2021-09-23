@@ -36,7 +36,7 @@ function Signin() {
             const resMessage = (error.response && error.response.data && error.response.data.message)
                 || error.message || error.toString()
             setLoading(false)
-            setMessage(resMessage)
+            setMessage("USER OR PASSWORD INCORRECT")
         });
     }
 
@@ -126,7 +126,7 @@ function Signin() {
                     </p>
                 </Form>
             </div>
-            <div>{message}</div>
+            <div className={styles.message}>{message}</div>
         </div>
 
         //TODO show message error

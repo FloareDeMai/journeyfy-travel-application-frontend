@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./Register.module.css";
-import { Form, Input, Select, Checkbox, Button } from "antd";
+import { Form, Input, Select, Checkbox, Button, Modal } from "antd";
 import { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom"; 
+import { useHistory } from "react-router-dom";
+import terms from "../components/layout/terms";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#4AB8B2" : "white",
@@ -35,12 +36,11 @@ const tailFormItemLayout = {
   },
 };
 
-
-
 function Register() {
   const [hover, setHover] = useState(false);
   const { Option } = Select;
   const [form] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   let history = useHistory();
 
   const onFinishRegister = async (values) => {
@@ -50,11 +50,8 @@ function Register() {
     let email = values.email;
     let user = { username, password, email, gender };
     await axios.post("http://localhost:8080/api/user/add-user", user);
-     history.push("/");
-    
+    history.push("/");
   };
-
-  
 
   return (
     <div className={styles.container}>
@@ -64,10 +61,6 @@ function Register() {
           form={form}
           name="register"
           onFinish={onFinishRegister}
-          initialValues={{
-            residence: ["zhejiang", "hangzhou", "xihu"],
-            prefix: "86",
-          }}
           scrollToFirstError
         >
           <Form.Item
@@ -167,21 +160,42 @@ function Register() {
             ]}
             {...tailFormItemLayout}
           >
-            <Checkbox>I have read the agreement</Checkbox>
+            <Checkbox>
+              I have read the{" "}
+              <Button type="link" onClick={() => setIsModalVisible(true)}>
+                Terms and Conditions
+              </Button>
+            </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            
-              <Button
-                style={buttonStyle({ hover })}
-                onPointerOver={() => setHover(true)}
-                onPointerOut={() => setHover(false)}
-                type="primary"
-                htmlType="submit"
-              >
-                Submit
-              </Button>
+            <Button
+              style={buttonStyle({ hover })}
+              onPointerOver={() => setHover(true)}
+              onPointerOut={() => setHover(false)}
+              type="primary"
+              htmlType="submit"
+            >
+              Submit
+            </Button>
           </Form.Item>
         </Form>
+        <Modal
+          style={{ height: "calc(100vh - 200px)" }}
+          width={1000}
+          bodyStyle={{ overflowY: "scroll", height: "800px" }}
+          title="Terms and Conditions Modal"
+          visible={isModalVisible}
+          onCancel={() => setIsModalVisible(false)}
+          footer={null}
+        >
+          <div>
+            {terms(
+              <Button onClick={() => setIsModalVisible(false)}>
+                I have read the Terms and Conditions
+              </Button>
+            )}
+          </div>
+        </Modal>
       </div>
     </div>
   );

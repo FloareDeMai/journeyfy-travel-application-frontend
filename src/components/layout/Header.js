@@ -11,21 +11,14 @@ import { AntDesignOutlined } from '@ant-design/icons';
 
 function Header() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
-  const [user] = useState(AuthService.getCurrentUser);
+  let user = JSON.parse(localStorage.getItem("user"));
   let history = useHistory();
-
-  useEffect(() => {
-    console.log(userLogged);
-
-  }, [userLogged])
 
   const handleLogOut = () => {
     AuthService.logout();
     history.push("/signin");
     setUserLogged(false);
   };
-
-  console.log(userLogged ? "AVEM USER IN LOCAL" : "NU AVEM USER IN LOCALSTORAGE")
 
   const menu = (
     <Menu>
