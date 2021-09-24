@@ -70,7 +70,7 @@ function UserPage() {
   useEffect(() => {
     fetchUser().then((data) => {
       setUser(data);
-      setDescription(user.description);
+      setDescription(description);
     });
   }, [userForFetch.id, aboutState]);
 
@@ -86,6 +86,8 @@ function UserPage() {
       setCities(data);
     });
   }, [countryForm]);
+
+  console.log(description)
 
   return (
     <div className={styles.container}>
@@ -179,7 +181,7 @@ function UserPage() {
 
           <br></br>
           {!aboutState ? (
-            <h3 style={{ paddingRight: "40px" }}>{user.description}</h3>
+            <h3 style={{ paddingRight: "40px" }}>{description}</h3>
           ) : (
             <div>
               <textarea
@@ -192,7 +194,7 @@ function UserPage() {
               ></textarea>
               <button
                 onClick={() => {
-                  editUserProfile(user.username, {
+                  editUserProfile(user.username, userForFetch.token, {
                     username: user.username,
                     email: user.email,
                     password: user.password,
@@ -327,8 +329,8 @@ function UserPage() {
                       description: description,
                     });
                     handleOk();
-
                     history.push(`/user-page/${username}`);
+                    window.location.reload();
                   }}
                   type="primary"
                   htmlType="submit"
