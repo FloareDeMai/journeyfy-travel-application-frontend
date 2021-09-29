@@ -165,6 +165,7 @@ function UserPage() {
   useEffect(() => {
     getUserByUsername(AuthService.getCurrentUser().username).then((data) => {
       setUser(data.data);
+
     });
     setDescription(user.description);
     setUsername(user.username);
@@ -195,6 +196,8 @@ function UserPage() {
       setCities(data);
     });
   }, [countryForm]);
+
+  console.log(description)
 
   return (
     <div className={styles.container}>
