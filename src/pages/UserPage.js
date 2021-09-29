@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button, Modal, Form, Input, Select } from "antd";
 import { Link, useHistory } from "react-router-dom";
-import { getUserById } from "../components/layout/fetchUser";
+import { getUserByUsername } from "../components/layout/fetchUser";
 import { editUserProfile } from "../components/user/postUserAPI";
 import { EditOutlined } from "@ant-design/icons";
 import { getCountries } from "../components/api/fetchCountriesAndCities";
@@ -98,10 +98,14 @@ function UserPage() {
   };
 
   const handleOk = () => {
+    setCountry("")
+    setCity("")
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
+     setCountry("");
+     setCity("");
     setIsModalVisible(false);
   };
 
@@ -112,8 +116,8 @@ function UserPage() {
     let city = values.city;
     let country = values.country;
     let gender = values.gender;
-    let description2 = user.description;
-    let roles = user.roles;
+    let description2 = description;
+    
 
     let userForUpdate = {
       username,
@@ -122,8 +126,7 @@ function UserPage() {
       country,
       gender,
       description: description2,
-      password: user.password,
-      roles,
+      
     };
 
     editUserProfile(
@@ -160,7 +163,7 @@ function UserPage() {
   };
 
   useEffect(() => {
-    getUserById(AuthService.getCurrentUser().id).then((data) => {
+    getUserByUsername(AuthService.getCurrentUser().username).then((data) => {
       setUser(data.data);
     });
     setDescription(user.description);
@@ -168,11 +171,6 @@ function UserPage() {
     setCountry(user.country);
     setCity(user.city);
     setGender(user.gender);
-    // form.setFieldsValue({
-    //   username: AuthService.getCurrentUser().username,
-    //   email: AuthService.getCurrentUser().email,
-    //   gender: AuthService.getCurrentUser().gender,
-    // });
   }, [
     user.username,
     user.email,
@@ -286,6 +284,7 @@ function UserPage() {
             >
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg>
+            
             <p style={{ fontSize: "20px" }}>
               {AuthService.getCurrentUser().city
                 ? AuthService.getCurrentUser().city
@@ -297,7 +296,7 @@ function UserPage() {
             </p>
           </div>
           <div>
-            <p style={{ fontSize: "17px" }}>Joined in Aug 2016</p>
+            <p style={{ fontSize: "17px" }}>Joined in {user.joinedDate}</p>
           </div>
           <div style={{ display: "flex" }}>
             {" "}
@@ -325,16 +324,21 @@ function UserPage() {
                     {
                       username: user.username,
                       email: user.email,
-                      password: user.password,
                       city: user.city,
                       country: user.country,
                       gender: user.gender,
                       description: description,
+                      
                     },
                     currentUser.username
-                  );
-                  showToastSuccess("Description updated successfuly!");
-                  setAboutState(false);
+                  ).then((res) => {
+                     AuthService.addUserToLocalStorage(res.data);
+                    showToastSuccess("Description updated successfuly!");
+                    setAboutState(false);
+                  },
+                  (error)=> {
+                    showToastError(error.response.data.message);
+                  }) ;
                 }}
               >
                 Change
