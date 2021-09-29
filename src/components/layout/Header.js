@@ -57,16 +57,16 @@ function Header() {
       <Menu.Item>
         <Link to="/about">About us</Link>
       </Menu.Item>
-      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
+      {(user)? (
         <Menu.Item>
-          <Link to={`/user-page/${user?.username}`}>To profile</Link>
+          <Link to={{pathname: `/user-page/` }}>To profile</Link>
           
         </Menu.Item>
       ) : (
         <p></p>
       )}
 
-      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
+      {(user)? (
         <Menu.Item>
           <Link to={`/wishlist/${user?.id}`}>
             <svg
@@ -89,7 +89,7 @@ function Header() {
       ) : (
         <Menu.Item></Menu.Item>
       )}
-      {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
+      {(user)? (
         <Menu.Item>
           <Button onClick={handleLogOut}>Log out</Button>
         </Menu.Item>
@@ -137,8 +137,8 @@ function Header() {
           </div>
         </div>
         <div>
-        {(localStorage.getItem(localStorage.key(0))?.includes("token")) ? (
-            <Link className={styles.avatarButton} to={`/user-page/${user?.username}`}>
+        {(user) ? (
+            <Link className={styles.avatarButton} to='/user-page'>
               <Avatar src={"https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"} size={{md: 40}} icon={<AntDesignOutlined />} />
             </Link>
           ) : (
@@ -146,7 +146,7 @@ function Header() {
           )}
         </div>
         <div>
-        {(localStorage.getItem(localStorage.key(0))?.includes("token"))? (
+        {(user)? (
             <Link to={`/wishlist/${user?.id}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,13 +166,13 @@ function Header() {
             <p></p>
           )}
           <div className={styles.signinLogoutButton}>
-            {(localStorage.getItem(localStorage.key(0))?.includes("token"))&& (
+            {(user)&& (
               <Button className={styles.logout} onClick={handleLogOut}>
                 Log out
               </Button>
             )}
             
-            {(!localStorage.getItem(localStorage.key(0))?.includes("token"))&& (
+            {(!user)&& (
               <Link to="/signin">
                 <div>
                   <Button className={styles.login}>SIGN IN</Button>
