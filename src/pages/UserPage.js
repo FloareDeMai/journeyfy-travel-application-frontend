@@ -5,11 +5,14 @@ import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { Menu, Button, Modal, Form, Input, Select } from "antd";
 import { Link, useHistory } from "react-router-dom";
-import { fetchUser } from "../components/layout/fetchUser";
+import { getUserByUsername } from "../components/layout/fetchUser";
 import { editUserProfile } from "../components/user/postUserAPI";
 import { EditOutlined } from "@ant-design/icons";
 import { getCountries } from "../components/api/fetchCountriesAndCities";
 import { getCities } from "../components/api/fetchCountriesAndCities";
+import AuthService from "../services/auth.service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const menu = (
   <Menu className={styles.menu}>
@@ -34,9 +37,11 @@ const menu = (
 function UserPage() {
   const [user, setUser] = useState({});
   const [aboutState, setAboutState] = useState(false);
+  //-------------------------------------------------
   const [countries, setCountries] = useState([]);
   const [countryForm, setCountryForm] = useState("");
   const [cities, setCities] = useState([]);
+  //-------------------------------------------------
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -47,37 +52,142 @@ function UserPage() {
   const [description, setDescription] = useState("");
   const [form] = Form.useForm();
 
+  let history = useHistory();
   const { Option } = Select;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  let userForFetch = JSON.parse(localStorage.getItem("user"));
-
-  let history = useHistory();
+  const showToastError = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const showToastSuccess = (message) => {
+    toast.success(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const showModal = () => {
+    form.setFieldsValue({
+      username: AuthService.getCurrentUser().username,
+      email: AuthService.getCurrentUser().email,
+      gender: AuthService.getCurrentUser().gender
+        ? AuthService.getCurrentUser().gender
+        : gender,
+      country: AuthService.getCurrentUser().country
+        ? AuthService.getCurrentUser().country
+        : country,
+      city: AuthService.getCurrentUser().city
+        ? AuthService.getCurrentUser().city
+        : city,
+    });
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
+    setCountry("")
+    setCity("")
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
+     setCountry("");
+     setCity("");
     setIsModalVisible(false);
   };
 
+  const onFinishEditing = (values) => {
+    let currentUser = AuthService.getCurrentUser();
+    let username = values.username;
+    let email = values.email;
+    let city = values.city;
+    let country = values.country;
+    let gender = values.gender;
+    let description2 = description;
+    
+
+    let userForUpdate = {
+      username,
+      email,
+      city,
+      country,
+      gender,
+      description: description2,
+      
+    };
+
+    editUserProfile(
+      AuthService.getCurrentUser().id,
+      userForUpdate,
+      currentUser.username
+    ).then(
+      (res) => {
+        if (res.status === 200) {
+          showToastSuccess("User updated successfuly!");
+          AuthService.addUserToLocalStorage(res.data);
+          history.push(`/user-page/`);
+        }
+      },
+      (error) => {
+        showToastError(error.response.data.message);
+        form.setFieldsValue({
+          username: AuthService.getCurrentUser().username,
+          email: AuthService.getCurrentUser().email,
+          gender: AuthService.getCurrentUser().gender
+            ? AuthService.getCurrentUser().gender
+            : gender,
+          country: AuthService.getCurrentUser().country
+            ? AuthService.getCurrentUser().country
+            : country,
+          city: AuthService.getCurrentUser().city
+            ? AuthService.getCurrentUser().city
+            : city,
+        });
+        console.log(error.response.data.message);
+      }
+    );
+    handleOk();
+  };
+
   useEffect(() => {
-    fetchUser().then((data) => {
-      setUser(data);
-      setDescription(description);
+    getUserByUsername(AuthService.getCurrentUser().username).then((data) => {
+      setUser(data.data);
+
     });
-  }, [userForFetch.id, aboutState]);
+    setDescription(user.description);
+    setUsername(user.username);
+    setCountry(user.country);
+    setCity(user.city);
+    setGender(user.gender);
+  }, [
+    user.username,
+    user.email,
+    user.gender,
+    user.description,
+    user.country,
+    user.city,
+  ]);
+
+  const handleEditDescription = (e) => {
+    setAboutState((prevCheck) => !prevCheck);
+  };
 
   useEffect(() => {
     getCountries().then((data) => {
       setCountries(data);
-      console.log(data);
     });
   }, []);
 
@@ -108,7 +218,20 @@ function UserPage() {
               "https://m.media-amazon.com/images/M/MV5BMTY2ODQ3NjMyMl5BMl5BanBnXkFtZTcwODg0MTUzNA@@._V1_.jpg"
             }
           />
-          <h1 style={{ color: "black", margin: "0" }}>{user.username}</h1>
+          <ToastContainer
+            position="top-left"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          <h1 style={{ color: "black", margin: "0" }}>
+            {AuthService.getCurrentUser().username}
+          </h1>
         </Col>
         <Col span={8} className={styles.upperBarLeft}></Col>
         <Col span={8} className={styles.upperBarRight}>
@@ -164,21 +287,25 @@ function UserPage() {
             >
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg>
+            
             <p style={{ fontSize: "20px" }}>
-              {user.city}, {user.country}
+              {AuthService.getCurrentUser().city
+                ? AuthService.getCurrentUser().city
+                : city}
+              ,{" "}
+              {AuthService.getCurrentUser().country
+                ? AuthService.getCurrentUser().country
+                : country}
             </p>
           </div>
           <div>
-            <p style={{ fontSize: "17px" }}>Joined in Aug 2016</p>
+            <p style={{ fontSize: "17px" }}>Joined in {user.joinedDate}</p>
           </div>
           <div style={{ display: "flex" }}>
             {" "}
             <h2>About me </h2> &nbsp;
-            <EditOutlined
-              onClick={() => setAboutState((prevCheck) => !prevCheck)}
-            />
+            <EditOutlined onClick={handleEditDescription} />
           </div>
-
           <br></br>
           {!aboutState ? (
             <h3 style={{ paddingRight: "40px" }}>{description}</h3>
@@ -186,7 +313,7 @@ function UserPage() {
             <div>
               <textarea
                 onChange={(e) => setDescription(e.target.value)}
-                value={description}
+                defaultValue={description}
                 id="description"
                 name="description"
                 rows="4"
@@ -194,16 +321,27 @@ function UserPage() {
               ></textarea>
               <button
                 onClick={() => {
-                  editUserProfile(user.username, userForFetch.token, {
-                    username: user.username,
-                    email: user.email,
-                    password: user.password,
-                    city: user.city,
-                    country: user.country,
-                    gender: user.gender,
-                    description: description,
-                  });
-                  setAboutState(false);
+                  let currentUser = AuthService.getCurrentUser();
+                  editUserProfile(
+                    AuthService.getCurrentUser().id,
+                    {
+                      username: user.username,
+                      email: user.email,
+                      city: user.city,
+                      country: user.country,
+                      gender: user.gender,
+                      description: description,
+                      
+                    },
+                    currentUser.username
+                  ).then((res) => {
+                     AuthService.addUserToLocalStorage(res.data);
+                    showToastSuccess("Description updated successfuly!");
+                    setAboutState(false);
+                  },
+                  (error)=> {
+                    showToastError(error.response.data.message);
+                  }) ;
                 }}
               >
                 Change
@@ -225,7 +363,9 @@ function UserPage() {
         </Col>
       </Row>
       <Modal
+        forceRender
         centered={true}
+        getContainer={false}
         title="Basic Modal"
         visible={isModalVisible}
         onOk={handleOk}
@@ -241,7 +381,7 @@ function UserPage() {
             <h2>UPLOAD AVATAR</h2>
           </div>
           <div className={styles.containerFormModal}>
-            <Form name="editProfile" form={form}>
+            <Form name="editProfile" form={form} onFinish={onFinishEditing}>
               <Form.Item
                 key={user.username}
                 name="username"
@@ -277,14 +417,21 @@ function UserPage() {
                 <Select
                   onChange={(e) => setGender(e.toUpperCase())}
                   placeholder="select your gender"
+                  name="gender"
                 >
-                  <Option value="male">Male</Option>
-                  <Option value="female">Female</Option>
-                  <Option value="other">Other</Option>
+                  <Option value="MALE" name="male">
+                    Male
+                  </Option>
+                  <Option value="FEMALE" name="female">
+                    Female
+                  </Option>
+                  <Option value="OTHER" name="other">
+                    Other
+                  </Option>
                 </Select>
               </Form.Item>
 
-              <Form.Item>
+              <Form.Item name="country">
                 <Select
                   onChange={(country) => {
                     setCountryForm(country);
@@ -302,7 +449,7 @@ function UserPage() {
                 </Select>
               </Form.Item>
 
-              <Form.Item>
+              <Form.Item name="city">
                 <Select
                   onChange={(e) => setCity(e)}
                   placeholder="Select a city"
@@ -317,24 +464,7 @@ function UserPage() {
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Button
-                  onClick={() => {
-                    editUserProfile(user.username, userForFetch.token, {
-                      username: username,
-                      email: email,
-                      password: password,
-                      city: city,
-                      country: country,
-                      gender: gender,
-                      description: description,
-                    });
-                    handleOk();
-                    history.push(`/user-page/${username}`);
-                    window.location.reload();
-                  }}
-                  type="primary"
-                  htmlType="submit"
-                >
+                <Button type="primary" htmlType="submit">
                   Submit
                 </Button>
               </Form.Item>

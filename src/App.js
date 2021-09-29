@@ -31,7 +31,7 @@ function App() {
           <Route path="/plan" exact><Plan></Plan></Route>
           <Route exact path="/activity-details/:activityName" component={ActivityDetails}></Route>
           <Route exact path="/places-to-stay/:hotelName" component={HotelDetails}></Route>
-          <Route exact path="/user-page/:username" component={UserPage}></Route>
+          <Route exact path="/user-page/" component={UserPage}></Route>
           <Route exact path="/wishlist/:userId" component={Wishlist} />
           <Route exact path="/things-to-do" component={ThingsToDo}></Route>
         </Switch>
