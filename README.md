@@ -30,7 +30,7 @@ React
 
 HTML
 
-##### Sneak Peak
+## Sneak Peak
 
 ![1](https://user-images.githubusercontent.com/70107862/136432910-34bb1ac4-95dc-4aab-b045-9e9f15982247.JPG)
 ![2](https://user-images.githubusercontent.com/70107862/136432920-8d9fdfd3-7ee3-4314-8922-e3328c50b546.JPG)
