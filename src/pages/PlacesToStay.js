@@ -62,15 +62,15 @@ function TestingPlaces() {
     console.log(bounds);
     console.log(places)
 
-
     const saveToDatabase = async (e) => {
+        console.log(e.listing_key)
         let entity = {
             'name': e.name,
             'rating': parseFloat(e.rating),
             'price': parseFloat(e.price?.slice(1, 3).trim()),
             'hotelClass': e.hotel_class,
             'pictureLink': e.photo?.images.large.url ? e.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg",
-            'id': e.listing_key,
+            'id': e.name,
             'cityName': e.ranking_geo,
             'activityType': 'HOTEL'
         }
@@ -85,7 +85,7 @@ function TestingPlaces() {
     const addToWish = async (e) => {
         let wish = {
             'name': e.name,
-            'activity_entity_id': e.listing_key,
+            'activity_entity_id': e.name,
             'user_id': user.id
         }
 

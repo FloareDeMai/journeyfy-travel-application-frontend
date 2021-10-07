@@ -1,10 +1,106 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./HotelDetails.module.css";
 import BreadcrumbHistory from "../components/layout/BreadcrumbHistory";
-import { Rate } from "antd";
+import {Rate, Button, Form, Modal, Input, Space, Tag} from "antd";
+import PostService from "../services/post.service";
+import AuthService from "../services/auth.service";
+import axios from "axios";
+import {Rating} from "@mui/material";
+import {EditOutlined} from "@ant-design/icons";
+const { TextArea } = Input;
 
 function HotelDetails(props) {
   let hotel = props.location.state.hotel;
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+  const [title, setTile] = useState("")
+  const [text, setText] = useState("")
+  const [rating, setRating] = useState(0)
+  const [likes, setLikes] = useState(0)
+  const [posts, setPosts] = useState([])
+
+
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const saveToDatabase = async () => {
+    let entity = {
+      'name': hotel.name,
+      'rating': parseFloat(hotel.rating),
+      'price': parseFloat(hotel.price?.slice(1, 3).trim()),
+      'hotelClass': hotel.hotel_class,
+      'pictureLink': hotel.photo?.images.large.url ? hotel.photo.images.large.url : "https://d2fdt3nym3n14p.cloudfront.net/venue/3094/gallery/13009/conversions/121113237_811315479645435_5054498167316426209_o-big.jpg",
+      'id': hotel.name,
+      'cityName': hotel.ranking_geo,
+      'activityType': 'HOTEL'
+    }
+
+    const URL = "http://localhost:8080/hotels/add-hotel"
+    const response = await axios.post(URL, entity)
+    console.log(response)
+    console.log(entity)
+  }
+
+  const handlePost = async (values) => {
+    await saveToDatabase()
+    let userId = AuthService.getCurrentUser().id;
+    let title = values.title
+    let text = values.text
+    let rating = values.rating
+    let data = {
+      userId,
+      title,
+      text,
+      rating
+    }
+    await PostService.addPost(hotel.name, userId, data)
+    window.location.reload()
+    form.resetFields()
+  }
+
+
+  let data = {
+    title,
+    text,
+    rating
+  }
+
+  // useEffect(() => {
+  //   PostService.getAllPostsByEntityId(hotel.name).then((response) => {
+  //         setPosts(response.data)
+  //   })
+  // },[hotel.name])
+
+  useEffect(() => {
+    // const getData = async () => {
+    //   const response = await fetch(`http://localhost:8080/api/posts/list/${hotel.name}`);
+    //   const newData = await response.json();
+    //   setPosts(newData);
+    // };
+    // getData();
+    PostService.getAllPostsByEntityId(hotel.name).then((response) => {
+      setPosts(response.data)
+    })
+  }, [hotel.name]);
+
+
+  const getPosts = () => {
+    const post = {title, text, rating}
+    PostService.getAllPostsByEntityId(hotel.name).then((response) => {
+      setPosts(response.data)
+    })
+  }
+
+  const editPost = async (values) => {
+   await PostService.editPost()
+  }
+
 
   return (
     <div>
@@ -29,7 +125,7 @@ function HotelDetails(props) {
             <Rate
               disabled
               allowHalf
-              defaultValue={Math.round(hotel.rating * 100) / 100}
+              defaultValue={hotel.rating}
             />
             {hotel.price} €
           </div>
@@ -79,9 +175,83 @@ function HotelDetails(props) {
         </div>
         <div className={styles.containerUsers}>
           <div className={styles.writeReview}>
-            <button>Write a review!</button>
+            <Button onClick={showModal}>Write a review!</Button>
+            <Modal
+                forceRender
+                centered={true}
+                getContainer={false}
+                title="Basic Modal"
+                visible={isModalVisible}
+                width={500}
+                onCancel={handleCancel}
+                footer={[
+                  <Button>OK</Button>,
+                  <Button>Cancel</Button>,
+                ]}
+            >
+              <Form name="writeReview"
+                    form={form}
+                    onFinish={handlePost}
+              >
+                <Form.Item
+                    name="title"
+                    label="title"
+                    rules={[
+                      {message: "Please enter a title!", whitespace: true}
+                    ]}>
+                  <Input
+                      onChange={(e) => setTile(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                    name="text"
+                    label="text"
+                    rules={[
+                      {message: "Please enter your text!", whitespace: true}
+                    ]}>
+                  <TextArea
+                      onChange={(e) => setText(e.target.value)}
+                      defaultValue={text}
+                      name="text"
+                      rows="4"
+                      cols="50"/>
+
+                </Form.Item>
+                <Form.Item
+                    name="rating"
+                    label="rating"
+                    rules={[{message: "Select rating"}]}
+                >
+                  <Rating name="half-rating" defaultValue={rating} precision={0.5}  />
+
+                {/*  onChange={(event, newValue) => {*/}
+                {/*  console.log(newValue)*/}
+                {/*  setRating(newValue)*/}
+                {/*}}*/}
+
+                </Form.Item>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Modal>
           </div>
-          <div className={styles.allReviews}>Comments:</div>
+          <div className={styles.allReviews}>Comments:
+            {posts.map((post) => <p>{post.title}</p>
+            )}
+            <Space size="middle">
+              <a onClick={() => {
+                editPost()
+              }
+              }>
+                <Tag color="orange">
+                  <EditOutlined/>
+                </Tag>
+              </a>
+            </Space>
+          </div>
         </div>
       </div>
     </div>
