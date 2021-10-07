@@ -20,13 +20,7 @@ JavaScript
 
 CSS3
 
-Sprint Security
-
-Spring Boot
-
-Java
-
-JPA and Hibernate
+Toastr Notifications
 
 Ant Design
 
