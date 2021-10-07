@@ -4,13 +4,13 @@
 
 
 
-##### Introduction
+### Introduction
 
 Journeyfy is a travel application which is meant to ease the process of planning a trip.
 
 
 
-##### Used technologies
+### Used technologies
 
 JavaScript
 
