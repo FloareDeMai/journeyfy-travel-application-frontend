@@ -11,8 +11,8 @@ Journeyfy is a travel application which is meant to ease the process of planning
 ### Installation
 
 You’ll need to have Node >= 14.0.0 and npm >= 5.6 on your machine.
-npm install
-npm start
+- npm install
+- npm start
 
 ### Used technologies
 
