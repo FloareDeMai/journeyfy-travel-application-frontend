@@ -325,23 +325,24 @@ function UserPage() {
                   editUserProfile(
                     AuthService.getCurrentUser().id,
                     {
-                      username: user.username,
-                      email: user.email,
-                      city: user.city,
-                      country: user.country,
-                      gender: user.gender,
+                      username: currentUser.username,
+                      email: currentUser.email,
+                      city: currentUser.city,
+                      country: currentUser.country,
+                      gender: currentUser.gender,
                       description: description,
-                      
                     },
                     currentUser.username
-                  ).then((res) => {
-                     AuthService.addUserToLocalStorage(res.data);
-                    showToastSuccess("Description updated successfuly!");
-                    setAboutState(false);
-                  },
-                  (error)=> {
-                    showToastError(error.response.data.message);
-                  }) ;
+                  ).then(
+                    (res) => {
+                      AuthService.addUserToLocalStorage(res.data);
+                      showToastSuccess("Description updated successfuly!");
+                      setAboutState(false);
+                    },
+                    (error) => {
+                      showToastError(error.response.data.message);
+                    }
+                  );
                 }}
               >
                 Change
