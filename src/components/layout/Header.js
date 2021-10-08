@@ -59,7 +59,7 @@ function Header() {
       </Menu.Item>
       {(user)? (
         <Menu.Item>
-          <Link to={{pathname: `/user-page/` }}>To profile</Link>
+          <Link to={{pathname: `/user-page` }}>To profile</Link>
           
         </Menu.Item>
       ) : (
